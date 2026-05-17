@@ -242,7 +242,7 @@ class GPXScaleBar: UIView {
         
         // Calculate meters per point at center of map
         let centerPoint = CGPoint(x: mapView.bounds.midX, y: mapView.bounds.midY)
-        let centerCoordinate = mapView.convert(centerPoint, toCoordinateFrom: mapView)
+        _ = mapView.convert(centerPoint, toCoordinateFrom: mapView)
         
         // Calculate distance for 100 points horizontally
         let leftPoint = CGPoint(x: mapView.bounds.midX - 50, y: mapView.bounds.midY)

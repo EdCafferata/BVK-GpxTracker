@@ -320,9 +320,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             let folderURL = GPXFileManager.GPXFilesFolderURL
             let secured = folderURL.startAccessingSecurityScopedResource()
             if secured {
-                defer {
-                    folderURL.stopAccessingSecurityScopedResource()
-                }
+                folderURL.stopAccessingSecurityScopedResource()
             }
             
             DispatchQueue.main.sync {
