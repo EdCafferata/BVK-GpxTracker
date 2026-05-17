@@ -313,8 +313,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Given a GPX file loads the file in the
     func loadGPXFile(gpxFileURL: URL) {
-
-        self.displayLoadingFileAlert(true)
+        displayLoadingFileAlert(true)
         DispatchQueue.global(qos: .userInitiated).async {
             print("GPXFIlesTableViewController:: loadGPXFile Load gpx File: \(gpxFileURL)")
             let folderURL = GPXFileManager.GPXFilesFolderURL
@@ -322,23 +321,24 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             if secured {
                 folderURL.stopAccessingSecurityScopedResource()
             }
-            
-            DispatchQueue.main.sync {
-                self.displayLoadingFileAlert(true)
-            }
             guard let gpx = GPXParser(withURL: gpxFileURL)?.parsedData() else {
                 print("GPXFileTableViewController:: load of GPX file failed")
                 DispatchQueue.main.sync {
-                    Toast.error("Could not open file")
-                    self.displayLoadingFileAlert(false)
+                    self.dismiss(animated: true) {
+                        Toast.error("Could not open file")
+                    }
                 }
                 return
             }
             DispatchQueue.main.sync {
-                self.displayLoadingFileAlert(false) {
-                    self.delegate?.didLoadGPXFileWithName(gpxFileURL.deletingPathExtension().lastPathComponent, gpxRoot: gpx)
-                    self.dismiss(animated: true, completion: nil)
-                    self.presentingViewController?.dismiss(animated: true, completion: nil)
+                // Dismiss loading alert, then dismiss the file list nav controller, then notify delegate.
+                self.dismiss(animated: true) {
+                    self.presentingViewController?.dismiss(animated: true) {
+                        self.delegate?.didLoadGPXFileWithName(
+                            gpxFileURL.deletingPathExtension().lastPathComponent,
+                            gpxRoot: gpx
+                        )
+                    }
                 }
             }
         }

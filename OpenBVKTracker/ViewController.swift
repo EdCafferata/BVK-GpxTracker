@@ -1299,8 +1299,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         alertController.addAction(settingsAction)
         alertController.addAction(cancelAction)
         
+        isDisplayingLocationServicesDenied = true
         present(alertController, animated: true)
-        isDisplayingLocationServicesDenied = false
     }
     
     /// force dark mode (i.e. white text, if map content is known to be dark)
