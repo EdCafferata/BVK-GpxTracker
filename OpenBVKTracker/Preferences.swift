@@ -67,7 +67,7 @@ class Preferences: NSObject {
     private var _useCache: Bool = true
     
     /// In memory value of the preference.
-    private var _tileServer: GPXTileServer = .apple
+    private var _tileServer: GPXTileServer = .openSeaMap
     
     /// In memory value of the preference.
     private var _activityType: CLActivityType = .other
@@ -124,7 +124,7 @@ class Preferences: NSObject {
         // Map Tile server
         if var tileServerInt = defaults.object(forKey: kDefaultsKeyTileServerInt) as? Int {
             // Check in case it was a tile server that is no longer supported
-            tileServerInt = tileServerInt >= GPXTileServer.count ? GPXTileServer.apple.rawValue : tileServerInt
+            tileServerInt = tileServerInt >= GPXTileServer.count ? GPXTileServer.openSeaMap.rawValue : tileServerInt
             _tileServer = GPXTileServer(rawValue: tileServerInt)!
             print("** Preferences:: loaded preference from defaults tileServerInt \(tileServerInt)")
         }
