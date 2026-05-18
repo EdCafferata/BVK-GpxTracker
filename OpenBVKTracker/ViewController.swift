@@ -325,31 +325,31 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
  
     /// Initializer. Just initializes the class vars/const
     required init(coder aDecoder: NSCoder) {
-        self.map = GPXMapView(coder: aDecoder)!
-        
-        self.appTitleLabel = UILabel(coder: aDecoder)!
-        self.signalImageView = UIImageView(coder: aDecoder)!
-        self.signalAccuracyLabel = UILabel(coder: aDecoder)!
-        self.coordsLabel = UILabel(coder: aDecoder)!
-        
-        self.timeLabel = UILabel(coder: aDecoder)!
-        self.speedLabel = UILabel(coder: aDecoder)!
-        self.totalTrackedDistanceLabel = DistanceLabel(coder: aDecoder)!
-        self.currentSegmentDistanceLabel = DistanceLabel(coder: aDecoder)!
-        
-        self.followUserButton = UIButton(coder: aDecoder)!
-        self.newPinButton = UIButton(coder: aDecoder)!
-        self.folderButton = UIButton(coder: aDecoder)!
-        self.resetButton = UIButton(coder: aDecoder)!
-        self.aboutButton = UIButton(coder: aDecoder)!
-        self.preferencesButton = UIButton(coder: aDecoder)!
-        self.shareButton = UIButton(coder: aDecoder)!
-        
-        self.trackerButton = UIButton(coder: aDecoder)!
-        self.saveButton = UIButton(coder: aDecoder)!
-        
-        self.shareActivityIndicator = UIActivityIndicatorView(coder: aDecoder)
-        self.scaleBar = GPXScaleBar(coder: aDecoder)!
+        self.map = GPXMapView(frame: .zero)
+
+        self.appTitleLabel = UILabel()
+        self.signalImageView = UIImageView()
+        self.signalAccuracyLabel = UILabel()
+        self.coordsLabel = UILabel()
+
+        self.timeLabel = UILabel()
+        self.speedLabel = UILabel()
+        self.totalTrackedDistanceLabel = DistanceLabel()
+        self.currentSegmentDistanceLabel = DistanceLabel()
+
+        self.followUserButton = UIButton(type: .custom)
+        self.newPinButton = UIButton(type: .custom)
+        self.folderButton = UIButton(type: .custom)
+        self.resetButton = UIButton(type: .custom)
+        self.aboutButton = UIButton(type: .custom)
+        self.preferencesButton = UIButton(type: .custom)
+        self.shareButton = UIButton(type: .custom)
+
+        self.trackerButton = UIButton(type: .custom)
+        self.saveButton = UIButton(type: .custom)
+
+        self.shareActivityIndicator = UIActivityIndicatorView()
+        self.scaleBar = GPXScaleBar()
         super.init(coder: aDecoder)!
     }
     

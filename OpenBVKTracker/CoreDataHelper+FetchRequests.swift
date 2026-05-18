@@ -70,7 +70,9 @@ extension CoreDataHelper {
                     
                 }
                 self.trackpointId = trackPointResults.last?.trackpointId ?? Int64()
-                self.tracksegments.append(self.currentSegment)
+                if self.currentSegment.points.count > 0 {
+                    self.tracksegments.append(self.currentSegment)
+                }
                 // siftlint:disable:next line_length
                 print("Core Data Helper: fetched CDTrackpoints. # of tracksegments: \(self.tracksegments.count). trackPointId: \(self.trackpointId) trackSegmentId: \(self.tracksegmentId)")
             }

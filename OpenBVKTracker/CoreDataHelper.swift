@@ -269,14 +269,11 @@ class CoreDataHelper {
     /// It will also call on crashFileRecovery() method to continue the next procudure.
     ///
     func retrieveFromCoreData() {
-        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
-        
         do {
-            // Note: it appears that the actual object context execution happens after all of this, probably due to its async nature.
-            try privateManagedObjectContext.execute(rootFetchRequest())
-            try privateManagedObjectContext.execute(trackPointFetchRequest())
-            try privateManagedObjectContext.execute(waypointFetchRequest())
+            // NSAsynchronousFetchRequest requires a context backed directly by a PSC (not a child context).
+            try appDelegate.managedObjectContext.execute(rootFetchRequest())
+            try appDelegate.managedObjectContext.execute(trackPointFetchRequest())
+            try appDelegate.managedObjectContext.execute(waypointFetchRequest())
         } catch let error {
             print("NSAsynchronousFetchRequest (fetch request for recovery) error: \(error)")
         }
@@ -366,15 +363,12 @@ class CoreDataHelper {
                     root = GPXRoot(creator: kGPXCreatorString)
                 }
                 // generates a GPXRoot from recovered data
-                if self.isContinued && self.tracksegments.count >= (self.lastTracksegmentId + 1) {
-                    
-                    // Check if there was a tracksegment
-                    if root.tracks.last?.segments.count == 0 {
-                        root.tracks.last?.add(trackSegment: GPXTrackSegment())
-                    }
+                if self.isContinued && self.tracksegments.count >= (self.lastTracksegmentId + 1),
+                   let lastTrack = root.tracks.last,
+                   Int(self.lastTracksegmentId) < lastTrack.segments.count {
                     // if gpx is saved, but further trkpts are added after save, and crashed, trkpt are appended, not adding to new trkseg.
-                    root.tracks.last?.segments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first!.points)
-                    self.tracksegments.remove(at: 0)                    
+                    lastTrack.segments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first?.points ?? [])
+                    self.tracksegments.remove(at: 0)
                 } else {
                     track.segments = self.tracksegments
                     root.add(track: track)

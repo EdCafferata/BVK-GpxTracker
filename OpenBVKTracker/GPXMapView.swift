@@ -39,15 +39,18 @@ class GPXMapView: MKMapView {
     let session = GPXSession()
 
     /// The line being displayed on the map that corresponds to the current segment.
-    var currentSegmentOverlay: MKPolyline
-    
+    var currentSegmentOverlay: MKPolyline = {
+        var c: [CLLocationCoordinate2D] = []
+        return MKPolyline(coordinates: &c, count: 0)
+    }()
+
     ///
     var extent: GPXExtentCoordinates = GPXExtentCoordinates() // Extent of the GPX points and tracks
 
     /// Position of the compass in the map
     /// Example:
     /// map.compassRect = CGRect(x: map.frame.width/2 - 18, y: 70, width: 36, height: 36)
-    var compassRect: CGRect
+    var compassRect: CGRect = .zero
     
     /// Is the map using local image cache??
     var useCache: Bool = true { // Use tile overlay cache (
@@ -128,22 +131,21 @@ class GPXMapView: MKMapView {
     /// Gesture for heading arrow to be updated in realtime during user's map interactions
     var rotationGesture = UIRotationGestureRecognizer()
     
-    ///
-    /// Initializes the map with an empty currentSegmentOverlay.
-    ///
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupMapView()
+    }
+
     required init?(coder aDecoder: NSCoder) {
-        var tmpCoords: [CLLocationCoordinate2D] = [] // Init with empty
-        currentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
-        compassRect = CGRect.init(x: 0, y: 0, width: 36, height: 36)
         super.init(coder: aDecoder)
-        
-        // Rotation Gesture handling (for the map rotation's influence towards heading pointing arrow)
+        setupMapView()
+    }
+
+    private func setupMapView() {
         rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotationGestureHandling(_:)))
-        
         addGestureRecognizer(rotationGesture)
         isUserInteractionEnabled = true
         isMultipleTouchEnabled = true
-        
         if #available(iOS 11, *) {
             self.showsCompass = false
         }
