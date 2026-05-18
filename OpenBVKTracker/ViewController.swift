@@ -16,7 +16,7 @@ import CoreGPX
 
 /// App title
 
-let kAppTitle: String = "  Open BVK Tracker"
+let kAppTitle: String = "  BVK GPX"
 /// Purple color for button background
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
 
@@ -463,7 +463,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Add the app title Label (Branding, branding, branding! )
         appTitleLabel.text = kAppTitle
         appTitleLabel.textAlignment = .left
-        appTitleLabel.font = UIFont.boldSystemFont(ofSize: 12)
+        appTitleLabel.font = UIFont.boldSystemFont(ofSize: 14)
         appTitleLabel.textColor = UIColor.yellow
         appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         self.view.addSubview(appTitleLabel)
