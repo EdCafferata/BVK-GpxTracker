@@ -469,11 +469,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addSubview(appTitleLabel)
         
         // CoordLabel
-        coordsLabel.textAlignment = .right
-        coordsLabel.font = UIFont(name: "DinAlternate-Bold", size: 14.0)
+        coordsLabel.textAlignment = .left
+        coordsLabel.font = UIFont(name: "DinAlternate-Bold", size: 16.0)
         coordsLabel.adjustsFontSizeToFitWidth = true
         coordsLabel.minimumScaleFactor = 0.8
         coordsLabel.textColor = UIColor.white
+        coordsLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         coordsLabel.text = kNotGettingLocationText
         self.view.addSubview(coordsLabel)
         
@@ -662,13 +663,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let safeAreaGuide = self.view.safeAreaLayoutGuide
         let safeAreaInsets = self.view.safeAreaInsets
         
-        NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -5).isActive = true
-        // not using self.topLayoutGuide as it will leave a gap between status bar and this, if used on non-notch devices
+        // appTitleLabel: dunne bovenste balk
         NSLayoutConstraint(item: appTitleLabel, attribute: .top, relatedBy: .equal, toItem: safeAreaGuide, attribute: .top, multiplier: 1, constant: safeAreaInsets.top).isActive = true
-        NSLayoutConstraint(item: appTitleLabel, attribute: .lastBaseline, relatedBy: .equal, toItem: coordsLabel, attribute: .lastBaseline, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: coordsLabel, attribute: .trailing, multiplier: 1, constant: 5).isActive = true
-        NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: coordsLabel, attribute: .leading, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        // coordsLabel: eigen rij direct onder appTitleLabel
+        NSLayoutConstraint(item: coordsLabel, attribute: .top, relatedBy: .equal, toItem: appTitleLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: coordsLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 8).isActive = true
+        NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -8).isActive = true
     }
     
     /// Adds constraints to subviews forming the informational labels (top right side; i.e. speed, elapse time labels)
@@ -689,7 +691,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: timeLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
         NSLayoutConstraint(item: timeLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
         // self.topLayoutGuide takes care of the iPhone X safe area, iPhoneXdiff not needed
-        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.appTitleLabel, attribute: .top, multiplier: 1, constant: 20).isActive = true
+        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.coordsLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
         
         NSLayoutConstraint(item: speedLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
         NSLayoutConstraint(item: speedLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
@@ -709,7 +711,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         signalAccuracyLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint(item: signalImageView, attribute: .centerX, relatedBy: .equal, toItem: safeAreaGuide, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: signalImageView, attribute: .top, relatedBy: .equal, toItem: self.appTitleLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: signalImageView, attribute: .top, relatedBy: .equal, toItem: self.coordsLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
         NSLayoutConstraint(item: signalImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50).isActive = true
         NSLayoutConstraint(item: signalImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30).isActive = true
         NSLayoutConstraint(item: signalAccuracyLabel, attribute: .centerX, relatedBy: .equal, toItem: safeAreaGuide, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
@@ -723,7 +725,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         aboutButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint(item: folderButton, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 5).isActive = true
-        NSLayoutConstraint(item: folderButton, attribute: .top, relatedBy: .equal, toItem: appTitleLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: folderButton, attribute: .top, relatedBy: .equal, toItem: coordsLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
         NSLayoutConstraint(item: folderButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: kButtonSmallSize).isActive = true
         NSLayoutConstraint(item: folderButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: kButtonSmallSize).isActive = true
         
@@ -1505,8 +1507,7 @@ extension ViewController: CLLocationManagerDelegate {
         // Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        let altitude = newLocation.altitude.toAltitude(useImperial: useImperial)
-        coordsLabel.text = String(format: NSLocalizedString("COORDS_LABEL", comment: "no comment"), latFormat, lonFormat, altitude)
+        coordsLabel.text = "Lat  \(latFormat)   Lon  \(lonFormat)"
         
         // Update speed
         speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
