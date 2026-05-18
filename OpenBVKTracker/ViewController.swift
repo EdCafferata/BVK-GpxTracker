@@ -473,6 +473,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         coordsLabel.font = UIFont(name: "DinAlternate-Bold", size: 16.0)
         coordsLabel.adjustsFontSizeToFitWidth = true
         coordsLabel.minimumScaleFactor = 0.8
+        coordsLabel.numberOfLines = 2
         coordsLabel.textColor = UIColor.white
         coordsLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         coordsLabel.text = kNotGettingLocationText
@@ -1507,7 +1508,8 @@ extension ViewController: CLLocationManagerDelegate {
         // Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        coordsLabel.text = "  Lat  \(latFormat)   Lon  \(lonFormat)"
+        let altitude = newLocation.altitude.toAltitude(useImperial: useImperial)
+        coordsLabel.text = "  Lat  \(latFormat)   Lon  \(lonFormat)\n  Alt  \(altitude)"
         
         // Update speed
         speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
