@@ -1059,13 +1059,14 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = OpenBVKTracker/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.10.1;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenBVKTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.OpenBVKTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenBVKTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
@@ -1083,13 +1084,14 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = OpenBVKTracker/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.10.1;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenBVKTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.OpenBVKTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenBVKTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
@@ -1166,7 +1168,7 @@
 				MARKETING_VERSION = 1.10.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenBVKTracker.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.OpenBVKTracker.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1198,7 +1200,7 @@
 				INFOPLIST_FILE = "OpenBVKTracker-Watch/Info.plist";
 				MARKETING_VERSION = 1.10.1;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenBVKTracker.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.OpenBVKTracker.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1232,7 +1234,7 @@
 				MARKETING_VERSION = 1.10.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenBVKTracker.watchkitapp.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.OpenBVKTracker.watchkitapp.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1267,7 +1269,7 @@
 				);
 				MARKETING_VERSION = 1.10.1;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenBVKTracker.watchkitapp.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.OpenBVKTracker.watchkitapp.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
