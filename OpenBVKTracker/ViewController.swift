@@ -463,14 +463,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Add the app title Label (Branding, branding, branding! )
         appTitleLabel.text = kAppTitle
         appTitleLabel.textAlignment = .left
-        appTitleLabel.font = UIFont.boldSystemFont(ofSize: 10)
+        appTitleLabel.font = UIFont.boldSystemFont(ofSize: 12)
         appTitleLabel.textColor = UIColor.yellow
         appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         self.view.addSubview(appTitleLabel)
         
         // CoordLabel
         coordsLabel.textAlignment = .right
-        coordsLabel.font = font12
+        coordsLabel.font = UIFont(name: "DinAlternate-Bold", size: 14.0)
+        coordsLabel.adjustsFontSizeToFitWidth = true
+        coordsLabel.minimumScaleFactor = 0.8
         coordsLabel.textColor = UIColor.white
         coordsLabel.text = kNotGettingLocationText
         self.view.addSubview(coordsLabel)
