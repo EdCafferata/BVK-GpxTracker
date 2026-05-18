@@ -470,7 +470,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         // CoordLabel
         coordsLabel.textAlignment = .right
-        coordsLabel.font = UIFont(name: "DinAlternate-Bold", size: 60.0)
+        coordsLabel.font = UIFont(name: "DinAlternate-Bold", size: 24.0)
         coordsLabel.textColor = UIColor.white
         coordsLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         coordsLabel.numberOfLines = 2
