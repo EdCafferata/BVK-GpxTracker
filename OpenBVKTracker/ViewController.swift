@@ -669,8 +669,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
         // coordsLabel: eigen rij direct onder appTitleLabel
         NSLayoutConstraint(item: coordsLabel, attribute: .top, relatedBy: .equal, toItem: appTitleLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: coordsLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 8).isActive = true
-        NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -8).isActive = true
+        NSLayoutConstraint(item: coordsLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
     }
     
     /// Adds constraints to subviews forming the informational labels (top right side; i.e. speed, elapse time labels)
@@ -1507,7 +1507,7 @@ extension ViewController: CLLocationManagerDelegate {
         // Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        coordsLabel.text = "Lat  \(latFormat)   Lon  \(lonFormat)"
+        coordsLabel.text = "  Lat  \(latFormat)   Lon  \(lonFormat)"
         
         // Update speed
         speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
