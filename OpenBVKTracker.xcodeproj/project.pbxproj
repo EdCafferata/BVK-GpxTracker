@@ -633,7 +633,7 @@
 			};
 			buildConfigurationList = 898EECD019C49B5800B4B207 /* Build configuration list for PBXProject "OpenBVKTracker" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = en;
+			developmentRegion = nl;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
