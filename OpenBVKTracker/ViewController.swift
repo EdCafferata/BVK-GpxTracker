@@ -1509,7 +1509,8 @@ extension ViewController: CLLocationManagerDelegate {
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
         let altitude = newLocation.altitude.toAltitude(useImperial: useImperial)
-        coordsLabel.text = "  Lat  \(latFormat)   Lon  \(lonFormat)\n  Alt  \(altitude)"
+        let knots = newLocation.speed >= 0 ? String(format: "%.1f kn", newLocation.speed * 1.94384) : "·.· kn"
+        coordsLabel.text = "  Lat  \(latFormat)   Lon  \(lonFormat)\n  Alt  \(altitude)   \(knots)"
         
         // Update speed
         speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
