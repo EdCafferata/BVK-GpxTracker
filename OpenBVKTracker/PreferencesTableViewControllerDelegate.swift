@@ -30,5 +30,8 @@ protocol PreferencesTableViewControllerDelegate: AnyObject {
   
     /// User updated the activity type
     func didUpdateActivityType(_ newActivityType: Int)
-    
+
+    /// User updated the trackpoint recording interval
+    func didUpdateTrackInterval(_ newIntervalSeconds: Double)
+
 }

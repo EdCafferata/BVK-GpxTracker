@@ -53,6 +53,18 @@
 "GPX_FILES_FOLDER" = "GPX-bestandenmap";
 "USING_DEFAULT_FOLDER" = "Gebruik standaardmap";
 "LAST_SESSION_LOADED" = "Laatste sessie geladen";
+"TRACKING_SECTION" = "Opname-interval";
+"TRACK_INTERVAL" = "Interval";
+"TRACK_INTERVAL_MESSAGE" = "Geef het aantal in en kies de eenheid.";
+"TRACK_INTERVAL_UNIT_SEC" = "Seconden";
+"TRACK_INTERVAL_UNIT_MIN" = "Minuten";
+"TRACK_INTERVAL_UNIT_HOUR" = "Uren";
+"TRACK_INTERVAL_1_SEC" = "1 seconde";
+"TRACK_INTERVAL_SECS" = "%d seconden";
+"TRACK_INTERVAL_1_MIN" = "1 minuut";
+"TRACK_INTERVAL_MINS" = "%d minuten";
+"TRACK_INTERVAL_1_HOUR" = "1 uur";
+"TRACK_INTERVAL_HOURS" = "%d uur";
 
 // Watch
 "SENDING" = "Aan het versturen:";

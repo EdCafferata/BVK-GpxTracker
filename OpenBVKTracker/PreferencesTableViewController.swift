@@ -34,6 +34,12 @@ let kDefaultNameSection = 5
 /// GPX Files Location Section Id in PreferencesTableViewController
 let kGPXFilesLocationSection = 6
 
+/// Tracking Section Id in PreferencesTableViewController
+let kTrackingSection = 7
+
+/// Cell Id for track interval in kTrackingSection
+let kTrackIntervalCell = 0
+
 /// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
 
@@ -124,10 +130,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     
     // MARK: - Table view data source
     
-    /// Returns 4 sections: Units, Cache, Map Source, Activity Type
     override func numberOfSections(in tableView: UITableView?) -> Int {
-        // Return the number of sections.
-        return 7
+        return 8
     }
     
     /// Returns the title of the existing sections.
@@ -142,6 +146,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kDefaultNameSection: return NSLocalizedString("DEFAULT_NAME_SECTION", comment: "no comment")
         case kGPXFilesLocationSection: return NSLocalizedString("GPX_FILES_FOLDER", comment: "no comment")
         case kScreenSection: return NSLocalizedString("SCREEN", comment: "no comment")
+        case kTrackingSection: return NSLocalizedString("TRACKING_SECTION", comment: "no comment")
         default: fatalError("Unknown section")
         }
     }
@@ -158,6 +163,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kDefaultNameSection: return 1
         case kGPXFilesLocationSection: return 1
         case kScreenSection: return 2
+        case kTrackingSection: return 1
         default: fatalError("Unknown section")
         }
     }
@@ -190,6 +196,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             return cellForDefaultNameSection(at: indexPath)
         case kGPXFilesLocationSection:
             return cellForGPXFilesLocationSection(at: indexPath)
+        case kTrackingSection:
+            return cellForTrackingSection(at: indexPath)
         default:
             fatalError("Unknown section")
         }
@@ -290,6 +298,30 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
         cell.accessoryType = .disclosureIndicator
         return cell
+    }
+
+    private func cellForTrackingSection(at indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "TrackingCell")
+        cell.textLabel?.text = NSLocalizedString("TRACK_INTERVAL", comment: "no comment")
+        cell.detailTextLabel?.text = formatTrackInterval(preferences.trackIntervalSeconds)
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+
+    private func formatTrackInterval(_ seconds: Double) -> String {
+        let s = Int(seconds)
+        if s % 3600 == 0 {
+            let h = s / 3600
+            return h == 1 ? NSLocalizedString("TRACK_INTERVAL_1_HOUR", comment: "no comment")
+                          : String(format: NSLocalizedString("TRACK_INTERVAL_HOURS", comment: "no comment"), h)
+        } else if s % 60 == 0 {
+            let m = s / 60
+            return m == 1 ? NSLocalizedString("TRACK_INTERVAL_1_MIN", comment: "no comment")
+                          : String(format: NSLocalizedString("TRACK_INTERVAL_MINS", comment: "no comment"), m)
+        } else {
+            return s == 1 ? NSLocalizedString("TRACK_INTERVAL_1_SEC", comment: "no comment")
+                          : String(format: NSLocalizedString("TRACK_INTERVAL_SECS", comment: "no comment"), s)
+        }
     }
     
     /// Performs the following actions depending on the section and row selected:
@@ -417,13 +449,59 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             documentVC.delegate = self
             self.present(documentVC, animated: true)
         }
-        
+
+        if indexPath.section == kTrackingSection {
+            showTrackIntervalPicker()
+        }
+
         // Unselect row
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // MARK: - Track interval picker
+
+    private func showTrackIntervalPicker() {
+        let alert = UIAlertController(
+            title: NSLocalizedString("TRACK_INTERVAL", comment: "no comment"),
+            message: NSLocalizedString("TRACK_INTERVAL_MESSAGE", comment: "no comment"),
+            preferredStyle: .alert
+        )
+        alert.addTextField { tf in
+            tf.keyboardType = .numberPad
+            tf.placeholder = "1"
+            // Pre-fill current value in the most natural unit
+            let s = Int(self.preferences.trackIntervalSeconds)
+            if s % 3600 == 0 { tf.text = "\(s / 3600)" }
+            else if s % 60 == 0 { tf.text = "\(s / 60)" }
+            else { tf.text = "\(s)" }
+        }
+
+        let applyInterval: (Double) -> Void = { [weak self] seconds in
+            guard let self else { return }
+            self.preferences.trackIntervalSeconds = seconds
+            let ip = IndexPath(row: kTrackIntervalCell, section: kTrackingSection)
+            self.tableView.reloadRows(at: [ip], with: .none)
+            self.delegate?.didUpdateTrackInterval(seconds)
+        }
+
+        alert.addAction(UIAlertAction(title: NSLocalizedString("TRACK_INTERVAL_UNIT_SEC", comment: "no comment"), style: .default) { _ in
+            let n = Double(alert.textFields?.first?.text ?? "1") ?? 1
+            applyInterval(max(1, n))
+        })
+        alert.addAction(UIAlertAction(title: NSLocalizedString("TRACK_INTERVAL_UNIT_MIN", comment: "no comment"), style: .default) { _ in
+            let n = Double(alert.textFields?.first?.text ?? "1") ?? 1
+            applyInterval(max(1, n) * 60)
+        })
+        alert.addAction(UIAlertAction(title: NSLocalizedString("TRACK_INTERVAL_UNIT_HOUR", comment: "no comment"), style: .default) { _ in
+            let n = Double(alert.textFields?.first?.text ?? "1") ?? 1
+            applyInterval(max(1, n) * 3600)
+        })
+        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel))
+        present(alert, animated: true)
+    }
+
     // MARK: - UIDocumentPickerDelegate
-    
+
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let folderURL = urls.first else {
             print("Didn't select any folder")

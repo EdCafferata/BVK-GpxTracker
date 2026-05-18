@@ -53,6 +53,18 @@
 "GPX_FILES_FOLDER" = "GPX files folder";
 "USING_DEFAULT_FOLDER" = "Using default folder";
 "LAST_SESSION_LOADED" = "Last session loaded";
+"TRACKING_SECTION" = "Recording interval";
+"TRACK_INTERVAL" = "Interval";
+"TRACK_INTERVAL_MESSAGE" = "Enter the number and choose the unit.";
+"TRACK_INTERVAL_UNIT_SEC" = "Seconds";
+"TRACK_INTERVAL_UNIT_MIN" = "Minutes";
+"TRACK_INTERVAL_UNIT_HOUR" = "Hours";
+"TRACK_INTERVAL_1_SEC" = "1 second";
+"TRACK_INTERVAL_SECS" = "%d seconds";
+"TRACK_INTERVAL_1_MIN" = "1 minute";
+"TRACK_INTERVAL_MINS" = "%d minutes";
+"TRACK_INTERVAL_1_HOUR" = "1 hour";
+"TRACK_INTERVAL_HOURS" = "%d hours";
 
 // Watch
 "SENDING" = "Sending:";

@@ -44,6 +44,9 @@ let kDefaultsKeyKeepScreenAlwaysOn: String = "KeepScreenAlwaysOn"
 
 let kDefaultsKeyShowScaleBar: String = "ShowScaleBar"
 
+/// Key on Defaults for the trackpoint recording interval in seconds.
+let kDefaultsKeyTrackInterval: String = "TrackIntervalSeconds"
+
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
 ///
@@ -95,7 +98,10 @@ class Preferences: NSObject {
     
     ///
     private var _showScaleBar: Bool = true
-    
+
+    /// Trackpoint recording interval in seconds. Default 1 second.
+    private var _trackIntervalSeconds: Double = 1.0
+
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
     
@@ -182,7 +188,13 @@ class Preferences: NSObject {
             _showScaleBar = showScaleBarBool
             print("** Preferences:: loaded preference from defaults showScaleBar \(showScaleBarBool)")
         }
-        
+
+        // load previous trackpoint interval
+        if let trackIntervalDouble = defaults.object(forKey: kDefaultsKeyTrackInterval) as? Double {
+            _trackIntervalSeconds = max(1.0, trackIntervalDouble)
+            print("** Preferences:: loaded preference from defaults trackIntervalSeconds \(_trackIntervalSeconds)")
+        }
+
     }
     
     /// If true, user prefers to display imperial units (miles, feets). Otherwise metric units
@@ -340,6 +352,16 @@ class Preferences: NSObject {
         }
     }
     
+    /// Gets and sets the trackpoint recording interval in seconds (minimum 1).
+    var trackIntervalSeconds: Double {
+        get { return _trackIntervalSeconds }
+        set {
+            _trackIntervalSeconds = max(1.0, newValue)
+            defaults.set(_trackIntervalSeconds, forKey: kDefaultsKeyTrackInterval)
+            print("** Preferences:: setting trackIntervalSeconds: \(_trackIntervalSeconds)")
+        }
+    }
+
     var gpxFilesFolderURL: URL? {
         get {
             guard let bookmarkData = self._gpxFilesFolderBookmark else {

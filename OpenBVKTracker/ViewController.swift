@@ -127,6 +127,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     /// Stop watch instance to control elapsed time
     var stopWatch = StopWatch()
+
+    /// Last time a trackpoint was recorded; used to honour `preferences.trackIntervalSeconds`.
+    var lastTrackedDate: Date?
     
     /// Name of the last file that was saved (without extension)
     var lastGpxFilename: String = "" {
@@ -212,6 +215,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 
             case .tracking:
                 print("switched to tracking mode")
+                lastTrackedDate = nil
                 // set tracerkButton to allow Pause
                 trackerButton.setTitle(NSLocalizedString("PAUSE", comment: "no comment"), for: UIControl.State())
                 trackerButton.backgroundColor = kPurpleButtonBackgroundColor
@@ -1414,6 +1418,11 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         print("PreferencesTableViewControllerDelegate:: didUpdateKeepScreenAlwaysOn: \(newKeepScreenAlwaysOn)")
         UIApplication.shared.isIdleTimerDisabled = newKeepScreenAlwaysOn
     }
+
+    func didUpdateTrackInterval(_ newIntervalSeconds: Double) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateTrackInterval: \(newIntervalSeconds)s")
+        lastTrackedDate = nil
+    }
 }
 
 /// Extends `ViewController`` to support `GPXFilesTableViewControllerDelegate` function
@@ -1520,10 +1529,15 @@ extension ViewController: CLLocationManagerDelegate {
             map.setCenter(newLocation.coordinate, animated: true)
         }
         if gpxTrackingStatus == .tracking {
-            print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
-            map.addPointToCurrentTrackSegmentAtLocation(newLocation)
-            totalTrackedDistanceLabel.distance = map.session.totalTrackedDistance
-            currentSegmentDistanceLabel.distance = map.session.currentSegmentDistance
+            let now = Date()
+            let interval = Preferences.shared.trackIntervalSeconds
+            if lastTrackedDate == nil || now.timeIntervalSince(lastTrackedDate!) >= interval {
+                lastTrackedDate = now
+                print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
+                map.addPointToCurrentTrackSegmentAtLocation(newLocation)
+                totalTrackedDistanceLabel.distance = map.session.totalTrackedDistance
+                currentSegmentDistanceLabel.distance = map.session.currentSegmentDistance
+            }
         }
     }
 
