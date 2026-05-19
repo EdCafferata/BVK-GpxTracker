@@ -26,7 +26,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>info.cafferata.OpenBVKTracker</string>
+	<string>info.cafferata.BvkGpxTracker</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>
