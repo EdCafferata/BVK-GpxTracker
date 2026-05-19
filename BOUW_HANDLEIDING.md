@@ -541,6 +541,149 @@ xcrun simctl launch booted com.mijnbedrijf.MijnApp
 
 ---
 
+## Stap 14 — App Store screenshots genereren
+
+Alle vereiste screenshots worden automatisch gegenereerd vanuit één simulatoropname.
+
+### iPhone screenshots (echte simulator)
+
+```bash
+# Zorg dat de booted simulator de app toont, dan:
+xcrun simctl io booted screenshot /tmp/simulator_raw.png
+```
+
+Gebruik daarna dit Python-script om alle iPhone App Store maten te genereren:
+
+```python
+from PIL import Image
+import os
+
+src = "/tmp/simulator_raw.png"
+out_dir = "AppStore/Screenshots"
+os.makedirs(out_dir, exist_ok=True)
+
+screenshot = Image.open(src).convert("RGB")
+
+def fit_screenshot(target_w, target_h):
+    canvas = Image.new("RGB", (target_w, target_h), (255, 255, 255))
+    ratio = target_h / screenshot.height
+    nw = int(screenshot.width * ratio)
+    scaled = screenshot.resize((nw, target_h), Image.LANCZOS)
+    canvas.paste(scaled, ((target_w - nw) // 2, 0))
+    return canvas
+
+iphone_sizes = [
+    ("iphone_6.9inch_1320x2868",  1320, 2868),   # iPhone 16 Pro Max — VEREIST
+    ("iphone_6.7inch_1290x2796",  1290, 2796),   # iPhone 14/15 Pro Max
+    ("iphone_6.5inch_1242x2688",  1242, 2688),   # iPhone 11 Pro Max
+    ("iphone_5.5inch_1242x2208",  1242, 2208),   # iPhone 8 Plus
+]
+for name, w, h in iphone_sizes:
+    fit_screenshot(w, h).save(f"{out_dir}/{name}.png", "PNG")
+    print(f"  {name}.png")
+```
+
+### Watch screenshots (echte Watch simulator)
+
+```bash
+# Boot Watch simulators
+xcrun simctl boot <UDID_ULTRA>     # bijv. Apple Watch Ultra 3 49mm
+xcrun simctl boot <UDID_SERIES>    # bijv. Apple Watch Series 11 46mm
+xcrun simctl boot <UDID_SE>        # bijv. Apple Watch SE 40mm
+
+# Installeer Watch app
+WATCH_APP="~/Library/Developer/Xcode/DerivedData/.../Debug-watchsimulator/OpenMijnApp-Watch.app"
+xcrun simctl install <UDID_ULTRA>  "$WATCH_APP"
+xcrun simctl install <UDID_SERIES> "$WATCH_APP"
+xcrun simctl install <UDID_SE>     "$WATCH_APP"
+
+# Start de app
+xcrun simctl launch <UDID_ULTRA>  com.mijnbedrijf.MijnApp.watchkitapp
+xcrun simctl launch <UDID_SERIES> com.mijnbedrijf.MijnApp.watchkitapp
+xcrun simctl launch <UDID_SE>     com.mijnbedrijf.MijnApp.watchkitapp
+
+sleep 5
+
+# Screenshots
+xcrun simctl io <UDID_ULTRA>  screenshot /tmp/watch_ultra.png
+xcrun simctl io <UDID_SERIES> screenshot /tmp/watch_series.png
+xcrun simctl io <UDID_SE>     screenshot /tmp/watch_se.png
+```
+
+Schaal naar alle App Store Watch maten:
+
+```python
+from PIL import Image
+
+sources = {
+    "ultra":   "/tmp/watch_ultra.png",
+    "series":  "/tmp/watch_series.png",
+    "se":      "/tmp/watch_se.png",
+}
+
+def fit(img, w, h):
+    canvas = Image.new("RGB", (w, h), (0, 0, 0))
+    ratio = min(w / img.width, h / img.height)
+    nw, nh = int(img.width * ratio), int(img.height * ratio)
+    scaled = img.resize((nw, nh), Image.LANCZOS)
+    canvas.paste(scaled, ((w - nw) // 2, (h - nh) // 2))
+    return canvas
+
+watch_targets = [
+    ("watch_49mm_ultra2_410x502.png",    410, 502, "ultra"),
+    ("watch_46mm_series10_416x496.png",  416, 496, "series"),
+    ("watch_45mm_series9_396x484.png",   396, 484, "series"),
+    ("watch_44mm_series6_368x448.png",   368, 448, "series"),
+    ("watch_42mm_312x390.png",           312, 390, "se"),
+    ("watch_40mm_324x394.png",           324, 394, "se"),
+    ("watch_38mm_272x340.png",           272, 340, "se"),
+]
+for filename, w, h, src_key in watch_targets:
+    img = Image.open(sources[src_key]).convert("RGB")
+    fit(img, w, h).save(f"AppStore/Screenshots/{filename}", "PNG")
+    print(f"  {filename}")
+```
+
+### App Store icoon (1024×1024)
+
+```python
+from PIL import Image
+
+logo = Image.open("pad/naar/jouw_logo.png").convert("RGBA")
+canvas = Image.new("RGB", (1024, 1024), (255, 255, 255))
+scale = int(1024 * 0.80)
+lw, lh = logo.size
+ratio = min(scale / lw, scale / lh)
+l = logo.resize((int(lw * ratio), int(lh * ratio)), Image.LANCZOS)
+bg = Image.new("RGBA", l.size, (255, 255, 255, 255))
+bg.paste(l, (0, 0), l)
+canvas.paste(bg.convert("RGB"), ((1024 - l.width) // 2, (1024 - l.height) // 2))
+canvas.save("AppStore/Screenshots/appstore_icon_1024x1024.png", "PNG")
+```
+
+### Overzicht vereiste App Store formaten
+
+| Platform | Bestand | Afmeting | Vereist? |
+|----------|---------|----------|----------|
+| iPhone 6.9" | `iphone_6.9inch_1320x2868.png` | 1320×2868 | ✅ Ja |
+| iPhone 6.7" | `iphone_6.7inch_1290x2796.png` | 1290×2796 | Aanbevolen |
+| iPhone 6.5" | `iphone_6.5inch_1242x2688.png` | 1242×2688 | Optioneel |
+| iPhone 5.5" | `iphone_5.5inch_1242x2208.png` | 1242×2208 | Optioneel |
+| iPad 13" | `ipad_13inch_2064x2752.png` | 2064×2752 | ✅ Als iPad ondersteund |
+| iPad 12.9" | `ipad_12.9inch_2048x2732.png` | 2048×2732 | Optioneel |
+| Watch 49mm | `watch_49mm_ultra2_410x502.png` | 410×502 | Als Watch ondersteund |
+| Watch 46mm | `watch_46mm_series10_416x496.png` | 416×496 | Als Watch ondersteund |
+| Watch 45mm | `watch_45mm_series9_396x484.png` | 396×484 | Optioneel |
+| Watch 44mm | `watch_44mm_series6_368x448.png` | 368×448 | Optioneel |
+| Watch 42mm | `watch_42mm_312x390.png` | 312×390 | Optioneel |
+| Watch 40mm | `watch_40mm_324x394.png` | 324×394 | Optioneel |
+| Watch 38mm | `watch_38mm_272x340.png` | 272×340 | Optioneel |
+| App Store icoon | `appstore_icon_1024x1024.png` | 1024×1024 | ✅ Ja |
+
+> Alle gegenereerde bestanden voor BVK GPX Tracker staan in `AppStore/Screenshots/`.
+
+---
+
 ## Bekende valkuilen
 
 | Probleem | Oorzaak | Oplossing |

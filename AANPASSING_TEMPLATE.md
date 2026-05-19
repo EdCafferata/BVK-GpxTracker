@@ -160,12 +160,32 @@ Tijdzone             : [Lokaal / UTC]
 
 ---
 
-## 14. Simulator voor testen
+## 14. App Store screenshots
 
 ```
-Simulator naam : [bijv. iPhone 17]
-iOS versie     : [bijv. 26 (nieuwste)]
-Simulator taal : [bijv. nl voor Nederlands]
+Taal screenshots        : [bijv. Nederlands]
+Achtergrondkleur iPhone : [standaard: wit — of bijv. lichtgrijs #F5F5F5]
+Achtergrondkleur Watch  : [standaard: zwart]
+Achtergrondkleur iPad   : [standaard: lichtgrijs]
+
+Wil je een tekstbanner boven/onder de screenshots?
+  Ja / Nee              : [Nee]
+  Tekst banner          : [bijv. "GPS tracking voor zeilers"]
+```
+
+> Zie `BOUW_HANDLEIDING.md` stap 14 voor het Python-script dat alle
+> 14 App Store formaten automatisch genereert vanuit één simulatoropname.
+> Alle gegenereerde bestanden voor BVK GPX Tracker staan in `AppStore/Screenshots/`.
+
+---
+
+## 15. Simulator voor testen
+
+```
+Simulator naam  : [bijv. iPhone 17]
+iOS versie      : [bijv. 26 (nieuwste)]
+Watch simulator : [bijv. Apple Watch Series 11 46mm]
+Simulator taal  : [bijv. nl voor Nederlands]
 ```
 
 ---
@@ -184,7 +204,8 @@ Ga door naar `BOUW_HANDLEIDING.md` en verwerk bovenstaande antwoorden stap voor 
 - [ ] Stap 8 — Coördinaten-balk aangepast (sectie 8)
 - [ ] Stap 9 — Opname-interval ingesteld (sectie 9)
 - [ ] Stap 10 — Over-pagina aangepast (sectie 11)
-- [ ] Stap 11 — Simulator taal ingesteld (sectie 14)
+- [ ] Stap 11 — Simulator taal ingesteld (sectie 15)
 - [ ] Stap 12 — Gebouwd en getest op simulator
 - [ ] Stap 13 — Getest op fysiek apparaat
+- [ ] Stap 14 — App Store screenshots gegenereerd (sectie 14)
 - [ ] Commit & push naar eigen repository
