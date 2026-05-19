@@ -255,51 +255,182 @@ coordsLabel.text = "  Lat  \(latFormat)   Lon  \(lonFormat)\n  Alt  \(altitude) 
 
 ## Stap 9 — Instelbaar opname-interval toevoegen
 
-### `Preferences.swift`
+Dit is een volledig nieuwe functie die niet in het origineel zit.
+Vijf bestanden worden aangepast plus twee localisatiebestanden.
 
-Voeg toe bij de UserDefaults keys:
+### 9a. `Preferences.swift`
+
+**Bij de UserDefaults keys bovenaan:**
 ```swift
 let kDefaultsKeyTrackInterval: String = "TrackIntervalSeconds"
 ```
 
-Voeg toe bij de private variabelen:
+**Bij de private variabelen (bij de andere `private var` regels):**
 ```swift
 private var _trackIntervalSeconds: Double = 1.0
 ```
 
-Laad in `init()`:
+**In `init()`, na de andere `if let` blokken:**
 ```swift
-if let v = defaults.object(forKey: kDefaultsKeyTrackInterval) as? Double {
-    _trackIntervalSeconds = max(1.0, v)
+if let trackIntervalDouble = defaults.object(forKey: kDefaultsKeyTrackInterval) as? Double {
+    _trackIntervalSeconds = max(1.0, trackIntervalDouble)
 }
 ```
 
-Voeg property toe:
+**Als nieuwe computed property (bij de andere `var` properties):**
 ```swift
 var trackIntervalSeconds: Double {
     get { return _trackIntervalSeconds }
-    set { _trackIntervalSeconds = max(1.0, newValue)
-          defaults.set(_trackIntervalSeconds, forKey: kDefaultsKeyTrackInterval) }
+    set {
+        _trackIntervalSeconds = max(1.0, newValue)
+        defaults.set(_trackIntervalSeconds, forKey: kDefaultsKeyTrackInterval)
+    }
 }
 ```
 
-### `ViewController.swift`
+---
 
-Voeg toe als property:
+### 9b. `PreferencesTableViewControllerDelegate.swift`
+
+Voeg toe aan het protocol:
+```swift
+func didUpdateTrackInterval(_ newIntervalSeconds: Double)
+```
+
+---
+
+### 9c. `PreferencesTableViewController.swift`
+
+**Stap 1 — Voeg sectieconstanten toe bovenaan het bestand:**
+```swift
+let kTrackingSection = 7       // na kGPXFilesLocationSection = 6
+let kTrackIntervalCell = 0
+```
+
+**Stap 2 — Verhoog `numberOfSections` van 7 naar 8:**
+```swift
+override func numberOfSections(in tableView: UITableView?) -> Int {
+    return 8
+}
+```
+
+**Stap 3 — Voeg toe in `titleForHeaderInSection`:**
+```swift
+case kTrackingSection: return NSLocalizedString("TRACKING_SECTION", comment: "no comment")
+```
+
+**Stap 4 — Voeg toe in `numberOfRowsInSection`:**
+```swift
+case kTrackingSection: return 1
+```
+
+**Stap 5 — Voeg toe in `cellForRowAt`:**
+```swift
+case kTrackingSection:
+    return cellForTrackingSection(at: indexPath)
+```
+
+**Stap 6 — Voeg toe in `didSelectRowAt`:**
+```swift
+if indexPath.section == kTrackingSection {
+    showTrackIntervalPicker()
+}
+```
+
+**Stap 7 — Voeg de twee hulpmethoden toe (bijv. vóór de UIDocumentPickerDelegate sectie):**
+```swift
+private func cellForTrackingSection(at indexPath: IndexPath) -> UITableViewCell {
+    let cell = UITableViewCell(style: .value1, reuseIdentifier: "TrackingCell")
+    cell.textLabel?.text = NSLocalizedString("TRACK_INTERVAL", comment: "no comment")
+    cell.detailTextLabel?.text = formatTrackInterval(preferences.trackIntervalSeconds)
+    cell.accessoryType = .disclosureIndicator
+    return cell
+}
+
+private func formatTrackInterval(_ seconds: Double) -> String {
+    let s = Int(seconds)
+    if s % 3600 == 0 {
+        let h = s / 3600
+        return h == 1 ? NSLocalizedString("TRACK_INTERVAL_1_HOUR", comment: "no comment")
+                      : String(format: NSLocalizedString("TRACK_INTERVAL_HOURS", comment: "no comment"), h)
+    } else if s % 60 == 0 {
+        let m = s / 60
+        return m == 1 ? NSLocalizedString("TRACK_INTERVAL_1_MIN", comment: "no comment")
+                      : String(format: NSLocalizedString("TRACK_INTERVAL_MINS", comment: "no comment"), m)
+    } else {
+        return s == 1 ? NSLocalizedString("TRACK_INTERVAL_1_SEC", comment: "no comment")
+                      : String(format: NSLocalizedString("TRACK_INTERVAL_SECS", comment: "no comment"), s)
+    }
+}
+
+private func showTrackIntervalPicker() {
+    let alert = UIAlertController(
+        title: NSLocalizedString("TRACK_INTERVAL", comment: "no comment"),
+        message: NSLocalizedString("TRACK_INTERVAL_MESSAGE", comment: "no comment"),
+        preferredStyle: .alert
+    )
+    alert.addTextField { tf in
+        tf.keyboardType = .numberPad
+        tf.placeholder = "1"
+        let s = Int(self.preferences.trackIntervalSeconds)
+        if s % 3600 == 0 { tf.text = "\(s / 3600)" }
+        else if s % 60 == 0 { tf.text = "\(s / 60)" }
+        else { tf.text = "\(s)" }
+    }
+    let applyInterval: (Double) -> Void = { [weak self] seconds in
+        guard let self else { return }
+        self.preferences.trackIntervalSeconds = seconds
+        let ip = IndexPath(row: kTrackIntervalCell, section: kTrackingSection)
+        self.tableView.reloadRows(at: [ip], with: .none)
+        self.delegate?.didUpdateTrackInterval(seconds)
+    }
+    alert.addAction(UIAlertAction(title: NSLocalizedString("TRACK_INTERVAL_UNIT_SEC", comment: "no comment"), style: .default) { _ in
+        let n = Double(alert.textFields?.first?.text ?? "1") ?? 1
+        applyInterval(max(1, n))
+    })
+    alert.addAction(UIAlertAction(title: NSLocalizedString("TRACK_INTERVAL_UNIT_MIN", comment: "no comment"), style: .default) { _ in
+        let n = Double(alert.textFields?.first?.text ?? "1") ?? 1
+        applyInterval(max(1, n) * 60)
+    })
+    alert.addAction(UIAlertAction(title: NSLocalizedString("TRACK_INTERVAL_UNIT_HOUR", comment: "no comment"), style: .default) { _ in
+        let n = Double(alert.textFields?.first?.text ?? "1") ?? 1
+        applyInterval(max(1, n) * 3600)
+    })
+    alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel))
+    present(alert, animated: true)
+}
+```
+
+---
+
+### 9d. `ViewController.swift`
+
+**Voeg toe als property (bij de andere `var` properties bovenaan de klasse):**
 ```swift
 var lastTrackedDate: Date?
 ```
 
-Reset bij statuswisseling naar `.tracking`:
+**In de `gpxTrackingStatus` didSet, in het `.tracking` geval, voeg toe als eerste regel:**
 ```swift
-lastTrackedDate = nil
+case .tracking:
+    lastTrackedDate = nil   // ← voeg deze regel toe
+    // ... rest van de bestaande code
 ```
 
-Vervang in `didUpdateLocations`, de `if gpxTrackingStatus == .tracking` block:
+**Vervang in `locationManager(_:didUpdateLocations:)` de tracking block:**
 ```swift
+// Oud:
+if gpxTrackingStatus == .tracking {
+    map.addPointToCurrentTrackSegmentAtLocation(newLocation)
+    totalTrackedDistanceLabel.distance = map.session.totalTrackedDistance
+    currentSegmentDistanceLabel.distance = map.session.currentSegmentDistance
+}
+
+// Nieuw:
 if gpxTrackingStatus == .tracking {
     let now = Date()
-    if lastTrackedDate == nil || now.timeIntervalSince(lastTrackedDate!) >= Preferences.shared.trackIntervalSeconds {
+    let interval = Preferences.shared.trackIntervalSeconds
+    if lastTrackedDate == nil || now.timeIntervalSince(lastTrackedDate!) >= interval {
         lastTrackedDate = now
         map.addPointToCurrentTrackSegmentAtLocation(newLocation)
         totalTrackedDistanceLabel.distance = map.session.totalTrackedDistance
@@ -308,10 +439,50 @@ if gpxTrackingStatus == .tracking {
 }
 ```
 
-### `PreferencesTableViewController.swift`
+**Voeg delegate methode toe in de `PreferencesTableViewControllerDelegate` extension:**
+```swift
+func didUpdateTrackInterval(_ newIntervalSeconds: Double) {
+    lastTrackedDate = nil
+}
+```
 
-Voeg sectie toe (zie volledige implementatie in de broncode van dit project).
-Zie `kTrackingSection = 7`, `showTrackIntervalPicker()` en `formatTrackInterval()`.
+---
+
+### 9e. Lokalisatiebestanden
+
+Voeg toe aan **`nl.lproj/Localizable.strings`**:
+```
+"TRACKING_SECTION" = "Opname-interval";
+"TRACK_INTERVAL" = "Interval";
+"TRACK_INTERVAL_MESSAGE" = "Geef het aantal in en kies de eenheid.";
+"TRACK_INTERVAL_UNIT_SEC" = "Seconden";
+"TRACK_INTERVAL_UNIT_MIN" = "Minuten";
+"TRACK_INTERVAL_UNIT_HOUR" = "Uren";
+"TRACK_INTERVAL_1_SEC" = "1 seconde";
+"TRACK_INTERVAL_SECS" = "%d seconden";
+"TRACK_INTERVAL_1_MIN" = "1 minuut";
+"TRACK_INTERVAL_MINS" = "%d minuten";
+"TRACK_INTERVAL_1_HOUR" = "1 uur";
+"TRACK_INTERVAL_HOURS" = "%d uur";
+```
+
+Voeg toe aan **`en.lproj/Localizable.strings`**:
+```
+"TRACKING_SECTION" = "Recording interval";
+"TRACK_INTERVAL" = "Interval";
+"TRACK_INTERVAL_MESSAGE" = "Enter the number and choose the unit.";
+"TRACK_INTERVAL_UNIT_SEC" = "Seconds";
+"TRACK_INTERVAL_UNIT_MIN" = "Minutes";
+"TRACK_INTERVAL_UNIT_HOUR" = "Hours";
+"TRACK_INTERVAL_1_SEC" = "1 second";
+"TRACK_INTERVAL_SECS" = "%d seconds";
+"TRACK_INTERVAL_1_MIN" = "1 minute";
+"TRACK_INTERVAL_MINS" = "%d minutes";
+"TRACK_INTERVAL_1_HOUR" = "1 hour";
+"TRACK_INTERVAL_HOURS" = "%d hours";
+```
+
+> Herhaal voor elke andere taal die je ondersteunt (de, es, fr, etc.).
 
 ---
 
