@@ -46,6 +46,7 @@ You can use Open GPX tracker for:
     - Offline cache On/Off
     - Clear cache
     - Select the map server
+    - Interval options
   - Darkmode
   - Multi-language support (thanks to volunteers): German, English, Spanish, Finnish, French, Italian, Dutch, Portuguese (Brazil), Russian, Ukranian and Chinese (simplified)
 
