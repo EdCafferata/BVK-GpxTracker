@@ -284,7 +284,7 @@ class InterfaceController: WKInterfaceController {
     ///
     @IBAction func resetButtonTapped() {
         
-        let cancelOption = WKAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) {}
+        let continueOption = WKAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) {}
         let saveAndStartOption = WKAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) {
             self.saveButtonTapped()
             self.gpxTrackingStatus = .notStarted
@@ -292,11 +292,12 @@ class InterfaceController: WKInterfaceController {
         let deleteOption = WKAlertAction(title: NSLocalizedString("RESET", comment: "no comment"), style: .destructive) {
             self.gpxTrackingStatus = .notStarted
         }
-        
+        let cancelOption = WKAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) {}
+
         presentAlert(withTitle: nil,
                      message: NSLocalizedString("SELECT_OPTION", comment: "no comment"),
                      preferredStyle: .actionSheet,
-                     actions: [cancelOption, saveAndStartOption, deleteOption])
+                     actions: [continueOption, saveAndStartOption, deleteOption, cancelOption])
     }
 
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)

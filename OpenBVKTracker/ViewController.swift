@@ -1152,22 +1152,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func resetButtonTapped() {
         
         let sheet = UIAlertController(title: nil, message: NSLocalizedString("SELECT_OPTION", comment: "no comment"), preferredStyle: .actionSheet)
-          
+
+        let continueOption = UIAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) { _ in
+        }
+
         let cancelOption = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in
         }
-        
+
         let saveAndStartOption = UIAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) { _ in
-            // Save
             self.saveButtonTapped(withReset: true)
         }
-       
+
         let deleteOption = UIAlertAction(title: NSLocalizedString("RESET", comment: "no comment"), style: .destructive) { _ in
             self.gpxTrackingStatus = .notStarted
         }
-        
-        sheet.addAction(cancelOption)
+
+        sheet.addAction(continueOption)
         sheet.addAction(saveAndStartOption)
         sheet.addAction(deleteOption)
+        sheet.addAction(cancelOption)
         
         self.present(sheet, animated: true) {
             print("Loaded actionSheet")
