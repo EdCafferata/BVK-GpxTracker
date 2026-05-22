@@ -486,7 +486,64 @@ Voeg toe aan **`en.lproj/Localizable.strings`**:
 
 ---
 
-## Stap 10 — Over-pagina aanpassen (`about.html`)
+## Stap 10 — Snelheidsgebaseerde kaart-zoom (automatisch)
+
+Deze functie is al ingebouwd en werkt zonder configuratie. Ze past de zichtbare kaartregio automatisch aan op basis van de gemiddelde vaartsnelheid over de laatste 60 seconden. Hierdoor worden tiles altijd vooruitgeladen, ook bij een lang opname-interval.
+
+### Hoe het werkt
+
+Een aparte timer (elke 10 s) berekent de gemiddelde snelheid onafhankelijk van `trackIntervalSeconds`. Alleen actief wanneer de kaart de gebruiker volgt (`followUser = true`).
+
+| Gemiddelde snelheid | Zichtbaar gebied | Typisch gebruik |
+|---------------------|-----------------|----------------|
+| < 0,5 kn | 220 m | Ten anker / stilliggend |
+| 0,5 – 2 kn | 555 m | Langzaam varen |
+| 2 – 5 kn | 1,1 km | Normaal varen |
+| 5 – 8 kn | 2,0 km | Snel varen |
+| ≥ 8 kn | 3,3 km | Zeer snel |
+
+De zoom wijzigt alleen als het verschil met de huidige regio groter is dan 20% — geen constante springende kaart.
+
+### Drempelwaarden aanpassen
+
+Wil je andere snelheidsdrempels of zoomgebieden? Pas de `switch` in `ViewController.swift` aan in de methode `updateMapRegionForSpeed()`:
+
+```swift
+let targetSpan: CLLocationDegrees
+switch avgKnots {
+case ..<0.5:  targetSpan = 0.002   // anchored  (~220 m)
+case 0.5..<2: targetSpan = 0.005   // slow      (~555 m)
+case 2..<5:   targetSpan = 0.010   // moderate  (~1.1 km)
+case 5..<8:   targetSpan = 0.018   // fast      (~2.0 km)
+default:      targetSpan = 0.030   // very fast (~3.3 km)
+}
+```
+
+`latitudeDelta` van 0.001° ≈ 111 m (ongeacht locatie).
+
+### Timer interval aanpassen
+
+Standaard elke 10 seconden. Aanpassen in `startMapUpdateTimer()`:
+
+```swift
+mapUpdateTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) ...
+//                                                      ^^^^
+//                                    verander naar bijv. 5.0 of 30.0
+```
+
+### Snelheidshistorie aanpassen
+
+Standaard gemiddelde over de laatste 60 seconden. Aanpassen in `updateMapRegionForSpeed()`:
+
+```swift
+speedReadings = speedReadings.filter { now.timeIntervalSince($0.date) <= 60.0 }
+//                                                                        ^^^^
+//                                             verander naar bijv. 30.0 of 120.0
+```
+
+---
+
+## Stap 11 — Over-pagina aanpassen (`about.html`)
 
 ```html
 <h1>JOUW APP NAAM</h1>

@@ -112,6 +112,28 @@ Standaard interval : [bijv. 1 seconde — minimum is 1 seconde]
 
 ---
 
+## 9b. Snelheidsgebaseerde kaart-zoom
+
+```
+Gebruik standaard drempelwaarden? : [Ja / Nee]
+
+Indien Nee — geef gewenste waarden op:
+  Timer interval (seconden)        : [standaard: 10]
+  Snelheidshistorie (seconden)     : [standaard: 60]
+
+  Drempelwaarden (knoten → latitudeDelta):
+    Stilliggend  (< X kn) → span : [standaard: < 0.5 kn → 0.002°]
+    Langzaam     (X–Y kn) → span : [standaard: 0.5–2 kn → 0.005°]
+    Normaal      (X–Y kn) → span : [standaard: 2–5 kn   → 0.010°]
+    Snel         (X–Y kn) → span : [standaard: 5–8 kn   → 0.018°]
+    Zeer snel    (> X kn) → span : [standaard: ≥ 8 kn   → 0.030°]
+```
+
+> 0.001° latitudeDelta ≈ 111 m. Zie BOUW_HANDLEIDING.md stap 10 voor instructies.
+> De zoom past alleen aan als het verschil > 20% is — geen springende kaart.
+
+---
+
 ## 10. Taal
 
 ```
@@ -203,7 +225,8 @@ Ga door naar `BOUW_HANDLEIDING.md` en verwerk bovenstaande antwoorden stap voor 
 - [ ] Stap 7 — Standaard kaartserver ingesteld (sectie 7)
 - [ ] Stap 8 — Coördinaten-balk aangepast (sectie 8)
 - [ ] Stap 9 — Opname-interval ingesteld (sectie 9)
-- [ ] Stap 10 — Over-pagina aangepast (sectie 11)
+- [ ] Stap 10 — Kaart-zoom drempelwaarden aangepast indien gewenst (sectie 9b)
+- [ ] Stap 11 — Over-pagina aangepast (sectie 11)
 - [ ] Stap 11 — Simulator taal ingesteld (sectie 15)
 - [ ] Stap 12 — Gebouwd en getest op simulator
 - [ ] Stap 13 — Getest op fysiek apparaat
