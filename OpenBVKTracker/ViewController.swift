@@ -130,6 +130,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
     /// Last time a trackpoint was recorded; used to honour `preferences.trackIntervalSeconds`.
     var lastTrackedDate: Date?
+
+    /// Speed readings (timestamp + m/s) used to calculate average speed for map-zoom adaptation.
+    var speedReadings: [(date: Date, speedMs: Double)] = []
+
+    /// Fires every 10 s to adjust the map region based on recent average speed.
+    var mapUpdateTimer: Timer?
     
     /// Name of the last file that was saved (without extension)
     var lastGpxFilename: String = "" {
@@ -433,6 +439,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
+        startMapUpdateTimer()
         
         // Preferences
         map.tileServer = Preferences.shared.tileServer
@@ -955,6 +962,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
+        startMapUpdateTimer()
     }
     
     ///
@@ -970,6 +978,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         if gpxTrackingStatus != .tracking {
             locationManager.stopUpdatingLocation()
         }
+        stopMapUpdateTimer()
     }
     
     ///
@@ -1341,6 +1350,63 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 }
 
+// MARK: Map Speed Region
+
+extension ViewController {
+
+    func startMapUpdateTimer() {
+        mapUpdateTimer?.invalidate()
+        mapUpdateTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] _ in
+            self?.updateMapRegionForSpeed()
+        }
+    }
+
+    func stopMapUpdateTimer() {
+        mapUpdateTimer?.invalidate()
+        mapUpdateTimer = nil
+    }
+
+    /// Adjusts the visible map region based on the average speed over the last 60 seconds.
+    /// Runs independently of the GPX recording interval so tiles always preload ahead.
+    ///
+    /// Speed thresholds (knots → latitudeDelta):
+    ///   < 0.5 kn  → 0.002° (~220 m)  anchored
+    ///   0.5–2 kn  → 0.005° (~555 m)  slow
+    ///   2–5 kn    → 0.010° (~1.1 km) moderate
+    ///   5–8 kn    → 0.018° (~2.0 km) fast
+    ///   8+ kn     → 0.030° (~3.3 km) very fast
+    func updateMapRegionForSpeed() {
+        guard followUser else { return }
+
+        let now = Date()
+        speedReadings = speedReadings.filter { now.timeIntervalSince($0.date) <= 60.0 }
+
+        let avgSpeedMs: Double = speedReadings.isEmpty
+            ? 0
+            : speedReadings.map(\.speedMs).reduce(0, +) / Double(speedReadings.count)
+
+        let avgKnots = avgSpeedMs * 1.94384
+
+        let targetSpan: CLLocationDegrees
+        switch avgKnots {
+        case ..<0.5:  targetSpan = 0.002
+        case 0.5..<2: targetSpan = 0.005
+        case 2..<5:   targetSpan = 0.010
+        case 5..<8:   targetSpan = 0.018
+        default:      targetSpan = 0.030
+        }
+
+        let currentSpan = map.region.span.latitudeDelta
+        guard abs(currentSpan - targetSpan) / max(currentSpan, 0.001) > 0.20 else { return }
+
+        let newRegion = MKCoordinateRegion(
+            center: map.userLocation.coordinate,
+            span: MKCoordinateSpan(latitudeDelta: targetSpan, longitudeDelta: targetSpan)
+        )
+        map.setRegion(newRegion, animated: true)
+    }
+}
+
 // MARK: StopWatchDelegate
 
 ///
@@ -1495,6 +1561,10 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Update signal image accuracy
         let newLocation = locations.first!
+
+        if newLocation.speed >= 0 {
+            speedReadings.append((date: Date(), speedMs: newLocation.speed))
+        }
         // Update horizontal accuracy
         let hAcc = newLocation.horizontalAccuracy
         signalAccuracyLabel.text =  hAcc.toAccuracy(useImperial: useImperial)
