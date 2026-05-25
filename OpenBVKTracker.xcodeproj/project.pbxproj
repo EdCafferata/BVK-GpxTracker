@@ -1065,7 +1065,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10.1;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenBVKTracker/ObjectiveCBridgingHeader.h;
@@ -1090,7 +1090,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10.1;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenBVKTracker/ObjectiveCBridgingHeader.h;
@@ -1165,7 +1165,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenBVKTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenBVKTracker-Watch/Info.plist";
-				MARKETING_VERSION = 1.10.1;
+				MARKETING_VERSION = 2.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp;
@@ -1198,7 +1198,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenBVKTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenBVKTracker-Watch/Info.plist";
-				MARKETING_VERSION = 1.10.1;
+				MARKETING_VERSION = 2.0.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1231,7 +1231,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.10.1;
+				MARKETING_VERSION = 2.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp.ext;
@@ -1267,7 +1267,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.10.1;
+				MARKETING_VERSION = 2.0.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
