@@ -1200,6 +1200,7 @@
 				INFOPLIST_FILE = "OpenBVKTracker-Watch/Info.plist";
 				MARKETING_VERSION = 2.0.0;
 				MTL_FAST_MATH = YES;
+				"EXCLUDED_ARCHS[sdk=watchsimulator*]" = "arm64 arm64e x86_64";
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1271,6 +1272,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				"EXCLUDED_ARCHS[sdk=watchsimulator*]" = "arm64 arm64e x86_64";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
