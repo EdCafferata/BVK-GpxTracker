@@ -73,7 +73,7 @@ class Preferences: NSObject {
     private var _tileServer: GPXTileServer = .openSeaMap
     
     /// In memory value of the preference.
-    private var _activityType: CLActivityType = .other
+    private var _activityType: CLActivityType = .otherNavigation
     
     ///
     private var _dateFormat = "dd-MMM-yyyy-HHmm"
