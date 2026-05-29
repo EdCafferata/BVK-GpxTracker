@@ -40,6 +40,9 @@ enum GPXTileServer: Int {
     
     /// OpenSeaMap tile server
     case openSeaMap
+
+    /// CartoDB Dark Matter tile server (dark background, good for night sailing)
+    case cartoDBDark
     
     /// String that describes the selected tile server.
     var name: String {
@@ -51,6 +54,7 @@ enum GPXTileServer: Int {
         case .cartoDBRetina: return "Carto DB (Retina resolution)"
         case .openTopoMap: return "OpenTopoMap"
         case .openSeaMap: return "OpenSeaMap"
+        case .cartoDBDark: return "Carto DB Dark Matter"
         }
     }
     
@@ -64,6 +68,7 @@ enum GPXTileServer: Int {
         case .cartoDBRetina: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png"
         case .openTopoMap: return "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
         case .openSeaMap: return "https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
+        case .cartoDBDark: return "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
         }
     }
     
@@ -82,6 +87,7 @@ enum GPXTileServer: Int {
         case .cartoDB, .cartoDBRetina: return ["a", "b", "c"]
         case .openTopoMap: return ["a", "b", "c"]
         case .openSeaMap: return []
+        case .cartoDBDark: return ["a", "b", "c"]
         // case .AnotherMap: return ["a","b"]
         }
     }
@@ -111,6 +117,8 @@ enum GPXTileServer: Int {
         // case .AnotherMap: return 10
         case .openSeaMap:
             return 18
+        case .cartoDBDark:
+            return 21
         }
     }
     ///
@@ -134,6 +142,8 @@ enum GPXTileServer: Int {
         case .openTopoMap:
             return 0
         case .openSeaMap:
+            return 0
+        case .cartoDBDark:
             return 0
         // case .AnotherMap: return 0
         }
@@ -172,9 +182,10 @@ enum GPXTileServer: Int {
         case .apple: return .system
         case .appleSatellite: return .darkMode
         case .cartoDB, .cartoDBRetina, .openTopoMap, .openSeaMap, .openStreetMap: return .lightMode
+        case .cartoDBDark: return .darkMode
         }
     }
 
     /// Returns the number of tile servers currently defined
-    static var count: Int { return GPXTileServer.openSeaMap.rawValue + 1}
+    static var count: Int { return GPXTileServer.cartoDBDark.rawValue + 1}
 }
