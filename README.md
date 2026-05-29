@@ -84,7 +84,7 @@ open OpenBVKTracker.xcodeproj
 | Naam | Rol |
 |------|-----|
 | Ed Cafferata | Ontwikkelaar |
-| BVK — Brouwers Varen Kring | Opdrachtgever |
+| BVK — Blocq van Kuffelen | Opdrachtgever |
 
 ---
 
