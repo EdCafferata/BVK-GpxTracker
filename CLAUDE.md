@@ -14,14 +14,14 @@ Registreert GPS-sporen op het water, slaat op als GPX, deelt via e-mail/AirDrop.
 - **Bundle ID:** `info.cafferata.BvkGpxTracker`
 - **GitHub:** https://github.com/EdCafferata/BVK-GpxTracker — branch: `main`
 - **Versie:** `2.0.0` (build 1)
-- **Simulator ID:** `3C356EF7-1B59-4F53-9251-38C6FA4CE5E4`
+- **Simulator ID:** `F6112483-4A4A-457E-8710-B0CAC169B941` (iPhone 16, iOS 18.6)
 
 ### Build commando's
 ```bash
 # Simulator
 cd /Volumes/Backup-Ed/AI/BVK-GpxTracker
 xcodebuild -project OpenBVKTracker.xcodeproj -scheme "OpenBVKTracker" \
-  -destination "platform=iOS Simulator,id=3C356EF7-1B59-4F53-9251-38C6FA4CE5E4" build
+  -destination "platform=iOS Simulator,id=F6112483-4A4A-457E-8710-B0CAC169B941" build
 
 # TestFlight archive
 xcodebuild -project OpenBVKTracker.xcodeproj -scheme "OpenBVKTracker" \
@@ -90,3 +90,5 @@ Strings in `OpenBVKTracker/<taal>.lproj/Localizable.strings`
 - [x] Fysiek apparaat getest (Ed, 2026-05-29)
 - [x] TestFlight 2.0.0 geüpload en testers uitgenodigd (Ed, 2026-05-29)
 - [x] **Versie 2.0.0 live in de App Store** (Ed, 2026-05-29) 🎉
+- [x] iOS min. versie gedocumenteerd als 12+ (was fout: 17+) — issue #4 gesloten
+- [x] Snelheids-zoom stopt bij pauze/reset, herstart bij recording — issue #9 gesloten
