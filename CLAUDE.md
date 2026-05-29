@@ -1,7 +1,7 @@
 # BVK GPX Tracker — Claude instructies
 
 ## Projectoverzicht
-iOS + WatchOS GPX tracker app voor BVK (Brouwers Varen Kring).
+iOS + WatchOS GPX tracker app voor BVK (Blocq van Kuffelen).
 Registreert GPS-sporen op het water, slaat op als GPX, deelt via e-mail/AirDrop.
 
 ## Eigenaar
