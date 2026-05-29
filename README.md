@@ -4,7 +4,7 @@
 ![Versie](https://img.shields.io/badge/versie-2.0.0-blue)
 ![Platform](https://img.shields.io/badge/platform-iOS%2017%2B%20%7C%20watchOS-lightgrey)
 
-GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — Blocq van Kuffelen**. Registreer je vaarroute, voeg waypoints toe en deel je GPX-sporen via e-mail of AirDrop.
+GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq van Kuffeler**. Registreer je vaarroute, voeg waypoints toe en deel je GPX-sporen via e-mail of AirDrop.
 
 ---
 
@@ -75,7 +75,7 @@ open OpenBVKTracker.xcodeproj
 - **Platform:** iOS 17+ / watchOS
 - **Taal:** Swift / UIKit / WatchKit
 - **Kaartcaching:** MapCache package
-- **Privacy:** alle GPS-data blijft op het apparaat of in iCloud — niets wordt gedeeld met derden
+- **Privacy:** alle GPS-data blijft op het apparaat of in iCloud als je het daar zelf plaatst — niets wordt gedeeld met derden
 
 ---
 
@@ -84,7 +84,7 @@ open OpenBVKTracker.xcodeproj
 | Naam | Rol |
 |------|-----|
 | Ed Cafferata | Ontwikkelaar |
-| BVK — Blocq van Kuffelen | Opdrachtgever |
+| BVK — de Blocq van Kuffeler | Opdrachtgever |
 
 ---
 
