@@ -199,15 +199,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 // Reset clock
                 stopWatch.reset()
                 timeLabel.text = stopWatch.elapsedTimeString
-                
+
                 map.clearMap()        // Clear map
                 lastGpxFilename = "" // Clear last filename, so when saving it appears an empty field
 
                 map.coreDataHelper.clearAll()
                 map.coreDataHelper.coreDataDeleteAll(of: CDRoot.self) // deleteCDRootFromCoreData()
-                
+
                 totalTrackedDistanceLabel.distance = (map.session.totalTrackedDistance)
                 currentSegmentDistanceLabel.distance = (map.session.currentSegmentDistance)
+
+                // Stop speed-based zoom so it doesn't keep adjusting after reset
+                stopMapUpdateTimer()
+                speedReadings = []
                 
                 /*
                 // XXX Left here for reference
@@ -230,6 +234,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 resetButton.backgroundColor = kRedButtonBackgroundColor
                 // start clock
                 self.stopWatch.start()
+                // (Re)start speed-based map zoom timer
+                startMapUpdateTimer()
                 
             case .paused:
                 print("switched to paused mode")
@@ -243,6 +249,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.stopWatch.stop()
                 // start new track segment
                 self.map.startNewTrackSegment()
+                // Stop speed-based zoom while paused and clear readings so
+                // zoom rebuilds cleanly from fresh data when recording resumes
+                stopMapUpdateTimer()
+                speedReadings = []
             }
         }
     }

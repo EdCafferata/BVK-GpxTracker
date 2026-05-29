@@ -2,7 +2,7 @@
 
 [![Available on the App Store](https://merlos.github.io/iOS-Open-BVK-Tracker/images/download-app-store.svg)](https://apps.apple.com/nl/app/bvk-gpx-tracker/id6770708440)
 ![Versie](https://img.shields.io/badge/versie-2.0.0-blue)
-![Platform](https://img.shields.io/badge/platform-iOS%2017%2B%20%7C%20watchOS-lightgrey)
+![Platform](https://img.shields.io/badge/platform-iOS%2012%2B%20%7C%20watchOS-lightgrey)
 
 GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq van Kuffeler**. Registreer je vaarroute, voeg waypoints toe en deel je GPX-sporen via e-mail of AirDrop.
 
@@ -72,7 +72,7 @@ open OpenBVKTracker.xcodeproj
 
 ## Technische details
 
-- **Platform:** iOS 17+ / watchOS
+- **Platform:** iOS 12+ / watchOS
 - **Taal:** Swift / UIKit / WatchKit
 - **Kaartcaching:** MapCache package
 - **Privacy:** alle GPS-data blijft op het apparaat of in iCloud als je het daar zelf plaatst — niets wordt gedeeld met derden
