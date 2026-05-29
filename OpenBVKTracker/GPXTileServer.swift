@@ -110,7 +110,7 @@ enum GPXTileServer: Int {
             return 17
         // case .AnotherMap: return 10
         case .openSeaMap:
-            return 16
+            return 18
         }
     }
     ///
