@@ -87,5 +87,5 @@ Strings in `OpenBVKTracker/<taal>.lproj/Localizable.strings`
 - [x] TestFlight build 1.10.1 (build 3) geüpload (2026-05-22)
 - [x] Versie bump naar 2.0.0 (build 1) — 2026-05-25
 - [x] EXCLUDED_ARCHS watchOS simulator workaround (Xcode 26.5) — 2026-05-25
-- [ ] Fysiek apparaat testen (gepland)
-- [ ] TestFlight 2.0.0 uploaden en testers uitnodigen
+- [x] Fysiek apparaat getest (Ed, 2026-05-29)
+- [x] TestFlight 2.0.0 geüpload en testers uitgenodigd (Ed, 2026-05-29)
