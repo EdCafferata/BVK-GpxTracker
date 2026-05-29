@@ -89,3 +89,4 @@ Strings in `OpenBVKTracker/<taal>.lproj/Localizable.strings`
 - [x] EXCLUDED_ARCHS watchOS simulator workaround (Xcode 26.5) — 2026-05-25
 - [x] Fysiek apparaat getest (Ed, 2026-05-29)
 - [x] TestFlight 2.0.0 geüpload en testers uitgenodigd (Ed, 2026-05-29)
+- [x] **Versie 2.0.0 live in de App Store** (Ed, 2026-05-29) 🎉
