@@ -94,7 +94,7 @@ class Preferences: NSObject {
     private var _gpxFilesFolderBookmark: Data?
     
     ///
-    private var _keepScreenAlwaysOn: Bool = false
+    private var _keepScreenAlwaysOn: Bool = true
     
     ///
     private var _showScaleBar: Bool = true
