@@ -4,7 +4,7 @@
 ![Versie](https://img.shields.io/badge/versie-2.0.0-blue)
 ![Platform](https://img.shields.io/badge/platform-iOS%2017%2B%20%7C%20watchOS-lightgrey)
 
-GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — Brouwers Varen Kring**. Registreer je vaarroute, voeg waypoints toe en deel je GPX-sporen via e-mail of AirDrop.
+GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — Blocq van Kuffelen**. Registreer je vaarroute, voeg waypoints toe en deel je GPX-sporen via e-mail of AirDrop.
 
 ---
 
