@@ -1055,7 +1055,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = OpenBVKTracker/Info.plist;
@@ -1065,7 +1065,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenBVKTracker/ObjectiveCBridgingHeader.h;
@@ -1080,7 +1080,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = OpenBVKTracker/Info.plist;
@@ -1090,7 +1090,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenBVKTracker/ObjectiveCBridgingHeader.h;
@@ -1165,7 +1165,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenBVKTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenBVKTracker-Watch/Info.plist";
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp;
@@ -1198,7 +1198,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenBVKTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenBVKTracker-Watch/Info.plist";
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.1.1;
 				MTL_FAST_MATH = YES;
 				"EXCLUDED_ARCHS[sdk=watchsimulator*]" = "arm64 arm64e x86_64";
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp;
@@ -1232,7 +1232,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp.ext;
@@ -1268,7 +1268,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.1.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
