@@ -1,6 +1,6 @@
 # BVK GPX Tracker 🚤
 
-[![Available on the App Store](https://merlos.github.io/iOS-Open-BVK-Tracker/images/download-app-store.svg)](https://apps.apple.com/nl/app/bvk-gpx-tracker/id6770708440)
+[![Available on the App Store](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://apps.apple.com/nl/app/bvk-gpx-tracker/id6770708440)
 ![Versie](https://img.shields.io/badge/versie-2.1.0-blue)
 ![Platform](https://img.shields.io/badge/platform-iOS%2012%2B%20%7C%20watchOS-lightgrey)
 ![App Store](https://img.shields.io/badge/App%20Store-live%20🟢-brightgreen)
