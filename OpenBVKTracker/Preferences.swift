@@ -47,6 +47,9 @@ let kDefaultsKeyShowScaleBar: String = "ShowScaleBar"
 /// Key on Defaults for the trackpoint recording interval in seconds.
 let kDefaultsKeyTrackInterval: String = "TrackIntervalSeconds"
 
+/// Key on Defaults for charger mode (always best GPS + max zoom).
+let kDefaultsKeyChargerMode: String = "ChargerMode"
+
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
 ///
@@ -101,6 +104,9 @@ class Preferences: NSObject {
 
     /// Trackpoint recording interval in seconds. Default 1 second.
     private var _trackIntervalSeconds: Double = 1.0
+
+    /// Charger mode: altijd hoogste GPS-nauwkeurigheid + maximale kaart-zoom (standaard uit)
+    private var _chargerMode: Bool = false
 
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -193,6 +199,12 @@ class Preferences: NSObject {
         if let trackIntervalDouble = defaults.object(forKey: kDefaultsKeyTrackInterval) as? Double {
             _trackIntervalSeconds = max(1.0, trackIntervalDouble)
             print("** Preferences:: loaded preference from defaults trackIntervalSeconds \(_trackIntervalSeconds)")
+        }
+
+        // load charger mode preference
+        if let chargerModeBool = defaults.object(forKey: kDefaultsKeyChargerMode) as? Bool {
+            _chargerMode = chargerModeBool
+            print("** Preferences:: loaded preference from defaults chargerMode \(chargerModeBool)")
         }
 
     }
@@ -359,6 +371,19 @@ class Preferences: NSObject {
             _trackIntervalSeconds = max(1.0, newValue)
             defaults.set(_trackIntervalSeconds, forKey: kDefaultsKeyTrackInterval)
             print("** Preferences:: setting trackIntervalSeconds: \(_trackIntervalSeconds)")
+        }
+    }
+
+    /// Charger mode: altijd hoogste GPS-nauwkeurigheid + maximale kaart-zoom.
+    /// Gebruik als de telefoon op de lader ligt. Schakelt snelheidsgebaseerde GPS-besparing uit.
+    var chargerMode: Bool {
+        get {
+            return _chargerMode
+        }
+        set {
+            _chargerMode = newValue
+            defaults.set(newValue, forKey: kDefaultsKeyChargerMode)
+            print("** Preferences:: setting chargerMode: \(newValue)")
         }
     }
 
