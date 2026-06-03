@@ -1,4 +1,43 @@
-# App Store Release Notes — v2.0.0
+# App Store Release Notes — v2.1.0
+
+Kopieer de tekst hieronder naar App Store Connect:
+Mijn apps → BVK GPX Tracker → versie 2.1 → "Wat is er nieuw"
+
+Zie ook: `AppStore/RELEASE_NOTES_v2.1.0.md` voor uitgebreide versie met GPS-profielen tabel.
+
+---
+
+## 🇳🇱 Nederlands
+
+Slimme batterijbesparing — de app past de GPS-nauwkeurigheid automatisch aan op je vaartsnelheid. Stilliggend bij de sluis? GPS-chip gaat op zuinige modus. Volle snelheid? Maximale nauwkeurigheid. Tot 80% minder batterijverbruik bij langzaam varen of ankeren.
+
+Nieuw in Instellingen: **Telefoon op de lader** — schakel in voor altijd de hoogste GPS-nauwkeurigheid en maximale kaartdetail, ongeacht snelheid.
+
+---
+
+## 🇬🇧 English
+
+Smart battery saving — the app automatically adjusts GPS accuracy based on your speed. Waiting at a lock? GPS chip goes into low-power mode. Full speed ahead? Maximum accuracy. Up to 80% less battery usage when sailing slowly or at anchor.
+
+New in Settings: **Phone on charger** — enable for always-on maximum GPS accuracy and map detail, regardless of speed.
+
+---
+
+## 🇩🇪 Deutsch
+
+Intelligentes Energiesparen — die App passt die GPS-Genauigkeit automatisch an deine Fahrtgeschwindigkeit an. Liegst du still? Der GPS-Chip wechselt in den Sparmodus. Volle Fahrt? Maximale Genauigkeit. Bis zu 80% weniger Akkuverbrauch.
+
+Neu in den Einstellungen: **Telefon am Ladekabel** — aktiviere für immer maximale GPS-Genauigkeit, unabhängig von der Geschwindigkeit.
+
+---
+
+## Aanbeveling
+Gebruik de **Nederlandse** tekst als primaire taal in App Store Connect.
+Voeg Engels toe als tweede taal voor internationale gebruikers.
+
+---
+
+# Archief — v2.0.0
 
 Kopieer de tekst hieronder naar App Store Connect:
 Mijn apps → BVK GPX Tracker → versie 2.0 → "Wat is er nieuw"

@@ -1,8 +1,9 @@
 # BVK GPX Tracker 🚤
 
 [![Available on the App Store](https://merlos.github.io/iOS-Open-BVK-Tracker/images/download-app-store.svg)](https://apps.apple.com/nl/app/bvk-gpx-tracker/id6770708440)
-![Versie](https://img.shields.io/badge/versie-2.0.0-blue)
+![Versie](https://img.shields.io/badge/versie-2.1.0-blue)
 ![Platform](https://img.shields.io/badge/platform-iOS%2012%2B%20%7C%20watchOS-lightgrey)
+![App Store](https://img.shields.io/badge/App%20Store-live%20🟢-brightgreen)
 
 GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq van Kuffeler**. Registreer je vaarroute, voeg waypoints toe en deel je GPX-sporen via e-mail of AirDrop.
 
@@ -33,6 +34,8 @@ GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq
 - Bestandsoverdracht via iTunes
 - Donkere modus
 - **Snelheidsgebaseerde kaart-zoom** (automatisch, 5 niveaus)
+- **Snelheidsgebaseerde GPS-besparing** (4 profielen, tot 80% minder batterij)
+- **Telefoon op de lader** modus — altijd maximale GPS-nauwkeurigheid
 
 ### Apple Watch
 - GPX-sporen opnemen op de Watch
@@ -53,6 +56,7 @@ Nederlands, Engels, Duits, Spaans, Frans, Italiaans, Fins, Portugees (Brazilië)
 
 | Versie | Datum | Wijzigingen |
 |--------|-------|-------------|
+| **2.1.0** | in ontwikkeling | Snelheidsgebaseerde GPS-besparing, 'Telefoon op de lader' modus |
 | **2.0.0** | 2026-05-29 | Snelheidsgebaseerde zoom, "Doorgaan" actieblad iPhone + Watch, live in App Store |
 | 1.10.1 | 2026-05-22 | TestFlight release, stabiliteitsverbeteringen |
 
