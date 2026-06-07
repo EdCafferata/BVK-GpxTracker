@@ -39,6 +39,13 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     /// Displays the line for each segment
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKind(of: MKTileOverlay.self) {
+            // Wind overlay gebruikt geen MapCache — geef directe renderer terug
+            if let gpxMap = mapView as? GPXMapView,
+               let windOverlay = gpxMap.windTileOverlay,
+               overlay === windOverlay {
+                let renderer = MKTileOverlayRenderer(overlay: overlay)
+                return renderer
+            }
             return mapView.mapCacheRenderer(forOverlay: overlay)
         }
         
