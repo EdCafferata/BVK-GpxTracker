@@ -37,4 +37,7 @@ protocol PreferencesTableViewControllerDelegate: AnyObject {
     /// User toggled charger mode (altijd hoogste GPS + max zoom)
     func didUpdateChargerMode(_ newChargerMode: Bool)
 
+    /// User toggled wind overlay on/off
+    func didUpdateShowWindOverlay(_ newValue: Bool)
+
 }

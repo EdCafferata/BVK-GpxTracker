@@ -50,6 +50,9 @@ let kDefaultsKeyTrackInterval: String = "TrackIntervalSeconds"
 /// Key on Defaults for charger mode (always best GPS + max zoom).
 let kDefaultsKeyChargerMode: String = "ChargerMode"
 
+/// Key on Defaults for wind overlay toggle.
+let kDefaultsKeyShowWindOverlay: String = "ShowWindOverlay"
+
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
 ///
@@ -107,6 +110,9 @@ class Preferences: NSObject {
 
     /// Charger mode: altijd hoogste GPS-nauwkeurigheid + maximale kaart-zoom (standaard uit)
     private var _chargerMode: Bool = false
+
+    /// Wind overlay: toon windtile laag op de kaart (standaard uit)
+    private var _showWindOverlay: Bool = false
 
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -205,6 +211,12 @@ class Preferences: NSObject {
         if let chargerModeBool = defaults.object(forKey: kDefaultsKeyChargerMode) as? Bool {
             _chargerMode = chargerModeBool
             print("** Preferences:: loaded preference from defaults chargerMode \(chargerModeBool)")
+        }
+
+        // load wind overlay preference
+        if let showWindOverlayBool = defaults.object(forKey: kDefaultsKeyShowWindOverlay) as? Bool {
+            _showWindOverlay = showWindOverlayBool
+            print("** Preferences:: loaded preference from defaults showWindOverlay \(showWindOverlayBool)")
         }
 
     }
@@ -384,6 +396,16 @@ class Preferences: NSObject {
             _chargerMode = newValue
             defaults.set(newValue, forKey: kDefaultsKeyChargerMode)
             print("** Preferences:: setting chargerMode: \(newValue)")
+        }
+    }
+
+    /// Wind overlay aan/uit op de kaart.
+    var showWindOverlay: Bool {
+        get { return _showWindOverlay }
+        set {
+            _showWindOverlay = newValue
+            defaults.set(newValue, forKey: kDefaultsKeyShowWindOverlay)
+            print("** Preferences:: setting showWindOverlay: \(newValue)")
         }
     }
 

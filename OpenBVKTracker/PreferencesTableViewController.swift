@@ -161,7 +161,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         switch section {
         case kCacheSection: return 2
         case kUnitsSection: return 1
-        case kMapSourceSection: return GPXTileServer.count
+        case kMapSourceSection: return GPXTileServer.count + 1 // +1 voor wind overlay toggle
         case kActivityTypeSection: return CLActivityType.count
         case kDefaultNameSection: return 1
         case kGPXFilesLocationSection: return 1
@@ -261,6 +261,12 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     
     private func cellForMapSourceSection(at indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")
+        // Laatste rij = wind overlay toggle (los van basiskaart)
+        if indexPath.row == GPXTileServer.count {
+            cell.textLabel?.text = "🌬️ Wind overlay (Windy)"
+            cell.accessoryType = preferences.showWindOverlay ? .checkmark : .none
+            return cell
+        }
         let tileServer = GPXTileServer(rawValue: indexPath.row)
         cell.textLabel?.text = tileServer!.name
         if indexPath.row == preferences.tileServerInt {
@@ -430,17 +436,26 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             }
         }
         
-        if indexPath.section == kMapSourceSection { // section 1 (sets tileServerInt in defaults
+        if indexPath.section == kMapSourceSection {
+            // Wind overlay toggle — laatste rij, los van basiskaart selectie
+            if indexPath.row == GPXTileServer.count {
+                let newValue = !preferences.showWindOverlay
+                preferences.showWindOverlay = newValue
+                tableView.cellForRow(at: indexPath)?.accessoryType = newValue ? .checkmark : .none
+                self.delegate?.didUpdateShowWindOverlay(newValue)
+                return
+            }
+
             print("PreferenccesTableView Map Tile Server section Row at index:  \(indexPath.row)")
-            
+
             // Remove checkmark from selected tile server
             let selectedTileServerIndexPath = IndexPath(row: preferences.tileServerInt, section: indexPath.section)
             tableView.cellForRow(at: selectedTileServerIndexPath)?.accessoryType = .none
-            
+
             // Add checkmark to new tile server
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
             preferences.tileServerInt = indexPath.row
-            
+
             // Update map
             self.delegate?.didUpdateTileServer((indexPath as NSIndexPath).row)
         }
