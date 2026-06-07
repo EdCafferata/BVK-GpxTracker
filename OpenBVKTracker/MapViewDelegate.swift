@@ -46,12 +46,18 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     
     /// Displays the line for each segment
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay.isKind(of: MKTileOverlay.self) {
-            // RadarTileOverlay gebruikt eigen url(forTilePath:) — directe renderer
-            if overlay is RadarTileOverlay {
-                return MKTileOverlayRenderer(tileOverlay: overlay as! MKTileOverlay)
+        if let tileOverlay = overlay as? MKTileOverlay {
+            // Radar overlay — eigen renderer, geen MapCache
+            if tileOverlay is RadarTileOverlay {
+                return MKTileOverlayRenderer(tileOverlay: tileOverlay)
             }
-            return mapView.mapCacheRenderer(forOverlay: overlay)
+            // Alleen de tileServerOverlay van GPXMapView mag door MapCache
+            if let gpxMap = mapView as? GPXMapView,
+               overlay === gpxMap.tileServerOverlay {
+                return mapView.mapCacheRenderer(forOverlay: overlay)
+            }
+            // Alle andere tile overlays (wind etc.) — directe renderer
+            return MKTileOverlayRenderer(tileOverlay: tileOverlay)
         }
         
         if overlay is MKPolyline {
