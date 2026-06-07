@@ -293,14 +293,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// Label that displays current latitude and longitude (lat,long)
     var coordsLabel: UILabel
 
-    /// Label that displays wind direction + Beaufort + knots (Open-Meteo)
-    var windLabel: UILabel
+    /// Midden-kolom in de coördinaten-balk: wind (richting, Beaufort, knoten)
+    var windInfoLabel: UILabel
 
     /// Timer that refreshes wind data every 5 minutes
     var windUpdateTimer: Timer?
 
-    /// Label that displays waterstand NAP via Rijkswaterstaat DDAPI
-    var waterstandLabel: UILabel
+    /// Rechter kolom in de coördinaten-balk: waterstand NAP (Rijkswaterstaat)
+    var waterInfoLabel: UILabel
 
     /// Timer that refreshes waterstand every 10 minutes
     var waterstandTimer: Timer?
@@ -386,8 +386,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.signalImageView = UIImageView()
         self.signalAccuracyLabel = UILabel()
         self.coordsLabel = UILabel()
-        self.windLabel = UILabel()
-        self.waterstandLabel = UILabel()
+        self.windInfoLabel = UILabel()
+        self.waterInfoLabel = UILabel()
 
         self.timeLabel = UILabel()
         self.speedLabel = UILabel()
@@ -632,31 +632,27 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         signalAccuracyLabel.textAlignment = .center
         map.addSubview(signalAccuracyLabel)
 
-        // Waterstand widget — links van GPS-signaal
-        let wsW: CGFloat = 80
-        waterstandLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0 - wsW - 6, y: 14 + 5 + iPhoneXdiff, width: wsW, height: 42)
-        waterstandLabel.font = UIFont(name: "DinAlternate-Bold", size: 12.0) ?? UIFont.systemFont(ofSize: 12)
-        waterstandLabel.textColor = UIColor.white
-        waterstandLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
-        waterstandLabel.textAlignment = .center
-        waterstandLabel.numberOfLines = 2
-        waterstandLabel.text = "💧 --\n-- cm NAP"
-        waterstandLabel.layer.cornerRadius = 4
-        waterstandLabel.clipsToBounds = true
-        map.addSubview(waterstandLabel)
+        // Wind label — midden kolom in de coördinaten-balk
+        windInfoLabel.font = UIFont(name: "DinAlternate-Bold", size: 13.0) ?? UIFont.systemFont(ofSize: 13)
+        windInfoLabel.textColor = UIColor.white
+        windInfoLabel.backgroundColor = .clear
+        windInfoLabel.textAlignment = .center
+        windInfoLabel.numberOfLines = 2
+        windInfoLabel.text = "🌬️ --\nBft -- · -- kn"
+        windInfoLabel.adjustsFontSizeToFitWidth = true
+        windInfoLabel.minimumScaleFactor = 0.7
+        self.view.addSubview(windInfoLabel)
 
-        // Wind widget — rechts van GPS-signaal
-        let windW: CGFloat = 90
-        windLabel.frame = CGRect(x: self.view.frame.width/2 + 30.0, y: 14 + 5 + iPhoneXdiff, width: windW, height: 42)
-        windLabel.font = UIFont(name: "DinAlternate-Bold", size: 12.0) ?? UIFont.systemFont(ofSize: 12)
-        windLabel.textColor = UIColor.white
-        windLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
-        windLabel.textAlignment = .center
-        windLabel.numberOfLines = 2
-        windLabel.text = "🌬️ --\nBft -- · -- kn"
-        windLabel.layer.cornerRadius = 4
-        windLabel.clipsToBounds = true
-        map.addSubview(windLabel)
+        // Waterstand label — rechter kolom in de coördinaten-balk
+        waterInfoLabel.font = UIFont(name: "DinAlternate-Bold", size: 13.0) ?? UIFont.systemFont(ofSize: 13)
+        waterInfoLabel.textColor = UIColor.white
+        waterInfoLabel.backgroundColor = .clear
+        waterInfoLabel.textAlignment = .right
+        waterInfoLabel.numberOfLines = 2
+        waterInfoLabel.text = "💧 --\n-- cm NAP"
+        waterInfoLabel.adjustsFontSizeToFitWidth = true
+        waterInfoLabel.minimumScaleFactor = 0.7
+        self.view.addSubview(waterInfoLabel)
 
         //
         // Button Bar
@@ -768,10 +764,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: appTitleLabel, attribute: .top, relatedBy: .equal, toItem: safeAreaGuide, attribute: .top, multiplier: 1, constant: safeAreaInsets.top).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-        // coordsLabel: eigen rij direct onder appTitleLabel
+        // coordsLabel: linker kolom — vaste breedte 1/3 van scherm
         NSLayoutConstraint(item: coordsLabel, attribute: .top, relatedBy: .equal, toItem: appTitleLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: coordsLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: coordsLabel, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0/3.0, constant: 0).isActive = true
+
+        // windInfoLabel: midden kolom — gecentreerd
+        windInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: windInfoLabel, attribute: .top, relatedBy: .equal, toItem: appTitleLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: windInfoLabel, attribute: .leading, relatedBy: .equal, toItem: coordsLabel, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: windInfoLabel, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0/3.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: windInfoLabel, attribute: .height, relatedBy: .equal, toItem: coordsLabel, attribute: .height, multiplier: 1, constant: 0).isActive = true
+
+        // waterInfoLabel: rechter kolom — rechts uitgelijnd
+        waterInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: waterInfoLabel, attribute: .top, relatedBy: .equal, toItem: appTitleLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: waterInfoLabel, attribute: .leading, relatedBy: .equal, toItem: windInfoLabel, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: waterInfoLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -4).isActive = true
+        NSLayoutConstraint(item: waterInfoLabel, attribute: .height, relatedBy: .equal, toItem: coordsLabel, attribute: .height, multiplier: 1, constant: 0).isActive = true
     }
     
     /// Adds constraints to subviews forming the informational labels (top right side; i.e. speed, elapse time labels)
@@ -1551,7 +1561,7 @@ extension ViewController {
                   let waarde = meetwaarde["Waarde_Numeriek"] as? Double else { return }
             let nap = String(format: "%+.0f", waarde)
             DispatchQueue.main.async {
-                self.waterstandLabel.text = "💧 Markermeer\n\(nap) cm NAP"
+                self.waterInfoLabel.text = "💧 Markermeer\n\(nap) cm NAP"
             }
         }.resume()
     }
@@ -1591,7 +1601,7 @@ extension ViewController {
             let gustStr = gusts > 0 ? String(format: " (%.0f)", gusts) : ""
             let text = "\(arrow) \(Int(dirDeg))°\nBft \(bft) · \(String(format: "%.1f", speedKn))\(gustStr) kn"
             DispatchQueue.main.async {
-                self.windLabel.text = text
+                self.windInfoLabel.text = text
             }
         }.resume()
     }
