@@ -337,6 +337,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     /// Share current gpx file button
     var shareButton: UIButton
+
+    /// Button to toggle wind overlay on/off
+    var windOverlayButton: UIButton
     
     /// Spinning Activity Indicator for shareButton
     let shareActivityIndicator: UIActivityIndicatorView
@@ -398,6 +401,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.aboutButton = UIButton(type: .custom)
         self.preferencesButton = UIButton(type: .custom)
         self.shareButton = UIButton(type: .custom)
+        self.windOverlayButton = UIButton(type: .custom)
 
         self.trackerButton = UIButton(type: .custom)
         self.saveButton = UIButton(type: .custom)
@@ -590,6 +594,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         shareButton.addTarget(self, action: #selector(ViewController.openShare), for: .touchUpInside)
         shareButton.autoresizingMask = [.flexibleRightMargin]
         map.addSubview(shareButton)
+
+        // Wind overlay toggle button (🌬️ symbool, naast share button)
+        windOverlayButton.frame = CGRect(x: 5 + 10 + 48 * 3, y: 14 + 5 + 8 + iPhoneXdiff, width: 32, height: 32)
+        windOverlayButton.setTitle("🌬", for: .normal)
+        windOverlayButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        windOverlayButton.backgroundColor = UIColor(white: 1.0, alpha: 0.85)
+        windOverlayButton.layer.cornerRadius = 8
+        windOverlayButton.layer.borderWidth = 1
+        windOverlayButton.layer.borderColor = UIColor.lightGray.cgColor
+        windOverlayButton.addTarget(self, action: #selector(ViewController.toggleWindOverlay), for: .touchUpInside)
+        windOverlayButton.autoresizingMask = [.flexibleRightMargin]
+        map.addSubview(windOverlayButton)
         
         // Folder button
         let folderW: CGFloat = kButtonSmallSize
@@ -1091,6 +1107,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let vc = AboutViewController(nibName: nil, bundle: nil)
         let navController = UINavigationController(rootViewController: vc)
         self.present(navController, animated: true) { () -> Void in }
+    }
+
+    /// Schakel windoverlay aan/uit op de kaart.
+    @objc func toggleWindOverlay() {
+        map.showWindOverlay.toggle()
+        let isOn = map.showWindOverlay
+        UIView.animate(withDuration: 0.2) {
+            self.windOverlayButton.backgroundColor = isOn
+                ? UIColor(red: 0.0, green: 0.6, blue: 1.0, alpha: 0.9)
+                : UIColor(white: 1.0, alpha: 0.85)
+        }
+        print("Wind overlay: \(isOn ? "aan" : "uit")")
     }
     
     ///

@@ -118,6 +118,28 @@ class GPXMapView: MKMapView {
     
     /// Overlay that holds map tiles
     var tileServerOverlay: MKTileOverlay = MKTileOverlay()
+
+    /// Wind overlay (Windy tiles — geen API-key nodig)
+    var windTileOverlay: MKTileOverlay?
+
+    /// Toggles de windlaag aan/uit op de kaart.
+    var showWindOverlay: Bool = false {
+        didSet {
+            if showWindOverlay {
+                let overlay = MKTileOverlay(urlTemplate: "https://tiles.windy.com/tiles/v10.3/wind/{z}/{x}/{y}.png")
+                overlay.canReplaceMapContent = false
+                overlay.minimumZ = 0
+                overlay.maximumZ = 12
+                windTileOverlay = overlay
+                addOverlay(overlay, level: .aboveRoads)
+            } else {
+                if let overlay = windTileOverlay {
+                    removeOverlay(overlay)
+                    windTileOverlay = nil
+                }
+            }
+        }
+    }
     
     ///
     let coreDataHelper = CoreDataHelper()
