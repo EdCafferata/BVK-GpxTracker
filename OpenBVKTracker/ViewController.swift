@@ -635,7 +635,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Wind label — midden kolom in de coördinaten-balk
         windInfoLabel.font = UIFont(name: "DinAlternate-Bold", size: 13.0) ?? UIFont.systemFont(ofSize: 13)
         windInfoLabel.textColor = UIColor.white
-        windInfoLabel.backgroundColor = .clear
+        windInfoLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         windInfoLabel.textAlignment = .center
         windInfoLabel.numberOfLines = 2
         windInfoLabel.text = "🌬️ --\nBft -- · -- kn"
@@ -646,7 +646,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Waterstand label — rechter kolom in de coördinaten-balk
         waterInfoLabel.font = UIFont(name: "DinAlternate-Bold", size: 13.0) ?? UIFont.systemFont(ofSize: 13)
         waterInfoLabel.textColor = UIColor.white
-        waterInfoLabel.backgroundColor = .clear
+        waterInfoLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         waterInfoLabel.textAlignment = .right
         waterInfoLabel.numberOfLines = 2
         waterInfoLabel.text = "💧 --\n-- cm NAP"
