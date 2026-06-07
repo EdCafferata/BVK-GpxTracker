@@ -298,6 +298,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
     /// Timer that refreshes wind data every 5 minutes
     var windUpdateTimer: Timer?
+
+    /// Label that displays waterstand NAP via Rijkswaterstaat DDAPI
+    var waterstandLabel: UILabel
+
+    /// Timer that refreshes waterstand every 10 minutes
+    var waterstandTimer: Timer?
     
     /// Displays current elapsed time (00:00)
     var timeLabel: UILabel
@@ -378,6 +384,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.signalAccuracyLabel = UILabel()
         self.coordsLabel = UILabel()
         self.windLabel = UILabel()
+        self.waterstandLabel = UILabel()
 
         self.timeLabel = UILabel()
         self.speedLabel = UILabel()
@@ -477,6 +484,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         locationManager.startUpdatingLocation()
         startGPSWatchdog()
         startWindTimer()
+        startWaterstandTimer()
         locationManager.startUpdatingHeading()
         startMapUpdateTimer()
         
@@ -607,6 +615,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         signalAccuracyLabel.text = kUnknownAccuracyText
         signalAccuracyLabel.textAlignment = .center
         map.addSubview(signalAccuracyLabel)
+
+        // Waterstand widget — links van GPS-signaal
+        let wsW: CGFloat = 80
+        waterstandLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0 - wsW - 6, y: 14 + 5 + iPhoneXdiff, width: wsW, height: 42)
+        waterstandLabel.font = UIFont(name: "DinAlternate-Bold", size: 12.0) ?? UIFont.systemFont(ofSize: 12)
+        waterstandLabel.textColor = UIColor.white
+        waterstandLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
+        waterstandLabel.textAlignment = .center
+        waterstandLabel.numberOfLines = 2
+        waterstandLabel.text = "💧 --\n-- cm NAP"
+        waterstandLabel.layer.cornerRadius = 4
+        waterstandLabel.clipsToBounds = true
+        map.addSubview(waterstandLabel)
 
         // Wind widget — rechts van GPS-signaal
         let windW: CGFloat = 90
@@ -1017,6 +1038,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         startMapUpdateTimer()
         startGPSWatchdog()
         startWindTimer()
+        startWaterstandTimer()
     }
 
     ///
@@ -1035,8 +1057,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         stopMapUpdateTimer()
         stopWindTimer()
+        stopWaterstandTimer()
     }
-    
+
     ///
     /// Actions to do when the app will terminate
     ///
@@ -1448,6 +1471,61 @@ extension ViewController {
     func stopGPSWatchdog() {
         gpsWatchdogTimer?.invalidate()
         gpsWatchdogTimer = nil
+    }
+
+    // MARK: - Waterstand (Rijkswaterstaat DDAPI)
+
+    /// Start waterstand timer — haalt elke 10 minuten verse waterstand op.
+    func startWaterstandTimer() {
+        fetchWaterstand()
+        waterstandTimer?.invalidate()
+        waterstandTimer = Timer.scheduledTimer(withTimeInterval: 600.0, repeats: true) { [weak self] _ in
+            self?.fetchWaterstand()
+        }
+    }
+
+    func stopWaterstandTimer() {
+        waterstandTimer?.invalidate()
+        waterstandTimer = nil
+    }
+
+    /// Haalt actuele waterstand op via Rijkswaterstaat DDAPI.
+    /// Meetpunt: Almere Hollandse Brug (dichtsbijzijnd werkend meetpunt Markermeer/BvK).
+    func fetchWaterstand() {
+        let now = Date()
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let begin = formatter.string(from: now.addingTimeInterval(-1800)) // 30 min geleden
+        let end   = formatter.string(from: now)
+
+        let url = URL(string: "https://ddapi20-waterwebservices.rijkswaterstaat.nl/ONLINEWAARNEMINGENSERVICES/OphalenWaarnemingen")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("BVKTracker", forHTTPHeaderField: "X-API-KEY")
+        let body: [String: Any] = [
+            "Locatie": ["Code": "almere.hollandsebrug"],
+            "AquoPlusWaarnemingMetadata": ["AquoMetadata": [
+                "Compartiment": ["Code": "OW"],
+                "Grootheid":    ["Code": "WATHTE"]
+            ]],
+            "Periode": ["Begindatumtijd": begin, "Einddatumtijd": end]
+        ]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+        URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+            guard let self = self, let data = data, error == nil else { return }
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let lijst = json["WaarnemingenLijst"] as? [[String: Any]],
+                  let metingen = lijst.first?["MetingenLijst"] as? [[String: Any]],
+                  let laatste = metingen.last,
+                  let meetwaarde = laatste["Meetwaarde"] as? [String: Any],
+                  let waarde = meetwaarde["Waarde_Numeriek"] as? Double else { return }
+            let nap = String(format: "%+.0f", waarde)
+            DispatchQueue.main.async {
+                self.waterstandLabel.text = "💧 Markermeer\n\(nap) cm NAP"
+            }
+        }.resume()
     }
 
     // MARK: - Wind (Open-Meteo)
