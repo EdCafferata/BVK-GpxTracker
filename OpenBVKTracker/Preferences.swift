@@ -56,6 +56,9 @@ let kDefaultsKeyShowWindOverlay: String = "ShowWindOverlay"
 /// Key on Defaults for rain radar overlay toggle.
 let kDefaultsKeyShowRadarOverlay: String = "ShowRadarOverlay"
 
+/// Key on Defaults for satellite overlay toggle.
+let kDefaultsKeyShowSatelliteOverlay: String = "ShowSatelliteOverlay"
+
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
 ///
@@ -119,6 +122,9 @@ class Preferences: NSObject {
 
     /// Rain radar overlay: toon neerslag radar op de kaart (standaard uit)
     private var _showRadarOverlay: Bool = false
+
+    /// Satellite overlay: toon infrarood satelliet op de kaart (standaard uit)
+    private var _showSatelliteOverlay: Bool = false
 
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -228,7 +234,11 @@ class Preferences: NSObject {
         // load radar overlay preference
         if let showRadarOverlayBool = defaults.object(forKey: kDefaultsKeyShowRadarOverlay) as? Bool {
             _showRadarOverlay = showRadarOverlayBool
-            print("** Preferences:: loaded preference from defaults showRadarOverlay \(showRadarOverlayBool)")
+        }
+
+        // load satellite overlay preference
+        if let showSatelliteOverlayBool = defaults.object(forKey: kDefaultsKeyShowSatelliteOverlay) as? Bool {
+            _showSatelliteOverlay = showSatelliteOverlayBool
         }
 
     }
@@ -428,6 +438,15 @@ class Preferences: NSObject {
             _showRadarOverlay = newValue
             defaults.set(newValue, forKey: kDefaultsKeyShowRadarOverlay)
             print("** Preferences:: setting showRadarOverlay: \(newValue)")
+        }
+    }
+
+    /// Satellite overlay aan/uit.
+    var showSatelliteOverlay: Bool {
+        get { return _showSatelliteOverlay }
+        set {
+            _showSatelliteOverlay = newValue
+            defaults.set(newValue, forKey: kDefaultsKeyShowSatelliteOverlay)
         }
     }
 

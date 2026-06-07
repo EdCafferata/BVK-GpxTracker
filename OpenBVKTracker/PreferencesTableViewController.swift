@@ -161,7 +161,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         switch section {
         case kCacheSection: return 2
         case kUnitsSection: return 1
-        case kMapSourceSection: return GPXTileServer.count + 2 // +1 wind, +1 radar overlay
+        case kMapSourceSection: return GPXTileServer.count + 3 // +1 wind, +1 radar, +1 satelliet
         case kActivityTypeSection: return CLActivityType.count
         case kDefaultNameSection: return 1
         case kGPXFilesLocationSection: return 1
@@ -271,6 +271,12 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         if indexPath.row == GPXTileServer.count + 1 {
             cell.textLabel?.text = "🌧️ Neerslag radar (Rainviewer)"
             cell.accessoryType = preferences.showRadarOverlay ? .checkmark : .none
+            return cell
+        }
+        // Satelliet overlay toggle
+        if indexPath.row == GPXTileServer.count + 2 {
+            cell.textLabel?.text = "🛰️ Satelliet infrarood (Rainviewer)"
+            cell.accessoryType = preferences.showSatelliteOverlay ? .checkmark : .none
             return cell
         }
         let tileServer = GPXTileServer(rawValue: indexPath.row)
@@ -457,6 +463,14 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 preferences.showRadarOverlay = newValue
                 tableView.cellForRow(at: indexPath)?.accessoryType = newValue ? .checkmark : .none
                 self.delegate?.didUpdateShowRadarOverlay(newValue)
+                return
+            }
+            // Satelliet overlay toggle
+            if indexPath.row == GPXTileServer.count + 2 {
+                let newValue = !preferences.showSatelliteOverlay
+                preferences.showSatelliteOverlay = newValue
+                tableView.cellForRow(at: indexPath)?.accessoryType = newValue ? .checkmark : .none
+                self.delegate?.didUpdateShowSatelliteOverlay(newValue)
                 return
             }
 

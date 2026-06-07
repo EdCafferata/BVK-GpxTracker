@@ -147,6 +147,31 @@ class GPXMapView: MKMapView {
         addOverlayOnTop(newOverlay)
     }
 
+    /// Satelliet (infrared) overlay via Rainviewer
+    var satelliteTileOverlay: SatelliteTileOverlay?
+
+    var showSatelliteOverlay: Bool = false {
+        didSet {
+            if let existing = satelliteTileOverlay {
+                removeOverlay(existing)
+                satelliteTileOverlay = nil
+            }
+            if showSatelliteOverlay {
+                let overlay = SatelliteTileOverlay(satellitePath: "")
+                satelliteTileOverlay = overlay
+                addOverlayOnTop(overlay)
+            }
+        }
+    }
+
+    func updateSatellitePath(_ path: String) {
+        guard let overlay = satelliteTileOverlay, showSatelliteOverlay else { return }
+        removeOverlay(overlay)
+        let newOverlay = SatelliteTileOverlay(satellitePath: path)
+        satelliteTileOverlay = newOverlay
+        addOverlayOnTop(newOverlay)
+    }
+
     /// Wind annotatie op de kaart (pijl op huidige GPS positie)
     var windAnnotation: WindAnnotation?
 

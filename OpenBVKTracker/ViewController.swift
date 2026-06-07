@@ -296,6 +296,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// Label that displays current latitude and longitude (lat,long)
     var coordsLabel: UILabel
 
+    /// Tweede info-rij: links — temperatuur + zichtbaarheid
+    var tempVisLabel: UILabel
+
+    /// Tweede info-rij: midden — luchtdruk + trend
+    var pressureLabel: UILabel
+
+    /// Tweede info-rij: rechts — golfhoogte + periode
+    var waveLabel: UILabel
+
     /// Midden-kolom in de coördinaten-balk: wind (richting, Beaufort, knoten)
     var windInfoLabel: UILabel
 
@@ -390,6 +399,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.signalImageView = UIImageView()
         self.signalAccuracyLabel = UILabel()
         self.coordsLabel = UILabel()
+        self.tempVisLabel = UILabel()
+        self.pressureLabel = UILabel()
+        self.waveLabel = UILabel()
         self.windInfoLabel = UILabel()
         self.waterInfoLabel = UILabel()
 
@@ -492,6 +504,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         startWindTimer()
         startWaterstandTimer()
         startRadarTimer()
+        fetchSatellitePath()
         locationManager.startUpdatingHeading()
         startMapUpdateTimer()
         
@@ -500,6 +513,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         map.useCache = Preferences.shared.useCache
         map.showWindOverlay = Preferences.shared.showWindOverlay
         map.showRadarOverlay = Preferences.shared.showRadarOverlay
+        map.showSatelliteOverlay = Preferences.shared.showSatelliteOverlay
         useImperial = Preferences.shared.useImperial
         // LocationManager.activityType = Preferences.shared.locationActivityType
         
@@ -624,6 +638,40 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         signalAccuracyLabel.text = kUnknownAccuracyText
         signalAccuracyLabel.textAlignment = .center
         map.addSubview(signalAccuracyLabel)
+
+        // Tweede rij — gedeelde stijl
+        let kBarBg = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
+        let kBarFont = UIFont(name: "DinAlternate-Bold", size: 12.0) ?? UIFont.systemFont(ofSize: 12)
+
+        tempVisLabel.font = kBarFont
+        tempVisLabel.textColor = .white
+        tempVisLabel.backgroundColor = kBarBg
+        tempVisLabel.textAlignment = .left
+        tempVisLabel.numberOfLines = 2
+        tempVisLabel.adjustsFontSizeToFitWidth = true
+        tempVisLabel.minimumScaleFactor = 0.7
+        tempVisLabel.text = "  🌡️ --°C\n  👁️ -- km"
+        self.view.addSubview(tempVisLabel)
+
+        pressureLabel.font = kBarFont
+        pressureLabel.textColor = .white
+        pressureLabel.backgroundColor = kBarBg
+        pressureLabel.textAlignment = .center
+        pressureLabel.numberOfLines = 2
+        pressureLabel.adjustsFontSizeToFitWidth = true
+        pressureLabel.minimumScaleFactor = 0.7
+        pressureLabel.text = "📊 ---- hPa\n→ stabiel"
+        self.view.addSubview(pressureLabel)
+
+        waveLabel.font = kBarFont
+        waveLabel.textColor = .white
+        waveLabel.backgroundColor = kBarBg
+        waveLabel.textAlignment = .right
+        waveLabel.numberOfLines = 2
+        waveLabel.adjustsFontSizeToFitWidth = true
+        waveLabel.minimumScaleFactor = 0.7
+        waveLabel.text = "🌊 -- m\n-- s periode"
+        self.view.addSubview(waveLabel)
 
         // Wind label — midden kolom in de coördinaten-balk
         windInfoLabel.font = UIFont(name: "DinAlternate-Bold", size: 13.0) ?? UIFont.systemFont(ofSize: 13)
@@ -776,6 +824,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: waterInfoLabel, attribute: .leading, relatedBy: .equal, toItem: windInfoLabel, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: waterInfoLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -4).isActive = true
         NSLayoutConstraint(item: waterInfoLabel, attribute: .height, relatedBy: .equal, toItem: coordsLabel, attribute: .height, multiplier: 1, constant: 0).isActive = true
+
+        // Tweede rij — direct onder de eerste balk
+        tempVisLabel.translatesAutoresizingMaskIntoConstraints = false
+        pressureLabel.translatesAutoresizingMaskIntoConstraints = false
+        waveLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint(item: tempVisLabel, attribute: .top, relatedBy: .equal, toItem: coordsLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: tempVisLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: tempVisLabel, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0/3.0, constant: 0).isActive = true
+
+        NSLayoutConstraint(item: pressureLabel, attribute: .top, relatedBy: .equal, toItem: coordsLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: pressureLabel, attribute: .leading, relatedBy: .equal, toItem: tempVisLabel, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: pressureLabel, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0/3.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: pressureLabel, attribute: .height, relatedBy: .equal, toItem: tempVisLabel, attribute: .height, multiplier: 1, constant: 0).isActive = true
+
+        NSLayoutConstraint(item: waveLabel, attribute: .top, relatedBy: .equal, toItem: coordsLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: waveLabel, attribute: .leading, relatedBy: .equal, toItem: pressureLabel, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: waveLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -4).isActive = true
+        NSLayoutConstraint(item: waveLabel, attribute: .height, relatedBy: .equal, toItem: tempVisLabel, attribute: .height, multiplier: 1, constant: 0).isActive = true
     }
     
     /// Adds constraints to subviews forming the informational labels (top right side; i.e. speed, elapse time labels)
@@ -796,7 +863,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: timeLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
         NSLayoutConstraint(item: timeLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
         // self.topLayoutGuide takes care of the iPhone X safe area, iPhoneXdiff not needed
-        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.coordsLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.tempVisLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
         
         NSLayoutConstraint(item: speedLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
         NSLayoutConstraint(item: speedLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
@@ -816,7 +883,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         signalAccuracyLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint(item: signalImageView, attribute: .centerX, relatedBy: .equal, toItem: safeAreaGuide, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: signalImageView, attribute: .top, relatedBy: .equal, toItem: self.coordsLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: signalImageView, attribute: .top, relatedBy: .equal, toItem: self.tempVisLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
         NSLayoutConstraint(item: signalImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50).isActive = true
         NSLayoutConstraint(item: signalImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30).isActive = true
         NSLayoutConstraint(item: signalAccuracyLabel, attribute: .centerX, relatedBy: .equal, toItem: safeAreaGuide, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
@@ -830,7 +897,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         aboutButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint(item: folderButton, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 5).isActive = true
-        NSLayoutConstraint(item: folderButton, attribute: .top, relatedBy: .equal, toItem: coordsLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: folderButton, attribute: .top, relatedBy: .equal, toItem: tempVisLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
         NSLayoutConstraint(item: folderButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: kButtonSmallSize).isActive = true
         NSLayoutConstraint(item: folderButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: kButtonSmallSize).isActive = true
         
@@ -1550,6 +1617,49 @@ extension ViewController {
         }.resume()
     }
 
+    // MARK: - Weer extra (temp, druk, zicht, golven)
+
+    func fetchExtraWeatherData() {
+        let lat = locationManager.location?.coordinate.latitude ?? 52.4170
+        let lon = locationManager.location?.coordinate.longitude ?? 5.2175
+
+        // Open-Meteo: temp, zicht, druk (huidig + 3u trend)
+        let weatherURL = URL(string: "https://api.open-meteo.com/v1/forecast?latitude=\(lat)&longitude=\(lon)&current=temperature_2m,apparent_temperature,visibility,surface_pressure,cloud_cover&hourly=surface_pressure&past_hours=3&forecast_hours=1&timezone=Europe%2FAmsterdam")!
+        URLSession.shared.dataTask(with: weatherURL) { [weak self] data, _, _ in
+            guard let self = self, let data = data,
+                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let cur = json["current"] as? [String: Any] else { return }
+            let temp   = cur["temperature_2m"] as? Double ?? 0
+            let feels  = cur["apparent_temperature"] as? Double ?? 0
+            let vis    = (cur["visibility"] as? Double ?? 0) / 1000.0
+            let press  = cur["surface_pressure"] as? Double ?? 0
+            // Luchtdruk trend uit hourly
+            var trend = "→"
+            if let hourly = json["hourly"] as? [String: Any],
+               let pressures = hourly["surface_pressure"] as? [Double], pressures.count >= 3 {
+                let diff = pressures.last! - pressures.first!
+                trend = diff > 0.5 ? "▲" : diff < -0.5 ? "▼" : "→"
+            }
+            DispatchQueue.main.async {
+                self.tempVisLabel.text = "  🌡️ \(String(format: "%.1f", temp))° / \(String(format: "%.1f", feels))°\n  👁️ \(String(format: "%.1f", vis)) km"
+                self.pressureLabel.text = "📊 \(String(format: "%.0f", press)) hPa\n\(trend) \(trend == "▲" ? "stijgend" : trend == "▼" ? "dalend" : "stabiel")"
+            }
+        }.resume()
+
+        // Open-Meteo Marine: golfhoogte + periode
+        let marineURL = URL(string: "https://marine-api.open-meteo.com/v1/marine?latitude=\(lat)&longitude=\(lon)&current=wave_height,wave_period&timezone=Europe%2FAmsterdam")!
+        URLSession.shared.dataTask(with: marineURL) { [weak self] data, _, _ in
+            guard let self = self, let data = data,
+                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let cur = json["current"] as? [String: Any] else { return }
+            let waveH = cur["wave_height"] as? Double ?? 0
+            let waveP = cur["wave_period"] as? Double ?? 0
+            DispatchQueue.main.async {
+                self.waveLabel.text = "🌊 \(String(format: "%.1f", waveH))m\n\(String(format: "%.1f", waveP))s periode"
+            }
+        }.resume()
+    }
+
     // MARK: - Radar (Rainviewer)
 
     /// Start radar timer — haalt elke 5 minuten het actuele radarpad op.
@@ -1567,6 +1677,23 @@ extension ViewController {
     }
 
     /// Haalt het actuele radarpad op via Rainviewer API en update de overlay.
+    func fetchSatellitePath() {
+        guard map.showSatelliteOverlay else { return }
+        guard let url = URL(string: "https://api.rainviewer.com/public/weather-maps.json") else { return }
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let self = self, let data = data, error == nil else { return }
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let satellite = json["satellite"] as? [String: Any],
+                  let infrared = satellite["infrared"] as? [[String: Any]],
+                  let last = infrared.last,
+                  let path = last["path"] as? String else { return }
+            DispatchQueue.main.async {
+                self.map.updateSatellitePath(path)
+                print("Satelliet pad bijgewerkt: \(path)")
+            }
+        }.resume()
+    }
+
     func fetchRadarPath() {
         guard map.showRadarOverlay else { return }
         guard let url = URL(string: "https://api.rainviewer.com/public/weather-maps.json") else { return }
@@ -1589,9 +1716,11 @@ extension ViewController {
     /// Start wind update timer — haalt elke 5 minuten verse winddata op.
     func startWindTimer() {
         fetchWindData()
+        fetchExtraWeatherData()
         windUpdateTimer?.invalidate()
         windUpdateTimer = Timer.scheduledTimer(withTimeInterval: 300.0, repeats: true) { [weak self] _ in
             self?.fetchWindData()
+            self?.fetchExtraWeatherData()
         }
     }
 
@@ -1799,6 +1928,12 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         print("PreferencesTableViewControllerDelegate:: didUpdateShowRadarOverlay: \(newValue)")
         map.showRadarOverlay = newValue
         if newValue { fetchRadarPath() }
+    }
+
+    func didUpdateShowSatelliteOverlay(_ newValue: Bool) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateShowSatelliteOverlay: \(newValue)")
+        map.showSatelliteOverlay = newValue
+        if newValue { fetchSatellitePath() }
     }
 
     /// Pas GPS-accuraatheid en distanceFilter aan op basis van snelheid.

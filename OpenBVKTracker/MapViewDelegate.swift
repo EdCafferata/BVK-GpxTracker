@@ -48,7 +48,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let tileOverlay = overlay as? MKTileOverlay {
             // Radar overlay — eigen renderer, geen MapCache
-            if tileOverlay is RadarTileOverlay {
+            if tileOverlay is RadarTileOverlay || tileOverlay is SatelliteTileOverlay {
                 return MKTileOverlayRenderer(tileOverlay: tileOverlay)
             }
             // Alleen de tileServerOverlay van GPXMapView mag door MapCache

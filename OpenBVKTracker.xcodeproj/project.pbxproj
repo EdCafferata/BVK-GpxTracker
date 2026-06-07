@@ -12,6 +12,7 @@
 		120DE71122B274A40055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
 		12491EA328D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12491EA228D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift */; };
 		12A1A44424D561AC0057ED7A /* CoreDataHelper+FetchRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A1A44324D561AC0057ED7A /* CoreDataHelper+FetchRequests.swift */; };
+		1CEBC5BBA8464800C2642DA5 /* SatelliteTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0027B22C2E1830B6C881F4 /* SatelliteTileOverlay.swift */; };
 		4588D66B230D23AA009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D66D230D23AA009AA75F /* InfoPlist.strings */; };
 		4588D66F230D2476009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
 		45A430E9230D61240003C2F2 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
@@ -240,6 +241,7 @@
 		89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXTrack+length.swift"; sourceTree = "<group>"; };
 		89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXRoot+length.swift"; sourceTree = "<group>"; };
 		90762B474E987B5F8900847A /* WindAnnotation.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = WindAnnotation.swift; sourceTree = "<group>"; };
+		9C0027B22C2E1830B6C881F4 /* SatelliteTileOverlay.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = SatelliteTileOverlay.swift; sourceTree = "<group>"; };
 		BF15092123916FC100F51F1B /* UIColor+DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+DarkMode.swift"; sourceTree = "<group>"; };
 		BF177EE924D54F9200D5E021 /* CoreDataHelper+BatchDelete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataHelper+BatchDelete.swift"; sourceTree = "<group>"; };
 		BF1FE1A7230EAB9B00404B59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				898EECD819C49B5800B4B207 /* Supporting Files */,
 				90762B474E987B5F8900847A /* WindAnnotation.swift */,
 				FD5015E689B77B64722180CC /* RadarTileOverlay.swift */,
+				9C0027B22C2E1830B6C881F4 /* SatelliteTileOverlay.swift */,
 			);
 			path = OpenBVKTracker;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 				89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */,
 				F528E2D004355D406016E6DA /* WindAnnotation.swift in Sources */,
 				C66631E46DAF63A18B197955 /* RadarTileOverlay.swift in Sources */,
+				1CEBC5BBA8464800C2642DA5 /* SatelliteTileOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

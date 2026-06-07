@@ -43,4 +43,7 @@ protocol PreferencesTableViewControllerDelegate: AnyObject {
     /// User toggled rain radar overlay on/off
     func didUpdateShowRadarOverlay(_ newValue: Bool)
 
+    /// User toggled satellite overlay on/off
+    func didUpdateShowSatelliteOverlay(_ newValue: Bool)
+
 }
