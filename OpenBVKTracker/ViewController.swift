@@ -292,6 +292,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     /// Label that displays current latitude and longitude (lat,long)
     var coordsLabel: UILabel
+
+    /// Label that displays wind direction + Beaufort + knots (Open-Meteo)
+    var windLabel: UILabel
+
+    /// Timer that refreshes wind data every 5 minutes
+    var windUpdateTimer: Timer?
     
     /// Displays current elapsed time (00:00)
     var timeLabel: UILabel
@@ -371,6 +377,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.signalImageView = UIImageView()
         self.signalAccuracyLabel = UILabel()
         self.coordsLabel = UILabel()
+        self.windLabel = UILabel()
 
         self.timeLabel = UILabel()
         self.speedLabel = UILabel()
@@ -469,6 +476,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
         startGPSWatchdog()
+        startWindTimer()
         locationManager.startUpdatingHeading()
         startMapUpdateTimer()
         
@@ -599,6 +607,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         signalAccuracyLabel.text = kUnknownAccuracyText
         signalAccuracyLabel.textAlignment = .center
         map.addSubview(signalAccuracyLabel)
+
+        // Wind widget — rechts van GPS-signaal
+        let windW: CGFloat = 90
+        windLabel.frame = CGRect(x: self.view.frame.width/2 + 30.0, y: 14 + 5 + iPhoneXdiff, width: windW, height: 42)
+        windLabel.font = UIFont(name: "DinAlternate-Bold", size: 12.0) ?? UIFont.systemFont(ofSize: 12)
+        windLabel.textColor = UIColor.white
+        windLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
+        windLabel.textAlignment = .center
+        windLabel.numberOfLines = 2
+        windLabel.text = "🌬️ --\nBft -- · -- kn"
+        windLabel.layer.cornerRadius = 4
+        windLabel.clipsToBounds = true
+        map.addSubview(windLabel)
 
         //
         // Button Bar
@@ -995,6 +1016,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         locationManager.startUpdatingHeading()
         startMapUpdateTimer()
         startGPSWatchdog()
+        startWindTimer()
     }
 
     ///
@@ -1012,6 +1034,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             stopGPSWatchdog()
         }
         stopMapUpdateTimer()
+        stopWindTimer()
     }
     
     ///
@@ -1425,6 +1448,72 @@ extension ViewController {
     func stopGPSWatchdog() {
         gpsWatchdogTimer?.invalidate()
         gpsWatchdogTimer = nil
+    }
+
+    // MARK: - Wind (Open-Meteo)
+
+    /// Start wind update timer — haalt elke 5 minuten verse winddata op.
+    func startWindTimer() {
+        fetchWindData()
+        windUpdateTimer?.invalidate()
+        windUpdateTimer = Timer.scheduledTimer(withTimeInterval: 300.0, repeats: true) { [weak self] _ in
+            self?.fetchWindData()
+        }
+    }
+
+    func stopWindTimer() {
+        windUpdateTimer?.invalidate()
+        windUpdateTimer = nil
+    }
+
+    /// Haalt actuele wind op via Open-Meteo op basis van huidige locatie (of vaste haven als fallback).
+    func fetchWindData() {
+        let location = locationManager.location?.coordinate
+        let lat = location?.latitude ?? 52.4170
+        let lon = location?.longitude ?? 5.2175
+        let urlStr = "https://api.open-meteo.com/v1/forecast?latitude=\(lat)&longitude=\(lon)&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m&wind_speed_unit=kn"
+        guard let url = URL(string: urlStr) else { return }
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let self = self, let data = data, error == nil else { return }
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let current = json["current"] as? [String: Any],
+                  let speedKn = current["wind_speed_10m"] as? Double,
+                  let dirDeg = current["wind_direction_10m"] as? Double else { return }
+            let gusts = (current["wind_gusts_10m"] as? Double) ?? 0.0
+            let bft = self.knotsToBeaufort(speedKn)
+            let arrow = self.windArrow(degrees: dirDeg)
+            let gustStr = gusts > 0 ? String(format: " (%.0f)", gusts) : ""
+            let text = "\(arrow) \(Int(dirDeg))°\nBft \(bft) · \(String(format: "%.1f", speedKn))\(gustStr) kn"
+            DispatchQueue.main.async {
+                self.windLabel.text = text
+            }
+        }.resume()
+    }
+
+    /// Converteert knopen naar Beaufort-schaal.
+    func knotsToBeaufort(_ knots: Double) -> Int {
+        switch knots {
+        case ..<1:    return 0
+        case ..<4:    return 1
+        case ..<7:    return 2
+        case ..<11:   return 3
+        case ..<17:   return 4
+        case ..<22:   return 5
+        case ..<28:   return 6
+        case ..<34:   return 7
+        case ..<41:   return 8
+        case ..<48:   return 9
+        case ..<56:   return 10
+        case ..<64:   return 11
+        default:      return 12
+        }
+    }
+
+    /// Geeft een richtingspijl terug op basis van graden (vanwaar de wind komt).
+    func windArrow(degrees: Double) -> String {
+        let dirs = ["↓","↙","←","↖","↑","↗","→","↘"]
+        let index = Int((degrees + 22.5) / 45.0) % 8
+        return dirs[index]
     }
 
     /// Adjusts the visible map region based on the average speed over the last 60 seconds.
