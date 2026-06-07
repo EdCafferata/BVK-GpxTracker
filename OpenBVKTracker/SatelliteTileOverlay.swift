@@ -10,23 +10,15 @@ import MapKit
 /// Satelliet (infrarood) tile overlay via Rainviewer.
 class SatelliteTileOverlay: MKTileOverlay {
 
-    var satellitePath: String = ""
-
-    private static let baseURL = "https://tilecache.rainviewer.com"
-
-    init(satellitePath: String = "") {
-        self.satellitePath = satellitePath
-        super.init(urlTemplate: "")
-        canReplaceMapContent = false
-        minimumZ = 0
-        maximumZ = 22
-        tileSize = CGSize(width: 256, height: 256)
-    }
-
-    override func url(forTilePath path: MKTileOverlayPath) -> URL {
-        // Als er een pad beschikbaar is via de API, gebruik dat. Anders vaste v2/satellite URL.
-        let radarPart = satellitePath.isEmpty ? "/v2/satellite" : satellitePath
-        let urlStr = "\(SatelliteTileOverlay.baseURL)\(radarPart)/256/\(path.z)/\(path.x)/\(path.y)/0/0_0.png"
-        return URL(string: urlStr)!
+    /// Maak overlay aan met vaste Rainviewer satellite URL (geen API pad nodig).
+    static func make(path: String = "") -> SatelliteTileOverlay {
+        let radarPart = path.isEmpty ? "/v2/satellite" : path
+        let template = "https://tilecache.rainviewer.com\(radarPart)/256/{z}/{x}/{y}/0/0_0.png"
+        let overlay = SatelliteTileOverlay(urlTemplate: template)
+        overlay.canReplaceMapContent = false
+        overlay.minimumZ = 0
+        overlay.maximumZ = 16
+        overlay.tileSize = CGSize(width: 256, height: 256)
+        return overlay
     }
 }

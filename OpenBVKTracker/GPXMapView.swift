@@ -129,20 +129,15 @@ class GPXMapView: MKMapView {
                 removeOverlay(existing)
                 radarTileOverlay = nil
             }
-            if showRadarOverlay {
-                let overlay = RadarTileOverlay(radarPath: "")
-                radarTileOverlay = overlay
-                addOverlayOnTop(overlay)
-            }
+            // Radar heeft een geldig pad nodig — wordt gezet via updateRadarPath
         }
     }
 
     /// Update het radarpad en ververst de tiles.
     func updateRadarPath(_ path: String) {
-        guard let overlay = radarTileOverlay, showRadarOverlay else { return }
-        // Verwijder oude overlay en voeg nieuwe toe met bijgewerkt pad
-        removeOverlay(overlay)
-        let newOverlay = RadarTileOverlay(radarPath: path)
+        guard showRadarOverlay else { return }
+        if let existing = radarTileOverlay { removeOverlay(existing) }
+        let newOverlay = RadarTileOverlay.make(path: path)
         radarTileOverlay = newOverlay
         addOverlayOnTop(newOverlay)
     }
@@ -157,7 +152,8 @@ class GPXMapView: MKMapView {
                 satelliteTileOverlay = nil
             }
             if showSatelliteOverlay {
-                let overlay = SatelliteTileOverlay(satellitePath: "")
+                // Direct laden met vaste URL — werkt zonder API pad
+                let overlay = SatelliteTileOverlay.make()
                 satelliteTileOverlay = overlay
                 addOverlayOnTop(overlay)
             }
@@ -165,9 +161,9 @@ class GPXMapView: MKMapView {
     }
 
     func updateSatellitePath(_ path: String) {
-        guard let overlay = satelliteTileOverlay, showSatelliteOverlay else { return }
-        removeOverlay(overlay)
-        let newOverlay = SatelliteTileOverlay(satellitePath: path)
+        guard showSatelliteOverlay else { return }
+        if let existing = satelliteTileOverlay { removeOverlay(existing) }
+        let newOverlay = SatelliteTileOverlay.make(path: path)
         satelliteTileOverlay = newOverlay
         addOverlayOnTop(newOverlay)
     }
