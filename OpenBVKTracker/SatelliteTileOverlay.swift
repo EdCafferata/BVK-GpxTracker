@@ -14,7 +14,7 @@ class SatelliteTileOverlay: MKTileOverlay {
 
     private static let baseURL = "https://tilecache.rainviewer.com"
 
-    init(satellitePath: String) {
+    init(satellitePath: String = "") {
         self.satellitePath = satellitePath
         super.init(urlTemplate: "")
         canReplaceMapContent = false
@@ -24,7 +24,9 @@ class SatelliteTileOverlay: MKTileOverlay {
     }
 
     override func url(forTilePath path: MKTileOverlayPath) -> URL {
-        let urlStr = "\(SatelliteTileOverlay.baseURL)\(satellitePath)/256/\(path.z)/\(path.x)/\(path.y)/0/0_0.png"
+        // Als er een pad beschikbaar is via de API, gebruik dat. Anders vaste v2/satellite URL.
+        let radarPart = satellitePath.isEmpty ? "/v2/satellite" : satellitePath
+        let urlStr = "\(SatelliteTileOverlay.baseURL)\(radarPart)/256/\(path.z)/\(path.x)/\(path.y)/0/0_0.png"
         return URL(string: urlStr)!
     }
 }

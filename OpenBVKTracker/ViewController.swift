@@ -1679,6 +1679,11 @@ extension ViewController {
     /// Haalt het actuele radarpad op via Rainviewer API en update de overlay.
     func fetchSatellitePath() {
         guard map.showSatelliteOverlay else { return }
+        // Zorg dat de overlay altijd geladen is (ook zonder API pad)
+        if map.satelliteTileOverlay == nil {
+            map.showSatelliteOverlay = true
+        }
+        // Probeer actueel pad via Rainviewer API
         guard let url = URL(string: "https://api.rainviewer.com/public/weather-maps.json") else { return }
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let self = self, let data = data, error == nil else { return }
@@ -1686,7 +1691,10 @@ extension ViewController {
                   let satellite = json["satellite"] as? [String: Any],
                   let infrared = satellite["infrared"] as? [[String: Any]],
                   let last = infrared.last,
-                  let path = last["path"] as? String else { return }
+                  let path = last["path"] as? String else {
+                // Geen pad via API — overlay werkt al met vaste v2/satellite URL
+                return
+            }
             DispatchQueue.main.async {
                 self.map.updateSatellitePath(path)
                 print("Satelliet pad bijgewerkt: \(path)")
