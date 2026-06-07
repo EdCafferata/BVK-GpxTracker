@@ -25,7 +25,7 @@ class RadarTileOverlay: MKTileOverlay {
         super.init(urlTemplate: "")
         canReplaceMapContent = false
         minimumZ = 0
-        maximumZ = 10
+        maximumZ = 22  // Rainviewer herhaalt tiles bij hoog zoom — geen limiet nodig
         tileSize = CGSize(width: 256, height: 256)
     }
 
