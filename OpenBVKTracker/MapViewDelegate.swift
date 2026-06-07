@@ -17,6 +17,14 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         if annotation.isKind(of: MKUserLocation.self) {
             return nil
         }
+        // Wind annotatie — eigen pijl view
+        if let windAnnotation = annotation as? WindAnnotation {
+            let view = mapView.dequeueReusableAnnotationView(
+                withIdentifier: WindAnnotationView.reuseIdentifier) as? WindAnnotationView
+                ?? WindAnnotationView(annotation: windAnnotation, reuseIdentifier: WindAnnotationView.reuseIdentifier)
+            view.annotation = windAnnotation
+            return view
+        }
         let annotationView: MKPinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PinView")
         annotationView.canShowCallout = true
         annotationView.isDraggable = true
@@ -39,13 +47,6 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     /// Displays the line for each segment
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKind(of: MKTileOverlay.self) {
-            // Wind overlay gebruikt geen MapCache — geef directe renderer terug
-            if let gpxMap = mapView as? GPXMapView,
-               let windOverlay = gpxMap.windTileOverlay,
-               overlay === windOverlay {
-                let renderer = MKTileOverlayRenderer(overlay: overlay)
-                return renderer
-            }
             return mapView.mapCacheRenderer(forOverlay: overlay)
         }
         

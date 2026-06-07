@@ -104,12 +104,6 @@ class GPXMapView: MKMapView {
             }
         }
         didSet {
-            // Zorg dat windoverlay altijd bovenop staat na kaartwissel
-            if let wind = windTileOverlay {
-                removeOverlay(wind)
-                addOverlayOnTop(wind)
-            }
-
             if #available(iOS 13, *) {
                 if tileServer == .apple {
                     overrideUserInterfaceStyle = .unspecified
@@ -125,26 +119,42 @@ class GPXMapView: MKMapView {
     /// Overlay that holds map tiles
     var tileServerOverlay: MKTileOverlay = MKTileOverlay()
 
-    /// Wind overlay (Windy tiles — geen API-key nodig)
-    var windTileOverlay: MKTileOverlay?
+    /// Wind annotatie op de kaart (pijl op huidige GPS positie)
+    var windAnnotation: WindAnnotation?
 
-    /// Toggles de windlaag aan/uit op de kaart.
+    /// Toggles de windpijl aan/uit op de kaart.
     var showWindOverlay: Bool = false {
         didSet {
-            // Verwijder bestaande wind overlay als die er al is
-            if let existing = windTileOverlay {
-                removeOverlay(existing)
-                windTileOverlay = nil
-            }
             if showWindOverlay {
-                let overlay = MKTileOverlay(urlTemplate: "https://tiles.windy.com/tiles/v10.3/wind/{z}/{x}/{y}.png")
-                overlay.canReplaceMapContent = false
-                overlay.minimumZ = 0
-                overlay.maximumZ = 6  // Lage max zoom = grote zichtbare pijlen
-                windTileOverlay = overlay
-                // Altijd bovenop alle andere overlays (ook bovenop OpenSeaMap)
-                addOverlayOnTop(overlay)
+                if windAnnotation == nil {
+                    let annotation = WindAnnotation(coordinate: userLocation.coordinate)
+                    windAnnotation = annotation
+                    addAnnotation(annotation)
+                }
+            } else {
+                if let annotation = windAnnotation {
+                    removeAnnotation(annotation)
+                    windAnnotation = nil
+                }
             }
+        }
+    }
+
+    /// Update windpijl positie naar huidige GPS locatie en herteken.
+    func updateWindAnnotation(coordinate: CLLocationCoordinate2D, direction: Double, beaufort: Int, speedKn: Double) {
+        guard showWindOverlay else { return }
+        if windAnnotation == nil {
+            let annotation = WindAnnotation(coordinate: coordinate)
+            windAnnotation = annotation
+            addAnnotation(annotation)
+        }
+        windAnnotation?.coordinate = coordinate
+        windAnnotation?.directionDegrees = direction
+        windAnnotation?.beaufort = beaufort
+        windAnnotation?.speedKn = speedKn
+        // Herteken via de annotationView
+        if let view = view(for: windAnnotation!) as? WindAnnotationView {
+            view.update(direction: direction, beaufort: beaufort, speedKn: speedKn)
         }
     }
     

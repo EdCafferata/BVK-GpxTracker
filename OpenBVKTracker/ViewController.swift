@@ -1577,8 +1577,11 @@ extension ViewController {
             let arrow = self.windArrow(degrees: dirDeg)
             let gustStr = gusts > 0 ? String(format: " (%.0f)", gusts) : ""
             let text = "BVK GPX TRACKER\n\(arrow) Bft \(bft) · \(String(format: "%.1f", speedKn))\(gustStr) kn"
+            let coord = self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 52.4170, longitude: 5.2175)
             DispatchQueue.main.async {
                 self.windInfoLabel.text = text
+                // Update windpijl op de kaart
+                self.map.updateWindAnnotation(coordinate: coord, direction: dirDeg, beaufort: bft, speedKn: speedKn)
             }
         }.resume()
     }
@@ -1878,6 +1881,11 @@ extension ViewController: CLLocationManagerDelegate {
 
         // Update signal image accuracy
         let newLocation = locations.first!
+
+        // Verplaats windpijl mee met GPS positie
+        if map.showWindOverlay, let wind = map.windAnnotation {
+            wind.coordinate = newLocation.coordinate
+        }
 
         if newLocation.speed >= 0 {
             speedReadings.append((date: Date(), speedMs: newLocation.speed))
