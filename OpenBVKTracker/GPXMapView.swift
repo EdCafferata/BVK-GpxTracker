@@ -129,9 +129,10 @@ class GPXMapView: MKMapView {
                 let overlay = MKTileOverlay(urlTemplate: "https://tiles.windy.com/tiles/v10.3/wind/{z}/{x}/{y}.png")
                 overlay.canReplaceMapContent = false
                 overlay.minimumZ = 0
-                overlay.maximumZ = 12
+                overlay.maximumZ = 6  // Lage max zoom = grote zichtbare pijlen
                 windTileOverlay = overlay
-                addOverlay(overlay, level: .aboveRoads)
+                // Voeg bovenop alle overlays toe (ook bovenop OpenSeaMap)
+                addOverlayOnTop(overlay)
             } else {
                 if let overlay = windTileOverlay {
                     removeOverlay(overlay)
