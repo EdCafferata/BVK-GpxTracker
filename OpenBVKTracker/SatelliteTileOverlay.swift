@@ -17,7 +17,7 @@ class SatelliteTileOverlay: MKTileOverlay {
         let overlay = SatelliteTileOverlay(urlTemplate: template)
         overlay.canReplaceMapContent = false
         overlay.minimumZ = 0
-        overlay.maximumZ = 16
+        overlay.maximumZ = -1  // Geen limiet — Rainviewer levert tiles op alle zoom levels
         overlay.tileSize = CGSize(width: 256, height: 256)
         return overlay
     }
