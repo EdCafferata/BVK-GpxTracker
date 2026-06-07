@@ -504,7 +504,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         startWindTimer()
         startWaterstandTimer()
         startRadarTimer()
-        fetchSatellitePath()
         locationManager.startUpdatingHeading()
         startMapUpdateTimer()
         
@@ -1677,27 +1676,7 @@ extension ViewController {
     }
 
     /// Haalt het actuele radarpad op via Rainviewer API en update de overlay.
-    func fetchSatellitePath() {
-        guard map.showSatelliteOverlay else { return }
-        // Overlay is al aangemaakt in showSatelliteOverlay didSet
-        // Probeer actueel pad via Rainviewer API
-        guard let url = URL(string: "https://api.rainviewer.com/public/weather-maps.json") else { return }
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let self = self, let data = data, error == nil else { return }
-            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                  let satellite = json["satellite"] as? [String: Any],
-                  let infrared = satellite["infrared"] as? [[String: Any]],
-                  let last = infrared.last,
-                  let path = last["path"] as? String else {
-                // Geen pad via API — overlay werkt al met vaste v2/satellite URL
-                return
-            }
-            DispatchQueue.main.async {
-                self.map.updateSatellitePath(path)
-                print("Satelliet pad bijgewerkt: \(path)")
-            }
-        }.resume()
-    }
+    // NASA GIBS satelliet — geen fetch nodig, overlay gebruikt automatisch datum van vandaag
 
     func fetchRadarPath() {
         guard map.showRadarOverlay else { return }
@@ -1938,7 +1917,7 @@ extension ViewController: PreferencesTableViewControllerDelegate {
     func didUpdateShowSatelliteOverlay(_ newValue: Bool) {
         print("PreferencesTableViewControllerDelegate:: didUpdateShowSatelliteOverlay: \(newValue)")
         map.showSatelliteOverlay = newValue
-        if newValue { fetchSatellitePath() }
+        // NASA GIBS laadt automatisch
     }
 
     /// Pas GPS-accuraatheid en distanceFilter aan op basis van snelheid.

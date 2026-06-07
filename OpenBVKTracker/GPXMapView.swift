@@ -160,13 +160,7 @@ class GPXMapView: MKMapView {
         }
     }
 
-    func updateSatellitePath(_ path: String) {
-        guard showSatelliteOverlay else { return }
-        if let existing = satelliteTileOverlay { removeOverlay(existing) }
-        let newOverlay = SatelliteTileOverlay.make(path: path)
-        satelliteTileOverlay = newOverlay
-        addOverlayOnTop(newOverlay)
-    }
+    // NASA GIBS heeft geen dynamisch pad — overlay gebruikt altijd de datum van vandaag
 
     /// Wind annotatie op de kaart (pijl op huidige GPS positie)
     var windAnnotation: WindAnnotation?
