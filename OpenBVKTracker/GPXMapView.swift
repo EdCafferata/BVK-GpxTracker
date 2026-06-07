@@ -119,6 +119,34 @@ class GPXMapView: MKMapView {
     /// Overlay that holds map tiles
     var tileServerOverlay: MKTileOverlay = MKTileOverlay()
 
+    /// Neerslag radar overlay (Rainviewer)
+    var radarTileOverlay: RadarTileOverlay?
+
+    /// Toggles de radar overlay aan/uit op de kaart.
+    var showRadarOverlay: Bool = false {
+        didSet {
+            if let existing = radarTileOverlay {
+                removeOverlay(existing)
+                radarTileOverlay = nil
+            }
+            if showRadarOverlay {
+                let overlay = RadarTileOverlay(radarPath: "")
+                radarTileOverlay = overlay
+                addOverlayOnTop(overlay)
+            }
+        }
+    }
+
+    /// Update het radarpad en ververst de tiles.
+    func updateRadarPath(_ path: String) {
+        guard let overlay = radarTileOverlay, showRadarOverlay else { return }
+        // Verwijder oude overlay en voeg nieuwe toe met bijgewerkt pad
+        removeOverlay(overlay)
+        let newOverlay = RadarTileOverlay(radarPath: path)
+        radarTileOverlay = newOverlay
+        addOverlayOnTop(newOverlay)
+    }
+
     /// Wind annotatie op de kaart (pijl op huidige GPS positie)
     var windAnnotation: WindAnnotation?
 

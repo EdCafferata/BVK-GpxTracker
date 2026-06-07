@@ -47,6 +47,10 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     /// Displays the line for each segment
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKind(of: MKTileOverlay.self) {
+            // RadarTileOverlay gebruikt eigen url(forTilePath:) — directe renderer
+            if overlay is RadarTileOverlay {
+                return MKTileOverlayRenderer(tileOverlay: overlay as! MKTileOverlay)
+            }
             return mapView.mapCacheRenderer(forOverlay: overlay)
         }
         

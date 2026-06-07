@@ -97,6 +97,7 @@
 		BFF304802312DC1F0012D263 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE1A6230EAB9B00404B59 /* Localizable.strings */; };
 		BFF304812312DC700012D263 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
 		BFF304822312DC800012D263 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
+		C66631E46DAF63A18B197955 /* RadarTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5015E689B77B64722180CC /* RadarTileOverlay.swift */; };
 		DC4908A11C4A136F009484AE /* TrackerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A01C4A136F009484AE /* TrackerButton.swift */; };
 		DC4908A31C4A332E009484AE /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A21C4A332E009484AE /* MapViewDelegate.swift */; };
 		F528E2D004355D406016E6DA /* WindAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90762B474E987B5F8900847A /* WindAnnotation.swift */; };
@@ -281,6 +282,7 @@
 		D39420E623CC1B0500EDC8F6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC4908A01C4A136F009484AE /* TrackerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerButton.swift; sourceTree = "<group>"; };
 		DC4908A21C4A332E009484AE /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
+		FD5015E689B77B64722180CC /* RadarTileOverlay.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = RadarTileOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,6 +391,7 @@
 				899D678919D3551300C88A0A /* Resources */,
 				898EECD819C49B5800B4B207 /* Supporting Files */,
 				90762B474E987B5F8900847A /* WindAnnotation.swift */,
+				FD5015E689B77B64722180CC /* RadarTileOverlay.swift */,
 			);
 			path = OpenBVKTracker;
 			sourceTree = "<group>";
@@ -782,6 +785,7 @@
 				DC4908A11C4A136F009484AE /* TrackerButton.swift in Sources */,
 				89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */,
 				F528E2D004355D406016E6DA /* WindAnnotation.swift in Sources */,
+				C66631E46DAF63A18B197955 /* RadarTileOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

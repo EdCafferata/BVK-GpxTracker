@@ -40,4 +40,7 @@ protocol PreferencesTableViewControllerDelegate: AnyObject {
     /// User toggled wind overlay on/off
     func didUpdateShowWindOverlay(_ newValue: Bool)
 
+    /// User toggled rain radar overlay on/off
+    func didUpdateShowRadarOverlay(_ newValue: Bool)
+
 }

@@ -53,6 +53,9 @@ let kDefaultsKeyChargerMode: String = "ChargerMode"
 /// Key on Defaults for wind overlay toggle.
 let kDefaultsKeyShowWindOverlay: String = "ShowWindOverlay"
 
+/// Key on Defaults for rain radar overlay toggle.
+let kDefaultsKeyShowRadarOverlay: String = "ShowRadarOverlay"
+
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
 ///
@@ -113,6 +116,9 @@ class Preferences: NSObject {
 
     /// Wind overlay: toon windtile laag op de kaart (standaard uit)
     private var _showWindOverlay: Bool = false
+
+    /// Rain radar overlay: toon neerslag radar op de kaart (standaard uit)
+    private var _showRadarOverlay: Bool = false
 
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -217,6 +223,12 @@ class Preferences: NSObject {
         if let showWindOverlayBool = defaults.object(forKey: kDefaultsKeyShowWindOverlay) as? Bool {
             _showWindOverlay = showWindOverlayBool
             print("** Preferences:: loaded preference from defaults showWindOverlay \(showWindOverlayBool)")
+        }
+
+        // load radar overlay preference
+        if let showRadarOverlayBool = defaults.object(forKey: kDefaultsKeyShowRadarOverlay) as? Bool {
+            _showRadarOverlay = showRadarOverlayBool
+            print("** Preferences:: loaded preference from defaults showRadarOverlay \(showRadarOverlayBool)")
         }
 
     }
@@ -406,6 +418,16 @@ class Preferences: NSObject {
             _showWindOverlay = newValue
             defaults.set(newValue, forKey: kDefaultsKeyShowWindOverlay)
             print("** Preferences:: setting showWindOverlay: \(newValue)")
+        }
+    }
+
+    /// Rain radar overlay aan/uit op de kaart.
+    var showRadarOverlay: Bool {
+        get { return _showRadarOverlay }
+        set {
+            _showRadarOverlay = newValue
+            defaults.set(newValue, forKey: kDefaultsKeyShowRadarOverlay)
+            print("** Preferences:: setting showRadarOverlay: \(newValue)")
         }
     }
 

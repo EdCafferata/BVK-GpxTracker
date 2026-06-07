@@ -161,7 +161,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         switch section {
         case kCacheSection: return 2
         case kUnitsSection: return 1
-        case kMapSourceSection: return GPXTileServer.count + 1 // +1 voor wind overlay toggle
+        case kMapSourceSection: return GPXTileServer.count + 2 // +1 wind, +1 radar overlay
         case kActivityTypeSection: return CLActivityType.count
         case kDefaultNameSection: return 1
         case kGPXFilesLocationSection: return 1
@@ -261,10 +261,16 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     
     private func cellForMapSourceSection(at indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")
-        // Laatste rij = wind overlay toggle (los van basiskaart)
+        // Wind overlay toggle
         if indexPath.row == GPXTileServer.count {
-            cell.textLabel?.text = "🌬️ Wind overlay (Windy)"
+            cell.textLabel?.text = "🌬️ Wind overlay"
             cell.accessoryType = preferences.showWindOverlay ? .checkmark : .none
+            return cell
+        }
+        // Radar overlay toggle
+        if indexPath.row == GPXTileServer.count + 1 {
+            cell.textLabel?.text = "🌧️ Neerslag radar (Rainviewer)"
+            cell.accessoryType = preferences.showRadarOverlay ? .checkmark : .none
             return cell
         }
         let tileServer = GPXTileServer(rawValue: indexPath.row)
@@ -437,12 +443,20 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
         
         if indexPath.section == kMapSourceSection {
-            // Wind overlay toggle — laatste rij, los van basiskaart selectie
+            // Wind overlay toggle
             if indexPath.row == GPXTileServer.count {
                 let newValue = !preferences.showWindOverlay
                 preferences.showWindOverlay = newValue
                 tableView.cellForRow(at: indexPath)?.accessoryType = newValue ? .checkmark : .none
                 self.delegate?.didUpdateShowWindOverlay(newValue)
+                return
+            }
+            // Radar overlay toggle
+            if indexPath.row == GPXTileServer.count + 1 {
+                let newValue = !preferences.showRadarOverlay
+                preferences.showRadarOverlay = newValue
+                tableView.cellForRow(at: indexPath)?.accessoryType = newValue ? .checkmark : .none
+                self.delegate?.didUpdateShowRadarOverlay(newValue)
                 return
             }
 
