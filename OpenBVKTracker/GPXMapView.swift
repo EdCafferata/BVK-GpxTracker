@@ -104,6 +104,12 @@ class GPXMapView: MKMapView {
             }
         }
         didSet {
+            // Zorg dat windoverlay altijd bovenop staat na kaartwissel
+            if let wind = windTileOverlay {
+                removeOverlay(wind)
+                addOverlayOnTop(wind)
+            }
+
             if #available(iOS 13, *) {
                 if tileServer == .apple {
                     overrideUserInterfaceStyle = .unspecified
@@ -125,19 +131,19 @@ class GPXMapView: MKMapView {
     /// Toggles de windlaag aan/uit op de kaart.
     var showWindOverlay: Bool = false {
         didSet {
+            // Verwijder bestaande wind overlay als die er al is
+            if let existing = windTileOverlay {
+                removeOverlay(existing)
+                windTileOverlay = nil
+            }
             if showWindOverlay {
                 let overlay = MKTileOverlay(urlTemplate: "https://tiles.windy.com/tiles/v10.3/wind/{z}/{x}/{y}.png")
                 overlay.canReplaceMapContent = false
                 overlay.minimumZ = 0
                 overlay.maximumZ = 6  // Lage max zoom = grote zichtbare pijlen
                 windTileOverlay = overlay
-                // Voeg bovenop alle overlays toe (ook bovenop OpenSeaMap)
+                // Altijd bovenop alle andere overlays (ook bovenop OpenSeaMap)
                 addOverlayOnTop(overlay)
-            } else {
-                if let overlay = windTileOverlay {
-                    removeOverlay(overlay)
-                    windTileOverlay = nil
-                }
             }
         }
     }
