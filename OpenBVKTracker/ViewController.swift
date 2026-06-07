@@ -161,14 +161,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var lastGpxFilename: String = "" {
         didSet {
             if lastGpxFilename == "" {
-                appTitleLabel.text = kAppTitle
+                appTitleLabel.text = ""
             } else {
                 // if name is too long arbitrary cut
                 var displayedName = lastGpxFilename
                 if lastGpxFilename.count > 20 {
                     displayedName = lastGpxFilename.prefix(10) + "..." + lastGpxFilename.suffix(3)
                 }
-                appTitleLabel.text = "  " + displayedName + ".gpx"
+                appTitleLabel.text = ""
+                // Toon bestandsnaam in middelste balk (tweede regel)
+                let currentFirst = windInfoLabel.text?.components(separatedBy: "\n").first ?? "BVK GPX TRACKER"
+                windInfoLabel.text = currentFirst + "\n📍 " + displayedName + ".gpx"
             }
         }
     }
@@ -523,11 +526,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let font12 = UIFont(name: "DinAlternate-Bold", size: 12.0)
         
         // Add the app title Label (Branding, branding, branding! )
-        appTitleLabel.text = kAppTitle
-        appTitleLabel.textAlignment = .left
-        appTitleLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        appTitleLabel.textColor = UIColor.yellow
-        appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
+        // appTitleLabel verborgen — titel staat nu in windInfoLabel (middelste kolom)
+        appTitleLabel.text = ""
+        appTitleLabel.isHidden = true
+        appTitleLabel.backgroundColor = .clear
         self.view.addSubview(appTitleLabel)
         
         // CoordLabel
@@ -638,7 +640,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         windInfoLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         windInfoLabel.textAlignment = .center
         windInfoLabel.numberOfLines = 2
-        windInfoLabel.text = "🌬️ --\nBft -- · -- kn"
+        windInfoLabel.text = "BVK GPX TRACKER\n🌬️ -- · -- kn"
         windInfoLabel.adjustsFontSizeToFitWidth = true
         windInfoLabel.minimumScaleFactor = 0.7
         self.view.addSubview(windInfoLabel)
@@ -764,6 +766,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: appTitleLabel, attribute: .top, relatedBy: .equal, toItem: safeAreaGuide, attribute: .top, multiplier: 1, constant: safeAreaInsets.top).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 0).isActive = true
         // coordsLabel: linker kolom — vaste breedte 1/3 van scherm
         NSLayoutConstraint(item: coordsLabel, attribute: .top, relatedBy: .equal, toItem: appTitleLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: coordsLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
@@ -1599,7 +1602,7 @@ extension ViewController {
             let bft = self.knotsToBeaufort(speedKn)
             let arrow = self.windArrow(degrees: dirDeg)
             let gustStr = gusts > 0 ? String(format: " (%.0f)", gusts) : ""
-            let text = "\(arrow) \(Int(dirDeg))°\nBft \(bft) · \(String(format: "%.1f", speedKn))\(gustStr) kn"
+            let text = "BVK GPX TRACKER\n\(arrow) Bft \(bft) · \(String(format: "%.1f", speedKn))\(gustStr) kn"
             DispatchQueue.main.async {
                 self.windInfoLabel.text = text
             }
@@ -1926,7 +1929,7 @@ extension ViewController: CLLocationManagerDelegate {
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
         let altitude = newLocation.altitude.toAltitude(useImperial: useImperial)
         let knots = newLocation.speed >= 0 ? String(format: "%.1f kn", newLocation.speed * 1.94384) : "·.· kn"
-        coordsLabel.text = "  Lat  \(latFormat)   Lon  \(lonFormat)\n  Alt  \(altitude)   \(knots)"
+        coordsLabel.text = "  Lat  \(latFormat)\n  Lon  \(lonFormat)"
         
         // Update speed
         speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
