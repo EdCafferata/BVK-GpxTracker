@@ -1,0 +1,14 @@
+Live-Wetterdaten auf der Karte
+Die App zeigt jetzt aktuelle Wetterinformationen direkt auf dem Bildschirm: Windrichtung, Windstärke (Beaufort), Temperatur, Sicht, Luftdruck und Wellenhöhe — alles auf einen Blick.
+
+OpenWeatherMap-Kartenebenen
+Füge eine Live-Wetterkarte über deine Navigationskarte hinzu: Niederschlag, Wolken, Wind, Luftdruck oder Temperatur. Kostenloses OpenWeatherMap-Konto erforderlich.
+
+Wasserstand Markermeer
+Die App ruft automatisch den aktuellen Wasserstand über Rijkswaterstaat ab (cm NAP, alle 10 Minuten).
+
+Kurs-oben-Modus
+Die Karte dreht sich automatisch mit deiner Fahrtrichtung.
+
+Neues App-Symbol
+Offizielles BvK-Logo im neuen App-Symbol.

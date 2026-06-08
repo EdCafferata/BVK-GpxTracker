@@ -1,0 +1,17 @@
+Live weerdata op de kaart
+De app toont nu actuele weerinfo direct in beeld: windrichting, windkracht (Beaufort), temperatuur, zicht, luchtdruk en golfhoogte — alles op één scherm, geen extra apps nodig.
+
+OpenWeatherMap kaartlagen
+Voeg een live weerkaart toe over je navigatiekaart: neerslag, bewolking, wind, luchtdruk of temperatuur. Gratis OpenWeatherMap account vereist (Instellingen → Kaartbron → OpenWeatherMap account).
+
+Waterstand Markermeer
+De app haalt automatisch de actuele waterstand op via Rijkswaterstaat (cm NAP, elke 10 minuten).
+
+Windgedreven stroming
+Stroomindicatie berekend op basis van actuele winddata — handig voor zeilers op het Markermeer.
+
+Koers-up modus
+De kaart draait automatisch mee met je vaarrichting zodra je onderweg bent.
+
+Nieuw app-icoon
+Officieel BvK-logo in het nieuwe app-icoon.

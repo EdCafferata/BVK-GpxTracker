@@ -1,0 +1,17 @@
+Live weather data on the map
+The app now shows real-time weather info on screen: wind direction, Beaufort force, temperature, visibility, air pressure and wave height — all in one view, no extra apps needed.
+
+OpenWeatherMap layers
+Add a live weather layer over your navigation map: precipitation, clouds, wind, pressure or temperature. Free OpenWeatherMap account required (Settings → Map Source → OpenWeatherMap account).
+
+Markermeer water level
+The app automatically retrieves the current water level via Rijkswaterstaat (cm NAP, every 10 minutes).
+
+Wind-driven current
+Current estimate calculated from live wind data — useful for sailors on the Markermeer.
+
+Course-up mode
+The map automatically rotates to match your heading while underway.
+
+New app icon
+Official BvK logo in the new app icon.

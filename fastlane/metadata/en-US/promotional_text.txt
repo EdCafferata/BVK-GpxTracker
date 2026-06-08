@@ -1,0 +1,1 @@
+GPS tracker for the Blocq van Kuffeler. Live weather, water level, OpenWeatherMap layers. No account, no subscription.
