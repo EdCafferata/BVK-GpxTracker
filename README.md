@@ -88,7 +88,7 @@ open OpenBVKTracker.xcodeproj
 | Naam | Rol |
 |------|-----|
 | Ed Cafferata | Ontwikkelaar |
-| BVK — de Blocq van Kuffeler | Opdrachtgever |
+| BVK — de Blocq van Kuffeler | Kadootje |
 
 ---
 
