@@ -317,6 +317,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// Timer that refreshes waterstand every 10 minutes
     var waterstandTimer: Timer?
 
+    /// Laatste windsnelheid (knoten) en richting (graden) voor stroming berekening
+    var lastWindSpeedKn: Double = 0
+    var lastWindDirDeg: Double = 0
+
     /// Timer that refreshes radar overlay every 5 minutes
     var radarTimer: Timer?
 
@@ -1732,12 +1736,23 @@ extension ViewController {
             let gustStr = gusts > 0 ? String(format: " (%.0f)", gusts) : ""
             let text = "BVK GPX TRACKER\n\(arrow) Bft \(bft) · \(String(format: "%.1f", speedKn))\(gustStr) kn"
             let coord = self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 52.4170, longitude: 5.2175)
+            self.lastWindSpeedKn = speedKn
+            self.lastWindDirDeg = dirDeg
             DispatchQueue.main.async {
                 self.windInfoLabel.text = text
-                // Update windpijl op de kaart
                 self.map.updateWindAnnotation(coordinate: coord, direction: dirDeg, beaufort: bft, speedKn: speedKn)
+                self.updateStromingLabel()
             }
         }.resume()
+    }
+
+    /// Berekent windgedreven stroming voor Markermeer en toont in waveLabel.
+    /// Markermeer stroming ≈ 2% van windsnelheid, richting ≈ windrichting.
+    func updateStromingLabel() {
+        let stromingKn = lastWindSpeedKn * 0.02
+        let arrow = windArrow(degrees: lastWindDirDeg)
+        let waveText = waveLabel.text?.components(separatedBy: "\n").first ?? "🌊 --"
+        waveLabel.text = "\(waveText)\n\(arrow) \(String(format: "%.2f", stromingKn)) kn stroom"
     }
 
     /// Converteert knopen naar Beaufort-schaal.
