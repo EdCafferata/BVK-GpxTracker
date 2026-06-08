@@ -171,7 +171,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 appTitleLabel.text = ""
                 // Toon bestandsnaam in middelste balk (tweede regel)
                 let currentFirst = windInfoLabel.text?.components(separatedBy: "\n").first ?? "BVK GPX TRACKER"
-                windInfoLabel.text = currentFirst + "\n📍 " + displayedName + ".gpx"
+                windInfoLabel.text = currentFirst + "\n" + displayedName + ".gpx"
             }
         }
     }
@@ -653,7 +653,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         tempVisLabel.numberOfLines = 2
         tempVisLabel.adjustsFontSizeToFitWidth = true
         tempVisLabel.minimumScaleFactor = 0.7
-        tempVisLabel.text = "  🌡️ --°C\n  👁️ -- km"
+        tempVisLabel.text = "  --°C\n  -- km"
         self.view.addSubview(tempVisLabel)
 
         pressureLabel.font = kBarFont
@@ -663,7 +663,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         pressureLabel.numberOfLines = 2
         pressureLabel.adjustsFontSizeToFitWidth = true
         pressureLabel.minimumScaleFactor = 0.7
-        pressureLabel.text = "📊 ---- hPa\n→ stabiel"
+        pressureLabel.text = "---- hPa\n→ stabiel"
         self.view.addSubview(pressureLabel)
 
         waveLabel.font = kBarFont
@@ -673,7 +673,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         waveLabel.numberOfLines = 2
         waveLabel.adjustsFontSizeToFitWidth = true
         waveLabel.minimumScaleFactor = 0.7
-        waveLabel.text = "🌊 -- m\n-- s periode"
+        waveLabel.text = "-- m\n-- s periode"
         self.view.addSubview(waveLabel)
 
         // Wind label — midden kolom in de coördinaten-balk
@@ -682,7 +682,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         windInfoLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         windInfoLabel.textAlignment = .center
         windInfoLabel.numberOfLines = 2
-        windInfoLabel.text = "BVK GPX TRACKER\n🌬️ -- · -- kn"
+        windInfoLabel.text = "BVK GPX TRACKER\n-- · -- kn"
         windInfoLabel.adjustsFontSizeToFitWidth = true
         windInfoLabel.minimumScaleFactor = 0.7
         self.view.addSubview(windInfoLabel)
@@ -693,7 +693,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         waterInfoLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         waterInfoLabel.textAlignment = .right
         waterInfoLabel.numberOfLines = 2
-        waterInfoLabel.text = "💧 --\n-- cm NAP"
+        waterInfoLabel.text = "--\n-- cm NAP"
         waterInfoLabel.adjustsFontSizeToFitWidth = true
         waterInfoLabel.minimumScaleFactor = 0.7
         self.view.addSubview(waterInfoLabel)
@@ -1615,7 +1615,7 @@ extension ViewController {
                   let waarde = meetwaarde["Waarde_Numeriek"] as? Double else { return }
             let nap = String(format: "%+.0f", waarde)
             DispatchQueue.main.async {
-                self.waterInfoLabel.text = "💧 Markermeer\n\(nap) cm NAP"
+                self.waterInfoLabel.text = "Markermeer\n\(nap) cm NAP"
             }
         }.resume()
     }
@@ -1644,8 +1644,8 @@ extension ViewController {
                 trend = diff > 0.5 ? "▲" : diff < -0.5 ? "▼" : "→"
             }
             DispatchQueue.main.async {
-                self.tempVisLabel.text = "  🌡️ \(String(format: "%.1f", temp))° / \(String(format: "%.1f", feels))°\n  👁️ \(String(format: "%.1f", vis)) km"
-                self.pressureLabel.text = "📊 \(String(format: "%.0f", press)) hPa\n\(trend) \(trend == "▲" ? "stijgend" : trend == "▼" ? "dalend" : "stabiel")"
+                self.tempVisLabel.text = "  \(String(format: "%.1f", temp))° / \(String(format: "%.1f", feels))°\n  \(String(format: "%.1f", vis)) km"
+                self.pressureLabel.text = "\(String(format: "%.0f", press)) hPa\n\(trend) \(trend == "▲" ? "stijgend" : trend == "▼" ? "dalend" : "stabiel")"
             }
         }.resume()
 
@@ -1658,7 +1658,7 @@ extension ViewController {
             let waveH = cur["wave_height"] as? Double ?? 0
             let waveP = cur["wave_period"] as? Double ?? 0
             DispatchQueue.main.async {
-                self.waveLabel.text = "🌊 \(String(format: "%.1f", waveH))m\n\(String(format: "%.1f", waveP))s periode"
+                self.waveLabel.text = "\(String(format: "%.1f", waveH))m\n\(String(format: "%.1f", waveP))s periode"
             }
         }.resume()
     }
@@ -1751,7 +1751,7 @@ extension ViewController {
     func updateStromingLabel() {
         let stromingKn = lastWindSpeedKn * 0.02
         let arrow = windArrow(degrees: lastWindDirDeg)
-        let waveText = waveLabel.text?.components(separatedBy: "\n").first ?? "🌊 --"
+        let waveText = waveLabel.text?.components(separatedBy: "\n").first ?? "--"
         waveLabel.text = "\(waveText)\n\(arrow) \(String(format: "%.2f", stromingKn)) kn stroom"
     }
 
