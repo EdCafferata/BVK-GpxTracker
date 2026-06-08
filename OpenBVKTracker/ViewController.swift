@@ -320,8 +320,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var lastWindSpeedKn: Double = 0
     var lastWindDirDeg: Double = 0
 
-    /// Timer that refreshes radar overlay every 5 minutes
-    var radarTimer: Timer?
 
     /// Displays current elapsed time (00:00)
     var timeLabel: UILabel
@@ -506,16 +504,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         startGPSWatchdog()
         startWindTimer()
         startWaterstandTimer()
-        startRadarTimer()
         locationManager.startUpdatingHeading()
         startMapUpdateTimer()
-        
+
         // Preferences
         map.tileServer = Preferences.shared.tileServer
         map.useCache = Preferences.shared.useCache
         map.showWindOverlay = Preferences.shared.showWindOverlay
-        map.showRadarOverlay = Preferences.shared.showRadarOverlay
-        map.showSatelliteOverlay = Preferences.shared.showSatelliteOverlay
+        map.showOWMOverlay = Preferences.shared.showOWMOverlay
         useImperial = Preferences.shared.useImperial
         // LocationManager.activityType = Preferences.shared.locationActivityType
         
@@ -1128,7 +1124,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         startGPSWatchdog()
         startWindTimer()
         startWaterstandTimer()
-        startRadarTimer()
     }
 
     ///
@@ -1148,7 +1143,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         stopMapUpdateTimer()
         stopWindTimer()
         stopWaterstandTimer()
-        stopRadarTimer()
     }
 
     ///
@@ -1664,40 +1658,6 @@ extension ViewController {
 
     // MARK: - Radar (Rainviewer)
 
-    /// Start radar timer — haalt elke 5 minuten het actuele radarpad op.
-    func startRadarTimer() {
-        fetchRadarPath()
-        radarTimer?.invalidate()
-        radarTimer = Timer.scheduledTimer(withTimeInterval: 300.0, repeats: true) { [weak self] _ in
-            self?.fetchRadarPath()
-        }
-    }
-
-    func stopRadarTimer() {
-        radarTimer?.invalidate()
-        radarTimer = nil
-    }
-
-    /// Haalt het actuele radarpad op via Rainviewer API en update de overlay.
-    // NASA GIBS satelliet — geen fetch nodig, overlay gebruikt automatisch datum van vandaag
-
-    func fetchRadarPath() {
-        guard map.showRadarOverlay else { return }
-        guard let url = URL(string: "https://api.rainviewer.com/public/weather-maps.json") else { return }
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let self = self, let data = data, error == nil else { return }
-            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                  let radar = json["radar"] as? [String: Any],
-                  let past = radar["past"] as? [[String: Any]],
-                  let last = past.last,
-                  let path = last["path"] as? String else { return }
-            DispatchQueue.main.async {
-                self.map.updateRadarPath(path)
-                print("Radar pad bijgewerkt: \(path)")
-            }
-        }.resume()
-    }
-
     // MARK: - Wind (Open-Meteo)
 
     /// Start wind update timer — haalt elke 5 minuten verse winddata op.
@@ -1932,16 +1892,9 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         map.showWindOverlay = newValue
     }
 
-    func didUpdateShowRadarOverlay(_ newValue: Bool) {
-        print("PreferencesTableViewControllerDelegate:: didUpdateShowRadarOverlay: \(newValue)")
-        map.showRadarOverlay = newValue
-        if newValue { fetchRadarPath() }
-    }
-
-    func didUpdateShowSatelliteOverlay(_ newValue: Bool) {
-        print("PreferencesTableViewControllerDelegate:: didUpdateShowSatelliteOverlay: \(newValue)")
-        map.showSatelliteOverlay = newValue
-        // NASA GIBS laadt automatisch
+    func didUpdateShowOWMOverlay(_ newValue: Bool, layer: OWMLayer) {
+        Preferences.shared.owmLayer = layer
+        map.showOWMOverlay = newValue
     }
 
     /// Pas GPS-accuraatheid en distanceFilter aan op basis van snelheid.

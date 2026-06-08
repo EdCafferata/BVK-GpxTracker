@@ -161,7 +161,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         switch section {
         case kCacheSection: return 2
         case kUnitsSection: return 1
-        case kMapSourceSection: return GPXTileServer.count + 3 // +1 wind, +1 radar, +1 satelliet
+        case kMapSourceSection: return GPXTileServer.count + 2 + OWMLayer.allCases.count // +1 wind, +1 OWM account, +OWM lagen
         case kActivityTypeSection: return CLActivityType.count
         case kDefaultNameSection: return 1
         case kGPXFilesLocationSection: return 1
@@ -263,20 +263,26 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")
         // Wind overlay toggle
         if indexPath.row == GPXTileServer.count {
-            cell.textLabel?.text = "🌬️ Wind overlay"
+            cell.textLabel?.text = "Wind overlay"
             cell.accessoryType = preferences.showWindOverlay ? .checkmark : .none
             return cell
         }
-        // Radar overlay toggle
+        // OWM account instellen
         if indexPath.row == GPXTileServer.count + 1 {
-            cell.textLabel?.text = "🌧️ Neerslag radar (Rainviewer)"
-            cell.accessoryType = preferences.showRadarOverlay ? .checkmark : .none
-            return cell
+            let owmCell = UITableViewCell(style: .subtitle, reuseIdentifier: "OWMCell")
+            owmCell.textLabel?.text = "OpenWeatherMap account"
+            owmCell.detailTextLabel?.text = preferences.owmApiKey.isEmpty ? "Geen key ingesteld" : "Key ingesteld ✓"
+            owmCell.detailTextLabel?.textColor = preferences.owmApiKey.isEmpty ? .systemRed : .systemGreen
+            owmCell.accessoryType = .disclosureIndicator
+            return owmCell
         }
-        // Satelliet overlay toggle
-        if indexPath.row == GPXTileServer.count + 2 {
-            cell.textLabel?.text = "🛰️ Satelliet infrarood (Rainviewer)"
-            cell.accessoryType = preferences.showSatelliteOverlay ? .checkmark : .none
+        // OWM kaartlagen
+        let owmIndex = indexPath.row - GPXTileServer.count - 2
+        if owmIndex >= 0 && owmIndex < OWMLayer.allCases.count {
+            let layer = OWMLayer.allCases[owmIndex]
+            let isSelected = preferences.showOWMOverlay && preferences.owmLayer == layer
+            cell.textLabel?.text = "OWM: \(layer.displayName)"
+            cell.accessoryType = isSelected ? .checkmark : .none
             return cell
         }
         let tileServer = GPXTileServer(rawValue: indexPath.row)
@@ -457,20 +463,33 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 self.delegate?.didUpdateShowWindOverlay(newValue)
                 return
             }
-            // Radar overlay toggle
+            // OWM account scherm
             if indexPath.row == GPXTileServer.count + 1 {
-                let newValue = !preferences.showRadarOverlay
-                preferences.showRadarOverlay = newValue
-                tableView.cellForRow(at: indexPath)?.accessoryType = newValue ? .checkmark : .none
-                self.delegate?.didUpdateShowRadarOverlay(newValue)
+                let vc = OWMRegistrationViewController()
+                vc.delegate = self
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
+                tableView.deselectRow(at: indexPath, animated: true)
                 return
             }
-            // Satelliet overlay toggle
-            if indexPath.row == GPXTileServer.count + 2 {
-                let newValue = !preferences.showSatelliteOverlay
-                preferences.showSatelliteOverlay = newValue
-                tableView.cellForRow(at: indexPath)?.accessoryType = newValue ? .checkmark : .none
-                self.delegate?.didUpdateShowSatelliteOverlay(newValue)
+            // OWM laag selecteren
+            let owmIndex = indexPath.row - GPXTileServer.count - 2
+            if owmIndex >= 0 && owmIndex < OWMLayer.allCases.count {
+                let layer = OWMLayer.allCases[owmIndex]
+                let wasSelected = preferences.showOWMOverlay && preferences.owmLayer == layer
+                // Deselecteer alle OWM rijen
+                for i in 0..<OWMLayer.allCases.count {
+                    tableView.cellForRow(at: IndexPath(row: GPXTileServer.count + 2 + i, section: indexPath.section))?.accessoryType = .none
+                }
+                if wasSelected {
+                    preferences.showOWMOverlay = false
+                    self.delegate?.didUpdateShowOWMOverlay(false, layer: layer)
+                } else {
+                    preferences.owmLayer = layer
+                    preferences.showOWMOverlay = true
+                    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                    self.delegate?.didUpdateShowOWMOverlay(true, layer: layer)
+                }
                 return
             }
 
@@ -584,5 +603,11 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
         preferences.gpxFilesFolderURL = folderURL
         tableView.reloadData()
+    }
+}
+
+extension PreferencesTableViewController: OWMRegistrationDelegate {
+    func didSaveOWMApiKey(_ key: String) {
+        tableView.reloadSections(IndexSet(integer: kMapSourceSection), with: .automatic)
     }
 }

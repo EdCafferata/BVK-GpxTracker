@@ -53,11 +53,14 @@ let kDefaultsKeyChargerMode: String = "ChargerMode"
 /// Key on Defaults for wind overlay toggle.
 let kDefaultsKeyShowWindOverlay: String = "ShowWindOverlay"
 
-/// Key on Defaults for rain radar overlay toggle.
-let kDefaultsKeyShowRadarOverlay: String = "ShowRadarOverlay"
+/// Key on Defaults for OpenWeatherMap API key.
+let kDefaultsKeyOWMApiKey: String = "OWMApiKey"
 
-/// Key on Defaults for satellite overlay toggle.
-let kDefaultsKeyShowSatelliteOverlay: String = "ShowSatelliteOverlay"
+/// Key on Defaults for OpenWeatherMap selected layer.
+let kDefaultsKeyOWMLayer: String = "OWMLayer"
+
+/// Key on Defaults for OWM overlay toggle.
+let kDefaultsKeyShowOWMOverlay: String = "ShowOWMOverlay"
 
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
@@ -121,10 +124,9 @@ class Preferences: NSObject {
     private var _showWindOverlay: Bool = false
 
     /// Rain radar overlay: toon neerslag radar op de kaart (standaard uit)
-    private var _showRadarOverlay: Bool = false
-
-    /// Satellite overlay: toon infrarood satelliet op de kaart (standaard uit)
-    private var _showSatelliteOverlay: Bool = false
+    private var _owmApiKey: String = ""
+    private var _owmLayer: String = "precipitation_new"
+    private var _showOWMOverlay: Bool = false
 
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -232,14 +234,13 @@ class Preferences: NSObject {
         }
 
         // load radar overlay preference
-        if let showRadarOverlayBool = defaults.object(forKey: kDefaultsKeyShowRadarOverlay) as? Bool {
-            _showRadarOverlay = showRadarOverlayBool
+        if let owmKey = defaults.string(forKey: kDefaultsKeyOWMApiKey) { _owmApiKey = owmKey }
+        if let owmLayer = defaults.string(forKey: kDefaultsKeyOWMLayer) { _owmLayer = owmLayer }
+        if let showOWM = defaults.object(forKey: kDefaultsKeyShowOWMOverlay) as? Bool { _showOWMOverlay = showOWM }
+        if false {
+            // voormalige Rainviewer keys — niet meer gebruikt
         }
 
-        // load satellite overlay preference
-        if let showSatelliteOverlayBool = defaults.object(forKey: kDefaultsKeyShowSatelliteOverlay) as? Bool {
-            _showSatelliteOverlay = showSatelliteOverlayBool
-        }
 
     }
     
@@ -432,22 +433,19 @@ class Preferences: NSObject {
     }
 
     /// Rain radar overlay aan/uit op de kaart.
-    var showRadarOverlay: Bool {
-        get { return _showRadarOverlay }
-        set {
-            _showRadarOverlay = newValue
-            defaults.set(newValue, forKey: kDefaultsKeyShowRadarOverlay)
-            print("** Preferences:: setting showRadarOverlay: \(newValue)")
-        }
+    var owmApiKey: String {
+        get { return _owmApiKey }
+        set { _owmApiKey = newValue; defaults.set(newValue, forKey: kDefaultsKeyOWMApiKey) }
     }
 
-    /// Satellite overlay aan/uit.
-    var showSatelliteOverlay: Bool {
-        get { return _showSatelliteOverlay }
-        set {
-            _showSatelliteOverlay = newValue
-            defaults.set(newValue, forKey: kDefaultsKeyShowSatelliteOverlay)
-        }
+    var owmLayerRawValue: String {
+        get { return _owmLayer }
+        set { _owmLayer = newValue; defaults.set(newValue, forKey: kDefaultsKeyOWMLayer) }
+    }
+
+    var showOWMOverlay: Bool {
+        get { return _showOWMOverlay }
+        set { _showOWMOverlay = newValue; defaults.set(newValue, forKey: kDefaultsKeyShowOWMOverlay) }
     }
 
     var gpxFilesFolderURL: URL? {

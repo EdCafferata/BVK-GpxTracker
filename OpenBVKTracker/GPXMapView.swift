@@ -119,48 +119,32 @@ class GPXMapView: MKMapView {
     /// Overlay that holds map tiles
     var tileServerOverlay: MKTileOverlay = MKTileOverlay()
 
-    /// Neerslag radar overlay (Rainviewer)
-    var radarTileOverlay: RadarTileOverlay?
+    /// OpenWeatherMap kaartlaag overlay
+    var owmTileOverlay: OWMTileOverlay?
 
-    /// Toggles de radar overlay aan/uit op de kaart.
-    var showRadarOverlay: Bool = false {
+    /// Toggles de OWM overlay aan/uit op de kaart.
+    var showOWMOverlay: Bool = false {
         didSet {
-            if let existing = radarTileOverlay {
+            if let existing = owmTileOverlay {
                 removeOverlay(existing)
-                radarTileOverlay = nil
+                owmTileOverlay = nil
             }
-            // Radar heeft een geldig pad nodig — wordt gezet via updateRadarPath
-        }
-    }
-
-    /// Update het radarpad en ververst de tiles.
-    func updateRadarPath(_ path: String) {
-        guard showRadarOverlay else { return }
-        if let existing = radarTileOverlay { removeOverlay(existing) }
-        let newOverlay = RadarTileOverlay.make(path: path)
-        radarTileOverlay = newOverlay
-        addOverlayOnTop(newOverlay)
-    }
-
-    /// Satelliet (infrared) overlay via Rainviewer
-    var satelliteTileOverlay: SatelliteTileOverlay?
-
-    var showSatelliteOverlay: Bool = false {
-        didSet {
-            if let existing = satelliteTileOverlay {
-                removeOverlay(existing)
-                satelliteTileOverlay = nil
-            }
-            if showSatelliteOverlay {
-                // Direct laden met vaste URL — werkt zonder API pad
-                let overlay = SatelliteTileOverlay.make()
-                satelliteTileOverlay = overlay
+            if showOWMOverlay {
+                let prefs = Preferences.shared
+                guard !prefs.owmApiKey.isEmpty else { return }
+                let overlay = OWMTileOverlay.make(layer: prefs.owmLayer, apiKey: prefs.owmApiKey)
+                owmTileOverlay = overlay
                 addOverlayOnTop(overlay)
             }
         }
     }
 
-    // NASA GIBS heeft geen dynamisch pad — overlay gebruikt altijd de datum van vandaag
+    /// Ververst de OWM overlay (bij wisselen van laag of API key).
+    func refreshOWMOverlay() {
+        guard showOWMOverlay else { return }
+        showOWMOverlay = false
+        showOWMOverlay = true
+    }
 
     /// Wind annotatie op de kaart (pijl op huidige GPS positie)
     var windAnnotation: WindAnnotation?
