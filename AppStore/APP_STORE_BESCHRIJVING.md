@@ -2,13 +2,13 @@
 
 ---
 
-## 📣 Promotional Text (max 170 tekens — mag op elk moment gewijzigd worden zonder nieuwe build)
+## Promotional Text (max 170 tekens — mag op elk moment gewijzigd worden zonder nieuwe build)
 
-### 🇳🇱 Nederlands
-GPS-tracker voor de Blocq van Kuffeler. Slimme batterijbesparing, OpenSeaMap, Apple Watch. Geen account, geen abonnement.
+### Nederlands
+GPS-tracker voor de Blocq van Kuffeler. Live weer, waterstand, OpenWeatherMap kaartlagen. Geen account, geen abonnement.
 
-### 🇬🇧 English
-GPS tracker for the Blocq van Kuffeler. Smart battery saving, OpenSeaMap, Apple Watch. No account, no subscription.
+### English
+GPS tracker for the Blocq van Kuffeler. Live weather, water level, OpenWeatherMap layers. No account, no subscription.
 
 ---
 
@@ -17,15 +17,29 @@ Mijn apps → BVK GPX Tracker → App Store pagina → Beschrijving
 
 ---
 
-## 🇳🇱 Nederlands (primair)
+## Nederlands (primair)
 
 GPS-tracker speciaal gebouwd voor de Blocq van Kuffeler.
 
 Leg je vaarroute vast op iPhone én Apple Watch. Geen account, geen abonnement, geen gedoe — gewoon varen en opnemen.
 
+**Live Weerinformatie**
+• Windrichting, windkracht (Beaufort) en windstoten direct in beeld
+• Temperatuur, gevoelstemperatuur en zicht
+• Luchtdruk met stijging/daling trend
+• Golfhoogte en golfperiode
+• Waterstand Markermeer via Rijkswaterstaat (cm NAP, elke 10 minuten)
+• Stroomindicatie op basis van actuele winddata
+
+**OpenWeatherMap Kaartlagen**
+• Leg een live weerkaart over je navigatiekaart
+• Kies uit: neerslag, bewolking, wind, luchtdruk of temperatuur
+• Gratis OpenWeatherMap account vereist (via Instellingen)
+
 **Kaart & Navigatie**
-• Snelheidsgebaseerde kaart-zoom — de kaart zoomt automatisch mee met je vaartsnelheid. Stilliggen? Maximaal ingezoomd. Volle snelheid? Breed overzicht. Geen knoppen.
-• Kies je kaartserver: Apple Maps, OpenStreetMap, OpenSeaMap (ideaal voor op het water), CartoDB, CartoDB Dark of OpenTopoMap
+• Snelheidsgebaseerde kaart-zoom — de kaart zoomt automatisch mee met je vaartsnelheid
+• Koers-up modus — de kaart draait mee met je vaarrichting
+• Kies je kaartserver: Apple Maps, OpenStreetMap, OpenSeaMap, CartoDB, CartoDB Dark of OpenTopoMap
 • Offline kaartcache — browse het vaargebied vooraf, ook zonder internet
 
 **GPS & Opname**
@@ -35,44 +49,54 @@ Leg je vaarroute vast op iPhone én Apple Watch. Geen account, geen abonnement, 
 • Waypoints toevoegen op je huidige locatie of via lang indrukken op de kaart
 • Waypoint naam bewerken, verplaatsen of verwijderen
 
+**Batterijbesparing**
+• Slimme GPS-nauwkeurigheid op basis van vaartsnelheid — tot 80% besparing bij stilliggen
+• Lader-modus: altijd maximale nauwkeurigheid als de telefoon aan de stroom hangt
+
 **Veiligheid**
-• "Doorgaan" optie in het reset-scherm — per ongeluk getikt? Kies Doorgaan en je rit loopt gewoon verder
+• "Doorgaan" optie in het reset-scherm — per ongeluk getikt? Je rit loopt gewoon verder
 
 **Delen & Export**
 • Exporteer je GPX-bestand via e-mail, AirDrop of elke andere app
 • Importeer bestaande GPX-bestanden vanuit andere navigatie-apps
-• Bestandsoverdracht via iTunes
-
-**Live informatie**
-• Huidige snelheid, koers, hoogte en GPS-nauwkeurigheid
-• Opgenomen afstand (totaal + huidig segment)
 
 **Apple Watch**
 • Zelfstandig GPX-sporen opnemen op de Watch
 • Pauze, hervat en opslaan rechtstreeks vanaf je pols
-• Waypoint toevoegen op huidige locatie
 • GPS-signaalsterkte weergeven
-• Spoor draadloos sturen naar de gekoppelde iPhone
-• "Doorgaan" optie ook op de Watch
 
 **Privacy**
 • Geen account aanmaken
 • Geen abonnement
-• Alle GPS-data blijft op jouw apparaat of in jouw iCloud — niets wordt gedeeld met derden
+• Alle GPS-data blijft op jouw apparaat — niets wordt gedeeld met derden
 
 Beschikbaar in 11 talen: Nederlands, Engels, Duits, Spaans, Frans, Italiaans, Fins, Portugees, Russisch, Oekraïens en Chinees.
 
 ---
 
-## 🇬🇧 English
+## English
 
 GPS tracker built for the Blocq van Kuffeler sailing event.
 
 Record your route on iPhone and Apple Watch. No account, no subscription, no fuss — just sail and record.
 
+**Live Weather Information**
+• Wind direction, Beaufort force and gusts displayed on screen
+• Temperature, feels-like temperature and visibility
+• Air pressure with rising/falling trend
+• Wave height and wave period
+• Markermeer water level via Rijkswaterstaat (cm NAP, every 10 minutes)
+• Current estimate based on live wind data
+
+**OpenWeatherMap Layers**
+• Overlay a live weather map on your navigation chart
+• Choose from: precipitation, clouds, wind, pressure or temperature
+• Free OpenWeatherMap account required (via Settings)
+
 **Map & Navigation**
-• Speed-based map zoom — the map automatically adjusts its zoom level to your speed. Anchored? Maximum zoom. Full speed? Wide overview. No buttons needed.
-• Choose your map server: Apple Maps, OpenStreetMap, OpenSeaMap (perfect on the water), CartoDB, CartoDB Dark or OpenTopoMap
+• Speed-based map zoom — the map automatically adjusts to your speed
+• Course-up mode — the map rotates to match your heading
+• Choose your map server: Apple Maps, OpenStreetMap, OpenSeaMap, CartoDB, CartoDB Dark or OpenTopoMap
 • Offline map cache — browse your sailing area in advance, even without internet
 
 **GPS & Recording**
@@ -82,30 +106,26 @@ Record your route on iPhone and Apple Watch. No account, no subscription, no fus
 • Add waypoints at your current location or by long-pressing the map
 • Edit, move or delete waypoints
 
+**Battery Saving**
+• Smart GPS accuracy based on speed — up to 80% savings at anchor
+• Charger mode: always maximum accuracy when the phone is plugged in
+
 **Safety**
-• "Continue" option in the reset screen — accidentally tapped reset? Choose Continue and your session keeps running
+• "Continue" option in the reset screen — accidentally tapped reset? Your session keeps running
 
 **Sharing & Export**
 • Export your GPX file via email, AirDrop or any other app
 • Import existing GPX files from other navigation apps
-• File transfer via iTunes
-
-**Live Information**
-• Current speed, heading, altitude and GPS accuracy
-• Recorded distance (total + current segment)
 
 **Apple Watch**
 • Record GPX tracks independently on the Watch
 • Pause, resume and save directly from your wrist
-• Add waypoint at current location
 • Display GPS signal strength
-• Wirelessly send track to paired iPhone
-• "Continue" option available on Watch too
 
 **Privacy**
 • No account required
 • No subscription
-• All GPS data stays on your device or in your iCloud — nothing is shared with third parties
+• All GPS data stays on your device — nothing is shared with third parties
 
 Available in 11 languages: Dutch, English, German, Spanish, French, Italian, Finnish, Portuguese, Russian, Ukrainian and Chinese.
 
@@ -114,11 +134,13 @@ Available in 11 languages: Dutch, English, German, Spanish, French, Italian, Fin
 ## Instructies App Store Connect
 
 1. Ga naar appstoreconnect.apple.com
-2. Mijn apps → BVK GPX Tracker → versie 2.0.0 (of de actieve versie)
-3. Klik op de NL-vlag → plak de Nederlandse tekst in het veld "Beschrijving"
+2. Mijn apps → BVK GPX Tracker → versie 2.1.2
+3. Klik op de NL-vlag → plak de Nederlandse tekst in "Beschrijving"
 4. Klik op de EN-vlag → plak de Engelse tekst
-5. Sla op
+5. "Wat is er nieuw" → kopieer uit RELEASE_NOTES_v2.1.2.md
+6. Screenshots uploaden vanuit AppStore/Screenshots/
+7. Sla op en dien in
 
-**Tekens (indicatief):**
-- NL: ~2.100 tekens (max 4.000)
-- EN: ~2.100 tekens (max 4.000)
+**Versie:** 2.1.2
+**Tekens NL:** ~2.800 (max 4.000)
+**Tekens EN:** ~2.700 (max 4.000)
