@@ -170,8 +170,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 }
                 appTitleLabel.text = ""
                 // Toon bestandsnaam in middelste balk (tweede regel)
-                let currentFirst = windInfoLabel.text?.components(separatedBy: "\n").first ?? "BVK GPX TRACKER"
-                windInfoLabel.text = currentFirst + "\n" + displayedName + ".gpx"
+                windInfoLabel.attributedText = self.bvkTitleAttributedText(subtitle: displayedName + ".gpx")
             }
         }
     }
@@ -644,7 +643,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
         // Tweede rij — gedeelde stijl
         let kBarBg = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
-        let kBarFont = UIFont(name: "DinAlternate-Bold", size: 12.0) ?? UIFont.systemFont(ofSize: 12)
+        let kBarFont = UIFont(name: "DinAlternate-Bold", size: 16.0) ?? UIFont.systemFont(ofSize: 16)
 
         tempVisLabel.font = kBarFont
         tempVisLabel.textColor = .white
@@ -677,18 +676,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addSubview(waveLabel)
 
         // Wind label — midden kolom in de coördinaten-balk
-        windInfoLabel.font = UIFont(name: "DinAlternate-Bold", size: 13.0) ?? UIFont.systemFont(ofSize: 13)
+        windInfoLabel.font = UIFont(name: "DinAlternate-Bold", size: 16.0) ?? UIFont.systemFont(ofSize: 16)
         windInfoLabel.textColor = UIColor.white
         windInfoLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         windInfoLabel.textAlignment = .center
         windInfoLabel.numberOfLines = 2
-        windInfoLabel.text = "BVK GPX TRACKER\n-- · -- kn"
+        windInfoLabel.attributedText = bvkTitleAttributedText(subtitle: "-- · -- kn")
         windInfoLabel.adjustsFontSizeToFitWidth = true
         windInfoLabel.minimumScaleFactor = 0.7
         self.view.addSubview(windInfoLabel)
 
         // Waterstand label — rechter kolom in de coördinaten-balk
-        waterInfoLabel.font = UIFont(name: "DinAlternate-Bold", size: 13.0) ?? UIFont.systemFont(ofSize: 13)
+        waterInfoLabel.font = UIFont(name: "DinAlternate-Bold", size: 16.0) ?? UIFont.systemFont(ofSize: 16)
         waterInfoLabel.textColor = UIColor.white
         waterInfoLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         waterInfoLabel.textAlignment = .right
@@ -1734,12 +1733,12 @@ extension ViewController {
             let bft = self.knotsToBeaufort(speedKn)
             let arrow = self.windArrow(degrees: dirDeg)
             let gustStr = gusts > 0 ? String(format: " (%.0f)", gusts) : ""
-            let text = "BVK GPX TRACKER\n\(arrow) Bft \(bft) · \(String(format: "%.1f", speedKn))\(gustStr) kn"
+            let subtitle = "\(arrow) Bft \(bft) · \(String(format: "%.1f", speedKn))\(gustStr) kn"
             let coord = self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 52.4170, longitude: 5.2175)
             self.lastWindSpeedKn = speedKn
             self.lastWindDirDeg = dirDeg
             DispatchQueue.main.async {
-                self.windInfoLabel.text = text
+                self.windInfoLabel.attributedText = self.bvkTitleAttributedText(subtitle: subtitle)
                 self.map.updateWindAnnotation(coordinate: coord, direction: dirDeg, beaufort: bft, speedKn: speedKn)
                 self.updateStromingLabel()
             }
@@ -1753,6 +1752,16 @@ extension ViewController {
         let arrow = windArrow(degrees: lastWindDirDeg)
         let waveText = waveLabel.text?.components(separatedBy: "\n").first ?? "--"
         waveLabel.text = "\(waveText)\n\(arrow) \(String(format: "%.2f", stromingKn)) kn stroom"
+    }
+
+    /// Maakt NSAttributedString met "BVK GPX TRACKER" in geel en subtitle in wit.
+    func bvkTitleAttributedText(subtitle: String) -> NSAttributedString {
+        let font = UIFont(name: "DinAlternate-Bold", size: 16.0) ?? UIFont.systemFont(ofSize: 16)
+        let title = NSMutableAttributedString(string: "BVK GPX TRACKER\n",
+            attributes: [.foregroundColor: UIColor.yellow, .font: font])
+        title.append(NSAttributedString(string: subtitle,
+            attributes: [.foregroundColor: UIColor.white, .font: font]))
+        return title
     }
 
     /// Converteert knopen naar Beaufort-schaal.
