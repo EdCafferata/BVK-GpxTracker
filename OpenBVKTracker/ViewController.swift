@@ -1894,7 +1894,12 @@ extension ViewController: PreferencesTableViewControllerDelegate {
 
     func didUpdateShowOWMOverlay(_ newValue: Bool, layer: OWMLayer) {
         Preferences.shared.owmLayer = layer
-        map.showOWMOverlay = newValue
+        if newValue {
+            map.showOWMOverlay = false   // reset zodat didSet altijd vuurt
+            map.showOWMOverlay = true
+        } else {
+            map.showOWMOverlay = false
+        }
     }
 
     /// Pas GPS-accuraatheid en distanceFilter aan op basis van snelheid.

@@ -475,6 +475,13 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             // OWM laag selecteren
             let owmIndex = indexPath.row - GPXTileServer.count - 2
             if owmIndex >= 0 && owmIndex < OWMLayer.allCases.count {
+                guard !preferences.owmApiKey.isEmpty else {
+                    let alert = UIAlertController(title: "Geen API key", message: "Stel eerst een OpenWeatherMap API key in via 'OpenWeatherMap account'.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    present(alert, animated: true)
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    return
+                }
                 let layer = OWMLayer.allCases[owmIndex]
                 let wasSelected = preferences.showOWMOverlay && preferences.owmLayer == layer
                 // Deselecteer alle OWM rijen
