@@ -1,17 +1,25 @@
-Live weather data on the map
-The app now shows real-time weather info on screen: wind direction, Beaufort force, temperature, visibility, air pressure and wave height — all in one view, no extra apps needed.
+Version 2.2.0
+
+New
+• OWM colour legend — a colour scale appears in the map corner for each weather layer so you instantly understand what you see
+• Wind speed in knots — displayed as a number below the Beaufort circle on the map
+• Precipitation mm/h — current rainfall intensity added to the info bar
+• Info button moved to the top row, next to the share button
+
+Live weather data
+Wind direction, Beaufort force, temperature, visibility, air pressure and wave height — shown directly on screen via Open-Meteo.
 
 OpenWeatherMap layers
-Add a live weather layer over your navigation map: precipitation, clouds, wind, pressure or temperature. Free OpenWeatherMap account required (Settings → Map Source → OpenWeatherMap account).
+Precipitation, clouds, wind, pressure or temperature as an overlay on your navigation map. Free OWM account required.
 
 Markermeer water level
-The app automatically retrieves the current water level via Rijkswaterstaat (cm NAP, every 10 minutes).
+Automatically retrieved via Rijkswaterstaat, updated every 10 minutes (cm NAP).
 
-Wind-driven current
-Current estimate calculated from live wind data — useful for sailors on the Markermeer.
+GPS battery saving
+Four automatic GPS profiles based on sailing speed — up to 80% less battery use when stationary.
 
 Course-up mode
-The map automatically rotates to match your heading while underway.
+The map automatically rotates to match your heading.
 
-New app icon
-Official BvK logo in the new app icon.
+Apple Watch
+Record GPX tracks independently, add waypoints and wirelessly send the track to your iPhone.
