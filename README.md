@@ -1,7 +1,7 @@
 # BVK GPX Tracker 🚤
 
 [![Available on the App Store](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://apps.apple.com/nl/app/bvk-gpx-tracker/id6770708440)
-![Versie](https://img.shields.io/badge/versie-2.1.0-blue)
+![Versie](https://img.shields.io/badge/versie-2.1.2-blue)
 ![Platform](https://img.shields.io/badge/platform-iOS%2012%2B%20%7C%20watchOS-lightgrey)
 ![App Store](https://img.shields.io/badge/App%20Store-live%20🟢-brightgreen)
 
@@ -9,11 +9,17 @@ GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq
 
 ---
 
-## Wat is nieuw in versie 2.0.0
+## Wat is nieuw in versie 2.1.2
 
-- 🗺️ **Snelheidsgebaseerde kaart-zoom** — de kaart zoomt automatisch mee met je vaartsnelheid
-- ↩️ **"Doorgaan" optie** in het reset-actieblad — sessie hervatten zonder opslaan
-- 🍎 **Apple Watch** — zelfde "Doorgaan" optie beschikbaar op de Watch
+- 🌤️ **Live weerdata** — wind, Beaufort, temperatuur, zicht, luchtdruk en golfhoogte via Open-Meteo
+- 🗺️ **OpenWeatherMap kaartlagen** — neerslag, bewolking, wind, luchtdruk of temperatuur als live overlay
+- 💧 **Waterstand Markermeer** — actuele waterstand via Rijkswaterstaat (cm NAP, elke 10 minuten)
+- 🌊 **Windgedreven stroming** — stroomindicatie op basis van actuele winddata
+- 🧭 **Koers-up modus** — kaart draait automatisch mee met je vaarrichting
+- 🪁 **Windpijl op de kaart** — visuele pijl op je GPS-positie geeft windrichting aan
+- 🔋 **GPS batterijbesparing** — snelheidsgebaseerde GPS-nauwkeurigheid (tot 80% besparing bij stilliggen)
+- 🔌 **Lader-modus** — maximale GPS-nauwkeurigheid wanneer telefoon op de lader staat
+- 🎨 **Nieuw app-icoon** — officieel BvK-logo
 
 ---
 
@@ -22,6 +28,7 @@ GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq
 ### iPhone
 - GPS-spoor opnemen en weergeven op de kaart
 - Kaartservers: Apple Maps, OpenStreetMap, OpenSeaMap, CartoDB, OpenTopoMap
+- **OpenWeatherMap kaartlagen** (neerslag, bewolking, wind, druk, temperatuur)
 - Offline kaartcache (browse het gebied vooraf)
 - Pauze / Hervat opname
 - Waypoints toevoegen (op locatie of via lang indrukken op kaart)
@@ -34,8 +41,14 @@ GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq
 - Bestandsoverdracht via iTunes
 - Donkere modus
 - **Snelheidsgebaseerde kaart-zoom** (automatisch, 5 niveaus)
-- **Snelheidsgebaseerde GPS-besparing** (4 profielen, tot 80% minder batterij)
-- **Telefoon op de lader** modus — altijd maximale GPS-nauwkeurigheid
+- **Koers-up modus** — kaart draait mee met vaarrichting
+- **Live infobalk** — 2 rijen met weer, waterstand, stroming en druktrend
+
+### Live weer & water (infobalk)
+| Rij | Links | Midden | Rechts |
+|-----|-------|--------|--------|
+| 1 | Lat / Lon | BVK TRACKER + windrichting | Waterstand (cm NAP) |
+| 2 | Temperatuur + zicht | Luchtdruk + trend | Golven + stroming |
 
 ### Apple Watch
 - GPX-sporen opnemen op de Watch
@@ -56,7 +69,9 @@ Nederlands, Engels, Duits, Spaans, Frans, Italiaans, Fins, Portugees (Brazilië)
 
 | Versie | Datum | Wijzigingen |
 |--------|-------|-------------|
-| **2.1.0** | in ontwikkeling | Snelheidsgebaseerde GPS-besparing, 'Telefoon op de lader' modus |
+| **2.1.2** | 2026-06-08 | Live weer, OWM kaartlagen, waterstand, windstroming, koers-up, windpijl, nieuw icoon |
+| **2.1.1** | 2026-06-05 | Nieuw app-icoon (officieel BvK-logo) |
+| **2.1.0** | 2026-06-02 | GPS batterijbesparing, lader-modus, About-scherm bijgewerkt |
 | **2.0.0** | 2026-05-29 | Snelheidsgebaseerde zoom, "Doorgaan" actieblad iPhone + Watch, live in App Store |
 | 1.10.1 | 2026-05-22 | TestFlight release, stabiliteitsverbeteringen |
 
@@ -79,6 +94,9 @@ open OpenBVKTracker.xcodeproj
 - **Platform:** iOS 12+ / watchOS
 - **Taal:** Swift / UIKit / WatchKit
 - **Kaartcaching:** MapCache package
+- **Weer:** [Open-Meteo](https://open-meteo.com) — gratis, geen API key nodig
+- **Waterstand:** Rijkswaterstaat DDAPI — meetpunt Almere Hollandse Brug (Markermeer)
+- **OWM kaartlagen:** [OpenWeatherMap](https://openweathermap.org) — gratis account vereist
 - **Privacy:** alle GPS-data blijft op het apparaat of in iCloud als je het daar zelf plaatst — niets wordt gedeeld met derden
 
 ---
@@ -92,6 +110,12 @@ open OpenBVKTracker.xcodeproj
 
 ---
 
+## Testers
+
+Frank, Marc, Murali, Tania, Theo, Wil
+
+---
+
 ## Licentie
 
 Open BVK Tracker — gebaseerd op [Open GPX Tracker](https://github.com/merlos/iOS-Open-GPX-Tracker) door Juan M. Merlos.
@@ -99,3 +123,6 @@ Uitgebracht onder de **GNU General Public License v3.0**.
 
 Gebruikt:
 - [CoreGPX Framework](https://github.com/vincentneo/CoreGPX) door [@vincentneo](https://github.com/vincentneo)
+- [Open-Meteo](https://open-meteo.com) — weerdata API
+- [OpenWeatherMap](https://openweathermap.org) — kaartlagen
+- [Rijkswaterstaat DDAPI](https://www.rijkswaterstaat.nl/zakelijk/open-data) — waterstandsdata
