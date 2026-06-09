@@ -15,6 +15,7 @@
 		1CEBC5BBA8464800C2642DA5 /* SatelliteTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0027B22C2E1830B6C881F4 /* SatelliteTileOverlay.swift */; };
 		AA001001AA001001AA001001 /* OWMTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA001002AA001002AA001002 /* OWMTileOverlay.swift */; };
 		AA001003AA001003AA001003 /* OWMRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA001004AA001004AA001004 /* OWMRegistrationViewController.swift */; };
+		BVK001001BVK001001BVK001 /* OWMLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BVK001002BVK001002BVK002 /* OWMLegendView.swift */; };
 		4588D66B230D23AA009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D66D230D23AA009AA75F /* InfoPlist.strings */; };
 		4588D66F230D2476009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
 		45A430E9230D61240003C2F2 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
@@ -246,6 +247,7 @@
 		9C0027B22C2E1830B6C881F4 /* SatelliteTileOverlay.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = SatelliteTileOverlay.swift; sourceTree = "<group>"; };
 		AA001002AA001002AA001002 /* OWMTileOverlay.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = OWMTileOverlay.swift; sourceTree = "<group>"; };
 		AA001004AA001004AA001004 /* OWMRegistrationViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = OWMRegistrationViewController.swift; sourceTree = "<group>"; };
+		BVK001002BVK001002BVK002 /* OWMLegendView.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = OWMLegendView.swift; sourceTree = "<group>"; };
 		BF15092123916FC100F51F1B /* UIColor+DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+DarkMode.swift"; sourceTree = "<group>"; };
 		BF177EE924D54F9200D5E021 /* CoreDataHelper+BatchDelete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataHelper+BatchDelete.swift"; sourceTree = "<group>"; };
 		BF1FE1A7230EAB9B00404B59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 				9C0027B22C2E1830B6C881F4 /* SatelliteTileOverlay.swift */,
 				AA001002AA001002AA001002 /* OWMTileOverlay.swift */,
 				AA001004AA001004AA001004 /* OWMRegistrationViewController.swift */,
+				BVK001002BVK001002BVK002 /* OWMLegendView.swift */,
 			);
 			path = OpenBVKTracker;
 			sourceTree = "<group>";
@@ -798,6 +801,7 @@
 				AA001003AA001003AA001003 /* OWMRegistrationViewController.swift in Sources */,
 				C66631E46DAF63A18B197955 /* RadarTileOverlay.swift in Sources */,
 				1CEBC5BBA8464800C2642DA5 /* SatelliteTileOverlay.swift in Sources */,
+				BVK001001BVK001001BVK001 /* OWMLegendView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

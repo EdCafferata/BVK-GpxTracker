@@ -13,7 +13,8 @@ Registreert GPS-sporen op het water, slaat op als GPX, deelt via e-mail/AirDrop.
 - **Xcode project:** `OpenBVKTracker.xcodeproj`
 - **Bundle ID:** `info.cafferata.BvkGpxTracker`
 - **GitHub:** https://github.com/EdCafferata/BVK-GpxTracker — branch: `main`
-- **Versie:** `2.0.0` (build 1)
+- **Versie:** `2.2.0` (in ontwikkeling, nog niet uitgebracht op App Store)
+- **Live versie:** `2.1.2`
 - **Simulator ID:** `F6112483-4A4A-457E-8710-B0CAC169B941` (iPhone 16, iOS 18.6)
 
 ### Build commando's
@@ -97,10 +98,13 @@ Strings in `OpenBVKTracker/<taal>.lproj/Localizable.strings`
 - [x] TestFlight 2.0.0 geüpload en testers uitgenodigd (Ed, 2026-05-29)
 - [x] **Versie 2.0.0 live in de App Store** (Ed, 2026-05-29) 🎉
 
+## Nieuw in v2.2.0 (in ontwikkeling, nog niet uitgebracht)
+- [x] **OWM kleurlegenda** — kleine kleurschaal in kaarthoek bij actieve OWM overlay (`OWMLegendView.swift`)
+- [x] **Windsnelheid kn op windpijl** — knotenwaarde onder Beaufort-cirkel (`WindAnnotation.swift`)
+- [x] **Neerslag mm/uur** — live neerslag in infobalk rechtsonder via Open-Meteo (`precipitation`)
+- [x] **Info-knop verplaatst** — zelfde rij als folder/prefs/share knoppen
+- [x] Frank toegevoegd als tester in About-scherm
+
 ## Open issues (backlog)
-- [ ] #2 App Store beschrijving uitbreiden met volledige functielijst
-- [ ] #7 GPS accuraatheid aanpassen op snelheid (batterij-optimalisatie)
 - [ ] #11 ViewController.swift refactoren (1650+ regels)
-- [ ] #12 Nieuw app-icoon — hoge-res logo aangevraagd bij BvK
-- [ ] #13 App Store Connect: minimaal 3 screenshots toevoegen
-- [ ] #14 App beschikbaar stellen in alle landen (taalbestanden aanwezig)
+- [ ] #13 App Store Connect: screenshots bijwerken

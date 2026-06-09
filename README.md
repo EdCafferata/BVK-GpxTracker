@@ -1,7 +1,7 @@
 # BVK GPX Tracker 🚤
 
 [![Available on the App Store](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://apps.apple.com/nl/app/bvk-gpx-tracker/id6770708440)
-![Versie](https://img.shields.io/badge/versie-2.1.2-blue)
+![Versie](https://img.shields.io/badge/versie-2.2.0-blue)
 ![Platform](https://img.shields.io/badge/platform-iOS%2012%2B%20%7C%20watchOS-lightgrey)
 ![App Store](https://img.shields.io/badge/App%20Store-live%20🟢-brightgreen)
 
@@ -9,17 +9,12 @@ GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq
 
 ---
 
-## Wat is nieuw in versie 2.1.2
+## Wat is nieuw in versie 2.2.0
 
-- 🌤️ **Live weerdata** — wind, Beaufort, temperatuur, zicht, luchtdruk en golfhoogte via Open-Meteo
-- 🗺️ **OpenWeatherMap kaartlagen** — neerslag, bewolking, wind, luchtdruk of temperatuur als live overlay
-- 💧 **Waterstand Markermeer** — actuele waterstand via Rijkswaterstaat (cm NAP, elke 10 minuten)
-- 🌊 **Windgedreven stroming** — stroomindicatie op basis van actuele winddata
-- 🧭 **Koers-up modus** — kaart draait automatisch mee met je vaarrichting
-- 🪁 **Windpijl op de kaart** — visuele pijl op je GPS-positie geeft windrichting aan
-- 🔋 **GPS batterijbesparing** — snelheidsgebaseerde GPS-nauwkeurigheid (tot 80% besparing bij stilliggen)
-- 🔌 **Lader-modus** — maximale GPS-nauwkeurigheid wanneer telefoon op de lader staat
-- 🎨 **Nieuw app-icoon** — officieel BvK-logo
+- 🌧️ **Neerslag mm/uur** — live neerslag in de infobalk (zichtbaar bij actieve regen)
+- 🗺️ **OWM kleurlegenda** — kleine kleurschaal zichtbaar op de kaart bij actieve OWM overlay
+- 💨 **Windsnelheid op de pijl** — knotenwaarde als tekst onder de Beaufort-cirkel op de kaart
+- ℹ️ **Info-knop verplaatst** — "i" staat nu in de bovenste knoppen-rij rechts van de deelknop
 
 ---
 
@@ -28,7 +23,7 @@ GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq
 ### iPhone
 - GPS-spoor opnemen en weergeven op de kaart
 - Kaartservers: Apple Maps, OpenStreetMap, OpenSeaMap, CartoDB, OpenTopoMap
-- **OpenWeatherMap kaartlagen** (neerslag, bewolking, wind, druk, temperatuur)
+- **OpenWeatherMap kaartlagen** (neerslag, bewolking, wind, druk, temperatuur) met **kleurlegenda**
 - Offline kaartcache (browse het gebied vooraf)
 - Pauze / Hervat opname
 - Waypoints toevoegen (op locatie of via lang indrukken op kaart)
@@ -42,13 +37,13 @@ GPS tracker voor iPhone en Apple Watch. Speciaal gebouwd voor **BVK — de Blocq
 - Donkere modus
 - **Snelheidsgebaseerde kaart-zoom** (automatisch, 5 niveaus)
 - **Koers-up modus** — kaart draait mee met vaarrichting
-- **Live infobalk** — 2 rijen met weer, waterstand, stroming en druktrend
+- **Live infobalk** — 2 rijen met weer, waterstand, stroming, neerslag en druktrend
 
 ### Live weer & water (infobalk)
 | Rij | Links | Midden | Rechts |
 |-----|-------|--------|--------|
 | 1 | Lat / Lon | BVK TRACKER + windrichting | Waterstand (cm NAP) |
-| 2 | Temperatuur + zicht | Luchtdruk + trend | Golven + stroming |
+| 2 | Temperatuur + zicht | Luchtdruk + trend | Golven + stroming + neerslag |
 
 ### Apple Watch
 - GPX-sporen opnemen op de Watch
@@ -69,6 +64,7 @@ Nederlands, Engels, Duits, Spaans, Frans, Italiaans, Fins, Portugees (Brazilië)
 
 | Versie | Datum | Wijzigingen |
 |--------|-------|-------------|
+| **2.2.0** | 2026-06-09 | Neerslag mm/u in infobalk, OWM kleurlegenda op kaart, windsnelheid kn op windpijl, info-knop in knoppen-rij |
 | **2.1.2** | 2026-06-08 | Live weer, OWM kaartlagen, waterstand, windstroming, koers-up, windpijl, nieuw icoon |
 | **2.1.1** | 2026-06-05 | Nieuw app-icoon (officieel BvK-logo) |
 | **2.1.0** | 2026-06-02 | GPS batterijbesparing, lader-modus, About-scherm bijgewerkt |
