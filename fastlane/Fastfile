@@ -67,11 +67,15 @@ platform :ios do
   desc "Upload screenshots naar App Store Connect"
   lane :screenshots do
     upload_to_app_store(
-      api_key:            API_KEY,
-      skip_binary_upload: true,
-      skip_metadata:      true,
-      force:              true,
-      screenshots_path:   SCREENSHOTS
+      api_key:                              API_KEY,
+      app_identifier:                       BUNDLE_ID,
+      skip_binary_upload:                   true,
+      skip_metadata:                        true,
+      force:                                true,
+      edit_live:                            true,
+      run_precheck_before_submit:           false,
+      screenshots_path:                     SCREENSHOTS,
+      ignore_language_directory_validation: true
     )
   end
 
