@@ -1,6 +1,6 @@
 # BVK GPX Tracker 🚤
 
-🔒 Laatste security check: 2026-08-23 00:50 CEST
+🔒 Laatste security check: 2026-08-30 00:05 CEST
 
 [![Available on the App Store](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://apps.apple.com/nl/app/bvk-gpx-tracker/id6770708440)
 ![Versie](https://img.shields.io/badge/versie-2.2.0-blue)
