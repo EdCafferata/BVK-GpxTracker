@@ -45,3 +45,4 @@ Carthage/Build
 fastlane/screenshots_flat/
 *.ipa
 *.dSYM.zip
+fastlane/report.xml
