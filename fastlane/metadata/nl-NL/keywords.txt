@@ -1,1 +1,1 @@
-GPX tracker
+zeilen,gps tracker,regatta,markermeer,ijsselmeer,gpx,boot,jacht,zeekaart,wind,waterstand,route

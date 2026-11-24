@@ -1,0 +1,49 @@
+#!/bin/zsh
+# App Store-screenshots voor BVK Tracker: 11 talen × (iPhone 6,9" + iPad 13" + iPhone Duo) × 3 schermen.
+# Gebruik: AppStore/maak-screenshots.sh   (duurt ±45 min; resultaat in AppStore/Screenshots/<locale>/<toestel>/)
+set -e
+cd "${0:A:h}/.."
+DD=${DD:-$HOME/rnh-shots-dd}; OUT=$(mktemp -d)
+BUNDLE=info.cafferata.BvkGpxTracker
+typeset -A LOC=(nl nl-NL en en-US)   # de App Store-listing heeft alleen NL en EN
+toestel() { # naam type
+  local id=$(xcrun simctl list devices available | grep -F "$1 (" | head -1 | grep -oE '[0-9A-F-]{36}')
+  [[ -z $id ]] && id=$(xcrun simctl create "$1" "$2")
+  echo $id
+}
+# Toestellen (slotnaam → simulator). iPhone Duo: alleen als er een runtime voor is (iOS 27+).
+SLOTS=("iPhone 6.9 Display" "iPad Pro 13 Display")
+IDS=("$(toestel 'iPhone 17 Pro Max' com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro-Max)"
+     "$(toestel 'iPad Pro 13-inch (M5)' com.apple.CoreSimulator.SimDeviceType.iPad-Pro-13-inch-M5-12GB)")
+if duo=$(toestel 'iPhone Duo' com.apple.CoreSimulator.SimDeviceType.iPhone-Duo 2>/dev/null) && [[ $duo =~ ^[0-9A-F-]{36}$ ]]; then
+  SLOTS+=("iPhone Duo Display"); IDS+=("$duo")
+else
+  echo "iPhone Duo overgeslagen: geen simulator-runtime die het toestel ondersteunt"
+fi
+for i in {1..${#SLOTS}}; do
+  slot=${SLOTS[$i]}; id=${IDS[$i]}
+  xcrun simctl boot $id 2>/dev/null || true; xcrun simctl bootstatus $id >/dev/null
+  xcrun simctl status_bar $id override --time 9:41 --batteryState charged --batteryLevel 100 --cellularBars 4 --wifiBars 3
+  xcodebuild build-for-testing -project OpenBVKTracker.xcodeproj -scheme OpenBVKTracker \
+    -destination "id=$id" -derivedDataPath "$DD" CODE_SIGNING_ALLOWED=NO -quiet
+  for lang loc in ${(kv)LOC}; do
+    # Per taal schoon beginnen (anders neemt de app de opname van de vorige run over).
+    xcrun simctl uninstall $id $BUNDLE 2>/dev/null || true
+    xcrun simctl install $id "$DD/Build/Products/Debug-iphonesimulator/OpenBVKTracker.app"
+    xcrun simctl privacy $id grant location-always $BUNDLE || true
+    xcrun simctl location $id clear || true
+    # Route: vanaf Almere over het Markermeer, ±6 knopen.
+    xcrun simctl location $id start --speed=3 52.4170,5.2175 52.4300,5.1900 52.4450,5.1650 52.4600,5.1400 &
+    LOCPID=$!
+    TEST_RUNNER_SCREENSHOT_DIR=$OUT TEST_RUNNER_SCREENSHOT_LANG=$lang TEST_RUNNER_SCREENSHOT_PREFIX="$slot~$loc" \
+      xcodebuild test-without-building -project OpenBVKTracker.xcodeproj -scheme OpenBVKTracker \
+      -destination "id=$id" -derivedDataPath "$DD" -only-testing:OpenBVKTrackerUITests/ScreenshotUITests -quiet || echo "!! $slot $loc mislukt"
+    kill $LOCPID 2>/dev/null || true
+    xcrun simctl terminate $id $BUNDLE 2>/dev/null || true
+  done
+done
+for f in $OUT/*.png; do
+  b=${f:t}; slot=${b%%~*}; rest=${b#*~}; loc=${rest%%~*}; naam=${rest#*~}
+  mkdir -p "AppStore/Screenshots/$loc/$slot"; cp "$f" "AppStore/Screenshots/$loc/$slot/$naam"
+done
+echo "Klaar: $(ls $OUT/*.png | wc -l | tr -d ' ') screenshots"

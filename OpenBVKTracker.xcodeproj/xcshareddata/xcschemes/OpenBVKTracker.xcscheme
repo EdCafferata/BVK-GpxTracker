@@ -47,6 +47,16 @@
                ReferencedContainer = "container:OpenBVKTracker.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1C2C1CD25439EA742CC12954"
+               BuildableName = "OpenBVKTrackerUITests.xctest"
+               BlueprintName = "OpenBVKTrackerUITests"
+               ReferencedContainer = "container:OpenBVKTracker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

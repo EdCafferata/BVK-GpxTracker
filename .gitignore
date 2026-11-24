@@ -42,3 +42,6 @@ Carthage/Build
 *.p12
 *.pem
 *.mobileprovision
+fastlane/screenshots_flat/
+*.ipa
+*.dSYM.zip

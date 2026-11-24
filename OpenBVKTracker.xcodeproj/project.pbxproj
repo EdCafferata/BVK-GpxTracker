@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0175ABFF23F014C7003323C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0175AC0123F014C7003323C3 /* LaunchScreen.storyboard */; };
+		080217B9E8969AB0B31C9C5E /* ScreenshotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113EF8099CE1A5150EE959A3 /* ScreenshotUITests.swift */; };
 		120DE71022B274910055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
 		120DE71122B274A40055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
 		12491EA328D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12491EA228D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift */; };
 		12A1A44424D561AC0057ED7A /* CoreDataHelper+FetchRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A1A44324D561AC0057ED7A /* CoreDataHelper+FetchRequests.swift */; };
 		1CEBC5BBA8464800C2642DA5 /* SatelliteTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0027B22C2E1830B6C881F4 /* SatelliteTileOverlay.swift */; };
-		AA001001AA001001AA001001 /* OWMTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA001002AA001002AA001002 /* OWMTileOverlay.swift */; };
-		AA001003AA001003AA001003 /* OWMRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA001004AA001004AA001004 /* OWMRegistrationViewController.swift */; };
-		BVK001001BVK001001BVK001 /* OWMLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BVK001002BVK001002BVK002 /* OWMLegendView.swift */; };
+		270D49E3D697C2FBD0890D80 /* AlltrexxKoppeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C65773E8295553B01015F7 /* AlltrexxKoppeling.swift */; };
+		2D26BEA236EFF57FABAF76FF /* SmokeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B542380352FA15836D960B1 /* SmokeUITests.swift */; };
 		4588D66B230D23AA009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D66D230D23AA009AA75F /* InfoPlist.strings */; };
 		4588D66F230D2476009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
 		45A430E9230D61240003C2F2 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
@@ -61,6 +61,8 @@
 		89F6E107227F7C5500CE3E3F /* Double+Measures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E0F4227D091900CE3E3F /* Double+Measures.swift */; };
 		89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */; };
 		89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */; };
+		AA001001AA001001AA001001 /* OWMTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA001002AA001002AA001002 /* OWMTileOverlay.swift */; };
+		AA001003AA001003AA001003 /* OWMRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA001004AA001004AA001004 /* OWMRegistrationViewController.swift */; };
 		BF15092223916FC100F51F1B /* UIColor+DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF15092123916FC100F51F1B /* UIColor+DarkMode.swift */; };
 		BF177EEA24D54F9200D5E021 /* CoreDataHelper+BatchDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF177EE924D54F9200D5E021 /* CoreDataHelper+BatchDelete.swift */; };
 		BF1FE1A8230EAB9B00404B59 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE1A6230EAB9B00404B59 /* Localizable.strings */; };
@@ -101,9 +103,13 @@
 		BFF304802312DC1F0012D263 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE1A6230EAB9B00404B59 /* Localizable.strings */; };
 		BFF304812312DC700012D263 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
 		BFF304822312DC800012D263 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
+		BVK001001BVK001001BVK001 /* OWMLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BVK001002BVK001002BVK002 /* OWMLegendView.swift */; };
 		C66631E46DAF63A18B197955 /* RadarTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5015E689B77B64722180CC /* RadarTileOverlay.swift */; };
+		D4128D2F694D7A65970EDB23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A3AA57778211C1293F2BCE /* SceneDelegate.swift */; };
 		DC4908A11C4A136F009484AE /* TrackerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A01C4A136F009484AE /* TrackerButton.swift */; };
 		DC4908A31C4A332E009484AE /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A21C4A332E009484AE /* MapViewDelegate.swift */; };
+		DEC3987399A74A7F059D3E66 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0F90F82264DA62DFE1787 /* WeatherService.swift */; };
+		F44F5F41945680DC42E7E173 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 973D785430331DB1F5A6DF43 /* Foundation.framework */; };
 		F528E2D004355D406016E6DA /* WindAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90762B474E987B5F8900847A /* WindAnnotation.swift */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +134,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = BF692F562209AAF900F8A0F1;
 			remoteInfo = "OpenBVKTracker-Watch";
+		};
+		DD875E5D5A24FBE7E97A01FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 898EECCD19C49B5800B4B207 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 898EECD419C49B5800B4B207;
+			remoteInfo = OpenBVKTracker;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -161,6 +174,7 @@
 		0175AC0323F014EA003323C3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		0175AC0523F01519003323C3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0175AC0723F01523003323C3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		113EF8099CE1A5150EE959A3 /* ScreenshotUITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotUITests.swift; sourceTree = "<group>"; };
 		120DE70F22B274910055C4CB /* GPXSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXSession.swift; sourceTree = "<group>"; };
 		12491EA228D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+ConvenientOverlayInserts.swift"; sourceTree = "<group>"; };
 		1262DD9624F9568F00B5C2EA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Interface.strings; sourceTree = "<group>"; };
@@ -178,6 +192,7 @@
 		12D4905524C448540065D995 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		12D4905624C448540065D995 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		12D4905724C448540065D995 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		44A3AA57778211C1293F2BCE /* SceneDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		455F78BE230AA9D6003705F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		4588D66C230D23AA009AA75F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4588D66E230D23AD009AA75F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -186,6 +201,8 @@
 		45A430EA230D61240003C2F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		45A430ED230D612B0003C2F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Interface.strings; sourceTree = "<group>"; };
 		45A430EF230D612C0003C2F2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Interface.strings; sourceTree = "<group>"; };
+		7B542380352FA15836D960B1 /* SmokeUITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SmokeUITests.swift; sourceTree = "<group>"; };
+		7BD0F90F82264DA62DFE1787 /* WeatherService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		836B1BAC2E7DC69900285130 /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 		836B1BAE2E7DC7D500285130 /* MapCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		836B1BB22E7DC7E900285130 /* CoreGPX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreGPX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,10 +261,11 @@
 		89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXTrack+length.swift"; sourceTree = "<group>"; };
 		89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXRoot+length.swift"; sourceTree = "<group>"; };
 		90762B474E987B5F8900847A /* WindAnnotation.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = WindAnnotation.swift; sourceTree = "<group>"; };
+		973D785430331DB1F5A6DF43 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		9C0027B22C2E1830B6C881F4 /* SatelliteTileOverlay.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = SatelliteTileOverlay.swift; sourceTree = "<group>"; };
+		A5C65773E8295553B01015F7 /* AlltrexxKoppeling.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AlltrexxKoppeling.swift; sourceTree = "<group>"; };
 		AA001002AA001002AA001002 /* OWMTileOverlay.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = OWMTileOverlay.swift; sourceTree = "<group>"; };
 		AA001004AA001004AA001004 /* OWMRegistrationViewController.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = OWMRegistrationViewController.swift; sourceTree = "<group>"; };
-		BVK001002BVK001002BVK002 /* OWMLegendView.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = OWMLegendView.swift; sourceTree = "<group>"; };
 		BF15092123916FC100F51F1B /* UIColor+DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+DarkMode.swift"; sourceTree = "<group>"; };
 		BF177EE924D54F9200D5E021 /* CoreDataHelper+BatchDelete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataHelper+BatchDelete.swift"; sourceTree = "<group>"; };
 		BF1FE1A7230EAB9B00404B59 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -284,16 +302,26 @@
 		BFF3047C2312D8A00012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BFF3047D2312D8A10012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BFF3047E2312D8A10012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		BVK001002BVK001002BVK002 /* OWMLegendView.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = OWMLegendView.swift; sourceTree = "<group>"; };
 		D39420E323CC1B0500EDC8F6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Interface.strings; sourceTree = "<group>"; };
 		D39420E423CC1B0500EDC8F6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D39420E523CC1B0500EDC8F6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D39420E623CC1B0500EDC8F6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC4908A01C4A136F009484AE /* TrackerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerButton.swift; sourceTree = "<group>"; };
 		DC4908A21C4A332E009484AE /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
+		F1E515F70640C95139056B19 /* OpenBVKTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenBVKTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5015E689B77B64722180CC /* RadarTileOverlay.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; path = RadarTileOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		22E20096590B82DD5812969C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F44F5F41945680DC42E7E173 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		898EECD219C49B5800B4B207 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -374,6 +402,7 @@
 				BF692F672209AAFB00F8A0F1 /* OpenBVKTracker-Watch Extension */,
 				898EED0119C4A16600B4B207 /* Frameworks */,
 				898EECD619C49B5800B4B207 /* Products */,
+				F226BA53054D24DBE1D4CC35 /* OpenBVKTrackerUITests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -384,6 +413,7 @@
 				898EECED19C49B5800B4B207 /* OpenBVKTrackerTests.xctest */,
 				BF692F572209AAF900F8A0F1 /* OpenBVKTracker-Watch.app */,
 				BF692F632209AAFB00F8A0F1 /* OpenBVKTracker-Watch Extension.appex */,
+				F1E515F70640C95139056B19 /* OpenBVKTrackerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -449,6 +479,7 @@
 				899D677719CF0A9F00C88A0A /* MessageUI.framework */,
 				898EECFF19C4A15E00B4B207 /* CoreLocation.framework */,
 				898EECFD19C49DC700B4B207 /* MapKit.framework */,
+				CAF4CCE0AFFB03D3FFC20BC4 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -464,6 +495,9 @@
 				8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */,
 				DC4908A21C4A332E009484AE /* MapViewDelegate.swift */,
 				BF9AE57B2410011D00B103A0 /* DefaultNameSetupViewController.swift */,
+				44A3AA57778211C1293F2BCE /* SceneDelegate.swift */,
+				7BD0F90F82264DA62DFE1787 /* WeatherService.swift */,
+				A5C65773E8295553B01015F7 /* AlltrexxKoppeling.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -531,9 +565,45 @@
 			path = "OpenBVKTracker-Watch Extension";
 			sourceTree = "<group>";
 		};
+		CAF4CCE0AFFB03D3FFC20BC4 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				973D785430331DB1F5A6DF43 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		F226BA53054D24DBE1D4CC35 /* OpenBVKTrackerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7B542380352FA15836D960B1 /* SmokeUITests.swift */,
+				113EF8099CE1A5150EE959A3 /* ScreenshotUITests.swift */,
+			);
+			name = OpenBVKTrackerUITests;
+			path = OpenBVKTrackerUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1C2C1CD25439EA742CC12954 /* OpenBVKTrackerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3403D02F948FD3E7D11999A9 /* Build configuration list for PBXNativeTarget "OpenBVKTrackerUITests" */;
+			buildPhases = (
+				83706052F79B6F9B50436B2F /* Sources */,
+				22E20096590B82DD5812969C /* Frameworks */,
+				4EE100684088F9884CDA092C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37888CE5A101773A0D09CE63 /* PBXTargetDependency */,
+			);
+			name = OpenBVKTrackerUITests;
+			productName = OpenBVKTrackerUITests;
+			productReference = F1E515F70640C95139056B19 /* OpenBVKTrackerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		898EECD419C49B5800B4B207 /* OpenBVKTracker */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 898EECF719C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenBVKTracker" */;
@@ -680,11 +750,19 @@
 				898EECEC19C49B5800B4B207 /* OpenBVKTrackerTests */,
 				BF692F562209AAF900F8A0F1 /* OpenBVKTracker-Watch */,
 				BF692F622209AAFB00F8A0F1 /* OpenBVKTracker-Watch Extension */,
+				1C2C1CD25439EA742CC12954 /* OpenBVKTrackerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4EE100684088F9884CDA092C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		898EECD319C49B5800B4B207 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -748,6 +826,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		83706052F79B6F9B50436B2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D26BEA236EFF57FABAF76FF /* SmokeUITests.swift in Sources */,
+				080217B9E8969AB0B31C9C5E /* ScreenshotUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		898EECD119C49B5800B4B207 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -802,6 +889,9 @@
 				C66631E46DAF63A18B197955 /* RadarTileOverlay.swift in Sources */,
 				1CEBC5BBA8464800C2642DA5 /* SatelliteTileOverlay.swift in Sources */,
 				BVK001001BVK001001BVK001 /* OWMLegendView.swift in Sources */,
+				D4128D2F694D7A65970EDB23 /* SceneDelegate.swift in Sources */,
+				DEC3987399A74A7F059D3E66 /* WeatherService.swift in Sources */,
+				270D49E3D697C2FBD0890D80 /* AlltrexxKoppeling.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,6 +935,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		37888CE5A101773A0D09CE63 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OpenBVKTracker;
+			target = 898EECD419C49B5800B4B207 /* OpenBVKTracker */;
+			targetProxy = DD875E5D5A24FBE7E97A01FA /* PBXContainerItemProxy */;
+		};
 		898EECEF19C49B5800B4B207 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 898EECD419C49B5800B4B207 /* OpenBVKTracker */;
@@ -961,6 +1057,23 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2EA7A8DB7F8D6039F91642C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9J2S23WJH3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = OpenBVKTracker;
+			};
+			name = Debug;
+		};
 		898EECF519C49B5800B4B207 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1089,7 +1202,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenBVKTracker/ObjectiveCBridgingHeader.h;
@@ -1114,7 +1227,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenBVKTracker/ObjectiveCBridgingHeader.h;
@@ -1171,6 +1284,24 @@
 			};
 			name = Release;
 		};
+		99D7232E1C18D20C17BE850A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9J2S23WJH3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = OpenBVKTracker;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		BF692F742209AAFC00F8A0F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1183,13 +1314,14 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 202610132105;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenBVKTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenBVKTracker-Watch/Info.plist";
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp;
@@ -1216,6 +1348,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 202610132105;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1223,7 +1356,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenBVKTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenBVKTracker-Watch/Info.plist";
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1246,6 +1379,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 202610132105;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1256,7 +1390,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp.ext;
@@ -1282,6 +1416,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 202610132105;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1293,7 +1428,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = info.cafferata.BvkGpxTracker.watchkitapp.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1308,6 +1443,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3403D02F948FD3E7D11999A9 /* Build configuration list for PBXNativeTarget "OpenBVKTrackerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99D7232E1C18D20C17BE850A /* Release */,
+				2EA7A8DB7F8D6039F91642C1 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		898EECD019C49B5800B4B207 /* Build configuration list for PBXProject "OpenBVKTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -1,1 +1,1 @@
-GPX tracker
+sailing,gps tracker,regatta,markermeer,ijsselmeer,gpx,boat,yacht,nautical chart,wind,water level
