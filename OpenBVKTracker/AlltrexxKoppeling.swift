@@ -35,7 +35,7 @@ enum AlltrexxKoppeling {
     }
 
     /// Live kaart met de zeekaart-preset en alleen boten.
-    static var liveKaartURL: URL { URL(string: "https://alltrexx.live/?laag=boot&types=BOAT")! }
+    static var liveKaartURL: URL { URL(string: "https://alltrexx.live/?bron=bvk")! }
 
     enum Fout: LocalizedError {
         case teVaak, naamGeweigerd, server(Int), onverwacht
