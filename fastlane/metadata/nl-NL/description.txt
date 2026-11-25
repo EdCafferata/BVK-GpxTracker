@@ -8,7 +8,6 @@ Live Weerinformatie
 • Luchtdruk met stijging/daling trend
 • Golfhoogte en golfperiode
 • Waterstand Markermeer via Rijkswaterstaat (cm NAP, elke 10 minuten)
-• Stroomindicatie op basis van actuele winddata
 
 OpenWeatherMap Kaartlagen
 • Leg een live weerkaart over je navigatiekaart
@@ -18,7 +17,7 @@ OpenWeatherMap Kaartlagen
 Kaart & Navigatie
 • Snelheidsgebaseerde kaart-zoom — de kaart zoomt automatisch mee met je vaartsnelheid
 • Koers-up modus — de kaart draait mee met je vaarrichting
-• Kies je kaartserver: Apple Maps, OpenStreetMap, OpenSeaMap, CartoDB, CartoDB Dark of OpenTopoMap
+• Kies je kaartserver: Apple Maps, OpenStreetMap, OpenSeaMap of Apple Satelliet
 • Offline kaartcache — browse het vaargebied vooraf, ook zonder internet
 
 GPS & Opname

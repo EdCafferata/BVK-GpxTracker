@@ -8,7 +8,6 @@ Live Weather Information
 • Air pressure with rising/falling trend
 • Wave height and wave period
 • Markermeer water level via Rijkswaterstaat (cm NAP, every 10 minutes)
-• Current estimate based on live wind data
 
 OpenWeatherMap Layers
 • Overlay a live weather map on your navigation chart
@@ -18,7 +17,7 @@ OpenWeatherMap Layers
 Map & Navigation
 • Speed-based map zoom — the map automatically adjusts to your speed
 • Course-up mode — the map rotates to match your heading
-• Choose your map server: Apple Maps, OpenStreetMap, OpenSeaMap, CartoDB, CartoDB Dark or OpenTopoMap
+• Choose your map server: Apple Maps, OpenStreetMap, OpenSeaMap or Apple Satellite
 • Offline map cache — browse your sailing area in advance, even without internet
 
 GPS & Recording
